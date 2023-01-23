@@ -122,8 +122,7 @@ class StudioInfoController: UIViewController {
     }
     
     private func setupData() {
-        guard let studioID = studio?.placeID,
-              let name = studio?.name,
+        guard let name = studio?.name,
               let address = studio?.formattedAddress,
               let rating = studio?.rating,
               let totalUserRating = studio?.userRatingsTotal
