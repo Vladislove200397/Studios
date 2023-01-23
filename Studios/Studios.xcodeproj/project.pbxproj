@@ -43,7 +43,6 @@
 		B99E0D89295E689D00E4204B /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E0D88295E689D00E4204B /* FlexView.swift */; };
 		B9A36FC5292CF4ED009825F9 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A36FC3292CF4ED009825F9 /* InfoViewController.swift */; };
 		B9A36FC6292CF4ED009825F9 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A36FC4292CF4ED009825F9 /* InfoViewController.xib */; };
-		B9A9E854293C02E70038B272 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9A9E853293C02E70038B272 /* GoogleService-Info.plist */; };
 		B9C63E772933BC0A00754496 /* StudioAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E762933BC0A00754496 /* StudioAPI.swift */; };
 		B9C63E792933BED900754496 /* StudioReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E782933BED900754496 /* StudioReviewModel.swift */; };
 		B9C63E7B2933C0D900754496 /* StudioReviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */; };
@@ -59,6 +58,7 @@
 		B9DD0131297C97CF007C266D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0130297C97CF007C266D /* UITextFieldExtension.swift */; };
 		B9DD013A297CB7C5007C266D /* FirebaseReferenceEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0139297CB7C5007C266D /* FirebaseReferenceEnum.swift */; };
 		B9DD0140297CDBC1007C266D /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD013F297CDBC1007C266D /* Alerts.swift */; };
+		B9EFC27E297F282500FF7291 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9EFC27D297F282500FF7291 /* GoogleService-Info.plist */; };
 		B9F08DA929478CF20059614C /* BookingStudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F08DA729478CF20059614C /* BookingStudioController.swift */; };
 		B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9F08DA829478CF20059614C /* BookingStudioController.xib */; };
 		B9F08DAD294793890059614C /* FirebaseUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F08DAC294793890059614C /* FirebaseUserModel.swift */; };
@@ -122,7 +122,6 @@
 		B99E0D88295E689D00E4204B /* FlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexView.swift; sourceTree = "<group>"; };
 		B9A36FC3292CF4ED009825F9 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		B9A36FC4292CF4ED009825F9 /* InfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
-		B9A9E853293C02E70038B272 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9C63E762933BC0A00754496 /* StudioAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioAPI.swift; sourceTree = "<group>"; };
 		B9C63E782933BED900754496 /* StudioReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewModel.swift; sourceTree = "<group>"; };
 		B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewProvider.swift; sourceTree = "<group>"; };
@@ -138,6 +137,7 @@
 		B9DD0130297C97CF007C266D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		B9DD0139297CB7C5007C266D /* FirebaseReferenceEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseReferenceEnum.swift; sourceTree = "<group>"; };
 		B9DD013F297CDBC1007C266D /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		B9EFC27D297F282500FF7291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9F08DA729478CF20059614C /* BookingStudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingStudioController.swift; sourceTree = "<group>"; };
 		B9F08DA829478CF20059614C /* BookingStudioController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingStudioController.xib; sourceTree = "<group>"; };
 		B9F08DAC294793890059614C /* FirebaseUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserModel.swift; sourceTree = "<group>"; };
@@ -594,7 +594,7 @@
 				B9FABB12291A5E3700232D9C /* Assets.xcassets */,
 				B9FABB14291A5E3700232D9C /* LaunchScreen.storyboard */,
 				B9FABB17291A5E3700232D9C /* Info.plist */,
-				B9A9E853293C02E70038B272 /* GoogleService-Info.plist */,
+				B9EFC27D297F282500FF7291 /* GoogleService-Info.plist */,
 				B9DC2C012941CE22009EEE43 /* TestController.swift */,
 				B9DC2C022941CE22009EEE43 /* TestController.xib */,
 			);
@@ -732,6 +732,7 @@
 				B9FA0416295E204E0097DF24 /* BookingHistoryController.xib in Resources */,
 				B9FA041E295E2AB80097DF24 /* BookingCell.xib in Resources */,
 				B949AFF42954BA6700025011 /* ViewController5.xib in Resources */,
+				B9EFC27E297F282500FF7291 /* GoogleService-Info.plist in Resources */,
 				B951EBFF297551EE0076EB67 /* HorizontalCalendar.xib in Resources */,
 				B9678D99295A2D3B002CFE75 /* HoursCell.xib in Resources */,
 				B951EC0C2975A72F0076EB67 /* CalendarCell.xib in Resources */,
@@ -739,7 +740,6 @@
 				B9FABB13291A5E3700232D9C /* Assets.xcassets in Resources */,
 				B949AFEC2954B20B00025011 /* ViewController3.xib in Resources */,
 				B9A36FC6292CF4ED009825F9 /* InfoViewController.xib in Resources */,
-				B9A9E854293C02E70038B272 /* GoogleService-Info.plist in Resources */,
 				B9C63E7F2933C26C00754496 /* ReviewTableController.xib in Resources */,
 				B9FABB11291A5E3500232D9C /* Main.storyboard in Resources */,
 				B99E0D87295E689300E4204B /* FlexView.xib in Resources */,
