@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SectionHeader" customModule="Studios" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="SectionHeader" customModule="Studios" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4fq-j4-AWY">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MWo-sT-bwU">
+                            <rect key="frame" x="0.0" y="14.666666666666664" width="320" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="MWo-sT-bwU" firstAttribute="centerY" secondItem="4fq-j4-AWY" secondAttribute="centerY" id="4Js-sc-0Ip"/>
+                        <constraint firstItem="MWo-sT-bwU" firstAttribute="leading" secondItem="4fq-j4-AWY" secondAttribute="leading" id="Wez-EH-Drb"/>
+                        <constraint firstAttribute="trailing" secondItem="MWo-sT-bwU" secondAttribute="trailing" id="ub5-WF-X6i"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="4fq-j4-AWY" secondAttribute="bottom" id="41O-B6-0uv"/>
+                <constraint firstItem="4fq-j4-AWY" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="OIf-50-R1h"/>
+                <constraint firstAttribute="trailing" secondItem="4fq-j4-AWY" secondAttribute="trailing" id="gDr-78-pLs"/>
+                <constraint firstItem="4fq-j4-AWY" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="noV-IX-2Hp"/>
+            </constraints>
+            <connections>
+                <outlet property="sectionLabel" destination="MWo-sT-bwU" id="Dhb-fW-GpI"/>
+            </connections>
+            <point key="canvasLocation" x="32" y="-11"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
