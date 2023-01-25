@@ -8,11 +8,12 @@
 import Foundation
 import FirebaseCore
 import FirebaseDatabase
+import GooglePlaces
 
 public class FirebaseProvider {
     
     func postBookingModel(bookingModel: FirebaseBookingModel, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: @escaping () -> Void) {
-    
+        
         //get the uniqID path for save data to booking list
         let bookingID = Int(NSDate.timeIntervalSinceReferenceDate)
         guard let userID = bookingModel.userID,
@@ -111,6 +112,30 @@ public class FirebaseProvider {
             }
         })
         ref.removeAllObservers()
+    }
+    
+    func postLikedStudio(studio: GMSPlace, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: (() -> Void)? = nil) {
+        let ref = referenceType.references
+        
+        guard let stdioID = studio.placeID,
+              let studioName = studio.name else { return }
+              let rating = studio.rating
+              let coordinate = studio.coordinate
+        
+        let likedStudio = ["studio_id": stdioID,
+                       "studio_name": studioName,
+                       "studi_rating": rating,
+                        ] as [String : Any]
+        
+        
+        ref.setValue(likedStudio) { error, result in
+            if let error = error {
+                failure!()
+                print(error.localizedDescription)
+            } else {
+                succed()
+            }
+        }
     }
 }
 

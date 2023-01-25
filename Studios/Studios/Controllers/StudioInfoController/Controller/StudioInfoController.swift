@@ -224,6 +224,10 @@ class StudioInfoController: UIViewController {
               let studioID = studio.placeID,
               let userID =  user?.uid else { return }
         postLike(referenceType: .getLike(userID: userID, studioID: studioID))
+        
+        FirebaseProvider().postLikedStudio(studio: studio, referenceType: .postLike(userID: userID, studioID: studioID)) {
+            print("успешно")
+        }
     }
 }
 
