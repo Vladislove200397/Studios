@@ -620,18 +620,18 @@
 				B9442C932977DAD600CEDEA6 /* BookingConfirmController */,
 				B9FA0412295E20280097DF24 /* BookingHistoryController */,
 				B9A36FC0292CF483009825F9 /* SegmentControllers */,
-				B9FABB64291BBFFB00232D9C /* MarkerDataTableController */,
+				B9FABB64291BBFFB00232D9C /* LikedStudiosController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		B9FABB64291BBFFB00232D9C /* MarkerDataTableController */ = {
+		B9FABB64291BBFFB00232D9C /* LikedStudiosController */ = {
 			isa = PBXGroup;
 			children = (
 				B9FABB67291BC2AC00232D9C /* Cell */,
 				B9FABB65291BC02600232D9C /* StudiosTableViewController.swift */,
 			);
-			path = MarkerDataTableController;
+			path = LikedStudiosController;
 			sourceTree = "<group>";
 		};
 		B9FABB67291BC2AC00232D9C /* Cell */ = {
