@@ -13,13 +13,12 @@ import FirebaseCore
 import FirebaseDatabase
 
 class MapController: UIViewController {
-    var places = RealmManager<SSPlace>().read()
-    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var mapView: GMSMapView!
     
     private var user = Auth.auth().currentUser
+    var places = RealmManager<SSPlace>().read()
     var markers = [GMSMarker]()
     var studios = [GMSPlace]()
 
@@ -139,36 +138,15 @@ extension MapController {
         RealmManager<SSPlace>().write(object: prosto)
     }
     //MARK: Get Info From PlaceID
-    func getInfoFromPlaceId(placeID: String) {
-         let placeId = placeID
-         let placesClient = GMSPlacesClient()
-         let fields:
-        GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.name.rawValue) |
-                                                UInt(GMSPlaceField.rating.rawValue) |
-                                                UInt(GMSPlaceField.formattedAddress.rawValue) |
-                                                UInt(GMSPlaceField.placeID.rawValue) |
-                                                UInt(GMSPlaceField.userRatingsTotal.rawValue) |
-                                      UInt(GMSPlaceField.photos.rawValue) |
-                                      UInt(GMSPlaceField.phoneNumber.rawValue) |
-                                      UInt(GMSPlaceField.website.rawValue) |
-                                      UInt(GMSPlaceField.utcOffsetMinutes.rawValue) |
-                                      UInt(GMSPlaceField.openingHours.rawValue) |
-                                      UInt(GMSPlaceField.coordinate.rawValue))
-
-         placesClient.fetchPlace(fromPlaceID: placeId, placeFields: fields, sessionToken: nil, callback: { (place: GMSPlace?, error: Error?) in
-
-             if let error = error {
-                 print("ERROR \(error.localizedDescription)")
-             }
-             guard let place = place else { return }
-             Service.shared.studios.append(place)
-             self.studios = Service.shared.studios
-         })
-     }
+    private func getStudios(placeID: String) {
+        GetStudiosAPI().getInfoFromPlaceId(placeID: placeID) {
+            self.studios = Service.shared.studios
+        }
+    }
     
     private func getStudios() {
         places.forEach { studio in
-            getInfoFromPlaceId(placeID: studio.placeID)
+            getStudios(placeID: studio.placeID)
         }
     }
     //MARK: Detect first launch

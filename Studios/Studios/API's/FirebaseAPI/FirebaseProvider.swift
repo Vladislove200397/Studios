@@ -120,11 +120,11 @@ public class FirebaseProvider {
         guard let stdioID = studio.placeID,
               let studioName = studio.name else { return }
               let rating = studio.rating
-              let coordinate = studio.coordinate
+              
         
         let likedStudio = ["studio_id": stdioID,
                        "studio_name": studioName,
-                       "studi_rating": rating,
+                       "studio_rating": rating,
                         ] as [String : Any]
         
         
@@ -135,6 +135,31 @@ public class FirebaseProvider {
             } else {
                 succed()
             }
+        }
+    }
+    
+    func getLikedStudios(referenceType: FirebaseReferenses, succed: @escaping([FirebaseLikedStudioModel]) -> Void, failure: (() ->Void)? = nil) {
+        let ref = referenceType.references
+        
+        var likedStudiosArr: [FirebaseLikedStudioModel] = []
+        
+        ref.observe(DataEventType.value, with: { (snapshot)  in
+            if snapshot.childrenCount > 0 {
+                for likedStudios in snapshot.children.allObjects as! [DataSnapshot] {
+                    guard let likedObject = likedStudios.value as? [String: Any] else { return }
+                    let studioID = likedObject["studio_id"] as! String
+                    let studioName = likedObject["studio_name"] as! String
+                    let studioRating = likedObject["studio_rating"] as! Float
+                    
+                    let likedStudio = FirebaseLikedStudioModel(studioID: studioID, studioName: studioName, studioRating: studioRating)
+                    
+                    likedStudiosArr.append(likedStudio)
+                }
+            }
+            succed(likedStudiosArr)
+        }) { error in
+            failure!()
+            print(error.localizedDescription)
         }
     }
 }
