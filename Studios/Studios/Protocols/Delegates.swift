@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PushButtonDelegate: AnyObject {
-    func pushButton(buttonTimeStamp: Int)
+    func pushButton(studioID: String)
 }
 
 protocol FlexibleViewDelegate: AnyObject {

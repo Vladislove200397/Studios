@@ -16,7 +16,7 @@ class FlexView: UIView {
     @IBOutlet weak var lineView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    weak var dateDelegate: PushButtonDelegate?
+//    weak var dateDelegate: PushButtonDelegate?
     weak var delegate: FlexibleViewDelegate?
     private var hoursArr: [Int] = []
     private var timesArray: [Int] = []
@@ -52,16 +52,16 @@ class FlexView: UIView {
         register()
     }
     
-    func set(delegate: FlexibleViewDelegate?, type: FlexibleViewTypes, dateDelegate: PushButtonDelegate, hoursArray: [Int], timesArray: [Int]) {
-        self.delegate = delegate
-        self.type = type
-        self.addView()
-        self.setupButton()
-        titleLabel.text = type.rawValue
-        self.dateDelegate = dateDelegate
-        self.hoursArr = hoursArray
-        self.timesArray = timesArray
-    }
+//    func set(delegate: FlexibleViewDelegate?, type: FlexibleViewTypes, dateDelegate: PushButtonDelegate, hoursArray: [Int], timesArray: [Int]) {
+//        self.delegate = delegate
+//        self.type = type
+//        self.addView()
+//        self.setupButton()
+//        titleLabel.text = type.rawValue
+//        self.dateDelegate = dateDelegate
+//        self.hoursArr = hoursArray
+//        self.timesArray = timesArray
+//    }
     
     func setTimes(_ timesArray: [Int]) {
         self.timesArray = timesArray

@@ -43,7 +43,7 @@
 		B99E0D89295E689D00E4204B /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E0D88295E689D00E4204B /* FlexView.swift */; };
 		B9A36FC5292CF4ED009825F9 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A36FC3292CF4ED009825F9 /* InfoViewController.swift */; };
 		B9A36FC6292CF4ED009825F9 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A36FC4292CF4ED009825F9 /* InfoViewController.xib */; };
-		B9C63E772933BC0A00754496 /* StudioAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E762933BC0A00754496 /* StudioAPI.swift */; };
+		B9C63E772933BC0A00754496 /* StudioReviewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E762933BC0A00754496 /* StudioReviewAPI.swift */; };
 		B9C63E792933BED900754496 /* StudioReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E782933BED900754496 /* StudioReviewModel.swift */; };
 		B9C63E7B2933C0D900754496 /* StudioReviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */; };
 		B9C63E7E2933C26C00754496 /* ReviewTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E7C2933C26C00754496 /* ReviewTableController.swift */; };
@@ -58,6 +58,12 @@
 		B9DD0131297C97CF007C266D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0130297C97CF007C266D /* UITextFieldExtension.swift */; };
 		B9DD013A297CB7C5007C266D /* FirebaseReferenceEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0139297CB7C5007C266D /* FirebaseReferenceEnum.swift */; };
 		B9DD0140297CDBC1007C266D /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD013F297CDBC1007C266D /* Alerts.swift */; };
+		B9E0F1CA2987B1680087A48A /* LikedStudiosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1C82987B1680087A48A /* LikedStudiosViewController.swift */; };
+		B9E0F1CB2987B1680087A48A /* LikedStudiosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9E0F1C92987B1680087A48A /* LikedStudiosViewController.xib */; };
+		B9E0F1CD2987B3D70087A48A /* FirebaseLikedStudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */; };
+		B9E0F1D12988079F0087A48A /* LikedStudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1CF2988079F0087A48A /* LikedStudioCell.swift */; };
+		B9E0F1D22988079F0087A48A /* LikedStudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9E0F1D02988079F0087A48A /* LikedStudioCell.xib */; };
+		B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1D629880D3F0087A48A /* GetStudiosApi.swift */; };
 		B9EFC27E297F282500FF7291 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9EFC27D297F282500FF7291 /* GoogleService-Info.plist */; };
 		B9F08DA929478CF20059614C /* BookingStudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F08DA729478CF20059614C /* BookingStudioController.swift */; };
 		B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9F08DA829478CF20059614C /* BookingStudioController.xib */; };
@@ -122,7 +128,7 @@
 		B99E0D88295E689D00E4204B /* FlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexView.swift; sourceTree = "<group>"; };
 		B9A36FC3292CF4ED009825F9 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		B9A36FC4292CF4ED009825F9 /* InfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
-		B9C63E762933BC0A00754496 /* StudioAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioAPI.swift; sourceTree = "<group>"; };
+		B9C63E762933BC0A00754496 /* StudioReviewAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewAPI.swift; sourceTree = "<group>"; };
 		B9C63E782933BED900754496 /* StudioReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewModel.swift; sourceTree = "<group>"; };
 		B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewProvider.swift; sourceTree = "<group>"; };
 		B9C63E7C2933C26C00754496 /* ReviewTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTableController.swift; sourceTree = "<group>"; };
@@ -137,6 +143,12 @@
 		B9DD0130297C97CF007C266D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		B9DD0139297CB7C5007C266D /* FirebaseReferenceEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseReferenceEnum.swift; sourceTree = "<group>"; };
 		B9DD013F297CDBC1007C266D /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		B9E0F1C82987B1680087A48A /* LikedStudiosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedStudiosViewController.swift; sourceTree = "<group>"; };
+		B9E0F1C92987B1680087A48A /* LikedStudiosViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikedStudiosViewController.xib; sourceTree = "<group>"; };
+		B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLikedStudioModel.swift; sourceTree = "<group>"; };
+		B9E0F1CF2988079F0087A48A /* LikedStudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedStudioCell.swift; sourceTree = "<group>"; };
+		B9E0F1D02988079F0087A48A /* LikedStudioCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikedStudioCell.xib; sourceTree = "<group>"; };
+		B9E0F1D629880D3F0087A48A /* GetStudiosApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStudiosApi.swift; sourceTree = "<group>"; };
 		B9EFC27D297F282500FF7291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9F08DA729478CF20059614C /* BookingStudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingStudioController.swift; sourceTree = "<group>"; };
 		B9F08DA829478CF20059614C /* BookingStudioController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingStudioController.xib; sourceTree = "<group>"; };
@@ -373,9 +385,8 @@
 		B9C63E732933BB9B00754496 /* GooglePlaceAPI */ = {
 			isa = PBXGroup;
 			children = (
-				B9C63E762933BC0A00754496 /* StudioAPI.swift */,
-				B9C63E782933BED900754496 /* StudioReviewModel.swift */,
-				B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */,
+				B9E0F1D529880C940087A48A /* GetStudiosApi */,
+				B9E0F1D429880C830087A48A /* StudioReviewApi */,
 			);
 			path = GooglePlaceAPI;
 			sourceTree = "<group>";
@@ -483,6 +494,51 @@
 				B9DD013F297CDBC1007C266D /* Alerts.swift */,
 			);
 			path = Alerts;
+			sourceTree = "<group>";
+		};
+		B9E0F1C72987B1380087A48A /* LikedStudiosController */ = {
+			isa = PBXGroup;
+			children = (
+				B9E0F1D3298807B20087A48A /* Controller */,
+				B9E0F1CE298807800087A48A /* Cell */,
+			);
+			path = LikedStudiosController;
+			sourceTree = "<group>";
+		};
+		B9E0F1CE298807800087A48A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B9E0F1CF2988079F0087A48A /* LikedStudioCell.swift */,
+				B9E0F1D02988079F0087A48A /* LikedStudioCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B9E0F1D3298807B20087A48A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B9E0F1C82987B1680087A48A /* LikedStudiosViewController.swift */,
+				B9E0F1C92987B1680087A48A /* LikedStudiosViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B9E0F1D429880C830087A48A /* StudioReviewApi */ = {
+			isa = PBXGroup;
+			children = (
+				B9C63E762933BC0A00754496 /* StudioReviewAPI.swift */,
+				B9C63E782933BED900754496 /* StudioReviewModel.swift */,
+				B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */,
+			);
+			path = StudioReviewApi;
+			sourceTree = "<group>";
+		};
+		B9E0F1D529880C940087A48A /* GetStudiosApi */ = {
+			isa = PBXGroup;
+			children = (
+				B9E0F1D629880D3F0087A48A /* GetStudiosApi.swift */,
+			);
+			path = GetStudiosApi;
 			sourceTree = "<group>";
 		};
 		B9F08DA629478C9E0059614C /* BookingStudioController */ = {
@@ -607,6 +663,7 @@
 				B9F08DAC294793890059614C /* FirebaseUserModel.swift */,
 				B9FA0410295E19A50097DF24 /* FirebaseBookingModel.swift */,
 				B9FABB5F291B112000232D9C /* SSPLace.swift */,
+				B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -614,24 +671,25 @@
 		B9FABB63291BBFEE00232D9C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B9E0F1C72987B1380087A48A /* LikedStudiosController */,
 				B97A7A67292BAD8B0025F310 /* MapController */,
 				B90D38FC2922B1D800F77AF8 /* StudioInfoController */,
 				B9F08DA629478C9E0059614C /* BookingStudioController */,
 				B9442C932977DAD600CEDEA6 /* BookingConfirmController */,
 				B9FA0412295E20280097DF24 /* BookingHistoryController */,
 				B9A36FC0292CF483009825F9 /* SegmentControllers */,
-				B9FABB64291BBFFB00232D9C /* LikedStudiosController */,
+				B9FABB64291BBFFB00232D9C /* L1kedStudiosController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		B9FABB64291BBFFB00232D9C /* LikedStudiosController */ = {
+		B9FABB64291BBFFB00232D9C /* L1kedStudiosController */ = {
 			isa = PBXGroup;
 			children = (
 				B9FABB67291BC2AC00232D9C /* Cell */,
 				B9FABB65291BC02600232D9C /* StudiosTableViewController.swift */,
 			);
-			path = LikedStudiosController;
+			path = L1kedStudiosController;
 			sourceTree = "<group>";
 		};
 		B9FABB67291BC2AC00232D9C /* Cell */ = {
@@ -723,6 +781,7 @@
 				B9C63E882933C2C600754496 /* ReviewCell.xib in Resources */,
 				B972AB922951E1DD0025683F /* ViewController1.xib in Resources */,
 				B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */,
+				B9E0F1CB2987B1680087A48A /* LikedStudiosViewController.xib in Resources */,
 				B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */,
 				B9FABB16291A5E3700232D9C /* LaunchScreen.storyboard in Resources */,
 				B90D39002922B23000F77AF8 /* StudioInfoController.xib in Resources */,
@@ -732,6 +791,7 @@
 				B9FA0416295E204E0097DF24 /* BookingHistoryController.xib in Resources */,
 				B9FA041E295E2AB80097DF24 /* BookingCell.xib in Resources */,
 				B949AFF42954BA6700025011 /* ViewController5.xib in Resources */,
+				B9E0F1D22988079F0087A48A /* LikedStudioCell.xib in Resources */,
 				B9EFC27E297F282500FF7291 /* GoogleService-Info.plist in Resources */,
 				B951EBFF297551EE0076EB67 /* HorizontalCalendar.xib in Resources */,
 				B9678D99295A2D3B002CFE75 /* HoursCell.xib in Resources */,
@@ -830,11 +890,13 @@
 				B9916B902976B57E00C0A0CF /* SectionHeader.swift in Sources */,
 				B9FABB0C291A5E3500232D9C /* SceneDelegate.swift in Sources */,
 				B9FABB6A291BC2CA00232D9C /* MarkerCell.swift in Sources */,
+				B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */,
 				B9DD0129297C4BCC007C266D /* StringExtension.swift in Sources */,
 				B9DD0140297CDBC1007C266D /* Alerts.swift in Sources */,
 				B9F08DAD294793890059614C /* FirebaseUserModel.swift in Sources */,
 				B972CBF4297E97E500FBFCFD /* SelectionTypeEnum.swift in Sources */,
 				B9FA041D295E2AB80097DF24 /* BookingCell.swift in Sources */,
+				B9E0F1CA2987B1680087A48A /* LikedStudiosViewController.swift in Sources */,
 				B9FA042D295E47190097DF24 /* Delegates.swift in Sources */,
 				B9DD012F297C8E84007C266D /* ValidationType.swift in Sources */,
 				B9FABB66291BC02600232D9C /* StudiosTableViewController.swift in Sources */,
@@ -845,11 +907,13 @@
 				B9FA0430295E47520097DF24 /* FlexibleViewTypes.swift in Sources */,
 				B972AB872951C6170025683F /* TabBarEnum.swift in Sources */,
 				B972AB892951CCF60025683F /* TabBarController.swift in Sources */,
+				B9E0F1CD2987B3D70087A48A /* FirebaseLikedStudioModel.swift in Sources */,
 				B90D38FF2922B23000F77AF8 /* StudioInfoController.swift in Sources */,
 				B9DC2C032941CE22009EEE43 /* TestController.swift in Sources */,
 				B951EBFC297551C90076EB67 /* HorizontalCalendar.swift in Sources */,
+				B9E0F1D12988079F0087A48A /* LikedStudioCell.swift in Sources */,
 				B9FA0420295E2FD50097DF24 /* DateFormatterExtension.swift in Sources */,
-				B9C63E772933BC0A00754496 /* StudioAPI.swift in Sources */,
+				B9C63E772933BC0A00754496 /* StudioReviewAPI.swift in Sources */,
 				B9C63E7E2933C26C00754496 /* ReviewTableController.swift in Sources */,
 				B949AFF32954BA6700025011 /* ViewController5.swift in Sources */,
 				B972AB952951E1EE0025683F /* ViewController2.swift in Sources */,

@@ -23,11 +23,9 @@ enum TabItem: String, CaseIterable {
                 let mapVC = storyboard.instantiateViewController(withIdentifier: "ViewController")
                 return mapVC
             case .favorite:
-                let tableVC = storyboard.instantiateViewController(withIdentifier: String(describing: StudiosTableViewController.self))
-                return tableVC
+                return LikedStudiosViewController(nibName: String(describing: LikedStudiosViewController.self), bundle: nil)
             case .booking:
                 return BookingHistoryController(nibName: String(describing: BookingHistoryController.self), bundle: nil)
-
             case .test:
                 return ViewController5(nibName: String(describing: ViewController5.self), bundle: nil)
             case . test1:
