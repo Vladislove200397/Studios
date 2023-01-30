@@ -37,6 +37,7 @@ class LikedStudiosViewController: UIViewController {
         let nib = UINib(nibName: LikedStudioCell.id, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: LikedStudioCell.id)
     }
+    
     private func getLikedStudios() {
         spinner.startAnimating()
         FirebaseProvider().getLikedStudios(referenceType: .getLikedStudios(userID: user!.uid)) { likedStudios in
@@ -62,7 +63,7 @@ extension LikedStudiosViewController: UITableViewDataSource {
 
 extension LikedStudiosViewController: PushButtonDelegate {
     func pushButton(studioID: String) {
-        var allStudios = Service.shared.studios
+        let allStudios = Service.shared.studios
         let studio = allStudios.first(where: {$0.placeID == studioID})
         let studioInfoVC = StudioInfoController(nibName: String(describing: StudioInfoController.self), bundle: nil)
 
