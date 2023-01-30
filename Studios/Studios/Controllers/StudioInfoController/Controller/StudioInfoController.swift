@@ -244,16 +244,3 @@ extension StudioInfoController: UICollectionViewDataSource {
         return photoCell
     }
 }
-
-extension StudioInfoController: UISheetPresentationControllerDetentResolutionContext {
-    var containerTraitCollection: UITraitCollection {
-        let container = self.contentView.focusItemContainer
-        return container as! UITraitCollection
-    }
-    
-    var maximumDetentValue: CGFloat {
-        let value = self.contentView.frame.height
-        return value
-    }
-
-}
