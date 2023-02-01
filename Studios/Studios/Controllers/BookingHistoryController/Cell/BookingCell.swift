@@ -38,9 +38,7 @@ class BookingCell: UITableViewCell {
         :
         "\(bookingModel.bookingTime?.first?.formatData(formatType: .dMMMHHmm) ?? "")"
         
-            cellStudioNameLabel.text = bookingModel.studioName
+        cellStudioNameLabel.text = bookingModel.studioName
         cellBookingTimeLabel.text = dateText
     }
-    
-    
 }

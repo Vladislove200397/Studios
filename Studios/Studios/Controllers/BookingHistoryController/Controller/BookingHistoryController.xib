@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookingHistoryController" customModule="Studios" customModuleProvider="target">
             <connections>
+                <outlet property="calendar" destination="eUO-ps-uK3" id="EFu-ZE-rSL"/>
                 <outlet property="spinner" destination="btq-kJ-VCi" id="kjm-Cb-YOM"/>
                 <outlet property="tableView" destination="jm2-y2-qSv" id="0AT-sO-e4B"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,24 +22,34 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jm2-y2-qSv">
-                    <rect key="frame" x="0.0" y="47" width="390" height="763"/>
+                    <rect key="frame" x="0.0" y="154" width="390" height="656"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="btq-kJ-VCi">
                     <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
                 </activityIndicatorView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUO-ps-uK3" customClass="HorizontalCalendar" customModule="Studios" customModuleProvider="target">
+                    <rect key="frame" x="16" y="47" width="358" height="107"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="107" id="nBS-x6-Uao"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jm2-y2-qSv" secondAttribute="trailing" id="5pU-qc-MD2"/>
-                <constraint firstItem="jm2-y2-qSv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="8TT-ii-aos"/>
                 <constraint firstItem="jm2-y2-qSv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8dW-K3-RzC"/>
+                <constraint firstItem="jm2-y2-qSv" firstAttribute="top" secondItem="eUO-ps-uK3" secondAttribute="bottom" id="TBP-bK-6ZD"/>
+                <constraint firstItem="eUO-ps-uK3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dlI-Tu-bJu"/>
+                <constraint firstItem="eUO-ps-uK3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dxB-BJ-OLW"/>
                 <constraint firstItem="btq-kJ-VCi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hen-7E-mR2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eUO-ps-uK3" secondAttribute="trailing" constant="16" id="mNm-3i-ST6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="jm2-y2-qSv" secondAttribute="bottom" id="pdG-lR-x9t"/>
                 <constraint firstItem="btq-kJ-VCi" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="ypT-tT-IQ2"/>
             </constraints>
-            <point key="canvasLocation" x="26" y="21"/>
+            <point key="canvasLocation" x="24.615384615384613" y="20.616113744075829"/>
         </view>
     </objects>
     <resources>

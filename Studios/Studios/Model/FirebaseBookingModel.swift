@@ -17,6 +17,7 @@ class FirebaseBookingModel {
     var studioID: String?
     var studioName: String?
     var comment: String?
+    var bookingDay: Int?
     
     init(bookingTime: [Int]? = nil,
          bookingID: Int? = nil,
@@ -26,8 +27,9 @@ class FirebaseBookingModel {
          userID: String? = nil,
          studioID: String? = nil,
          studioName: String? = nil,
-         comment: String? = nil) {
-        
+         comment: String? = nil,
+         bookingDay: Int? = nil) {
+    
         self.bookingTime = bookingTime
         self.bookingID = bookingID
         self.userName = userName
@@ -37,16 +39,19 @@ class FirebaseBookingModel {
         self.studioID = studioID
         self.studioName = studioName
         self.comment = comment
+        self.bookingDay = bookingDay
     }
     
     convenience init(bookingTime: [Int],
                      studioName: String,
                      bookingID: Int,
-                     studioID: String) {
+                     studioID: String,
+                     bookingDay: Int) {
         self.init()
         self.bookingTime = bookingTime
         self.studioName = studioName
         self.bookingID = bookingID
         self.studioID = studioID
+        self.bookingDay = bookingDay
     }
 }

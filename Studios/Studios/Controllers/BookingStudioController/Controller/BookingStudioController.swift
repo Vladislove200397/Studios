@@ -279,6 +279,7 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
             let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.id, for: indexPath)
             
             guard let textHeader = sectionHeader as? SectionHeader else { return sectionHeader }
+            
             switch indexPath.section {
                 case 0:     textHeader.sectionLabel.text = "Утро"
                 case 1:     textHeader.sectionLabel.text = "День"
