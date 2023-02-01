@@ -26,6 +26,7 @@ class LikedStudiosViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getLikedStudios()
         tableView.reloadData()
     }
     

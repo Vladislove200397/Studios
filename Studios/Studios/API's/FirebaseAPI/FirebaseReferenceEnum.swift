@@ -18,17 +18,18 @@ enum FirebaseReferenses {
     case getLike(userID: String, studioID: String)
     case postLike(userID: String, studioID: String)
     case getLikedStudios(userID: String)
+    case removeLikedStudio(userID: String, studioID: String)
     
     var references: DatabaseReference {
         switch self {
             case .postStudioBookingRef(studioID: let studioID):
-                return  Database.database().reference().child("booking").child("studios").child("\(studioID)")
+                return  Database.database().reference().child("studios_data").child("booking").child("studios").child("\(studioID)")
             case .postUserBookingRef(userID: let userID):
-                return Database.database().reference().child("booking").child("users").child("\(userID)")
+                return Database.database().reference().child("users_data").child("booking").child("users").child("\(userID)")
             case .getBookingTimesForStudioRef(studioID: let studioID):
-                return Database.database().reference().child("booking").child("studios").child("\(studioID)")
+                return Database.database().reference().child("studios_data").child("booking").child("studios").child("\(studioID)")
             case .getBookingForUserRef(userID: let userID):
-                return Database.database().reference().child("booking").child("users").child("\(userID)")
+                return Database.database().reference().child("users_data").child("booking").child("users").child("\(userID)")
             case .getLike(userID: let userID, studioID: let studioID):
                 return  Database.database().reference().child("users_data").child("\(userID)").child("like").child("\(studioID)")
             case .postLike(userID: let userID, studioID: let studioID):
@@ -36,6 +37,10 @@ enum FirebaseReferenses {
             case .getLikedStudios(userID: let userID):
                 return
                     Database.database().reference().child("users_data").child("\(userID)").child("likedStudios")
+            case .removeLikedStudio(userID: let userID, studioID: let studioID):
+                return
+                    Database.database().reference().child("users_data").child("\(userID)").child("likedStudios").child("\(studioID)")
+
         }
     }
 }

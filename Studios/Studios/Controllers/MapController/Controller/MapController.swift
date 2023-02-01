@@ -66,15 +66,30 @@ class MapController: UIViewController {
         }
     }
     
+    private func getLike(studio: GMSPlace, succed: @escaping (Bool) -> Void) {
+        guard let studioID = studio.placeID,
+              let userID = user?.uid else { return }
+        FirebaseProvider().getLike(referenceType: .getLike(userID: userID, studioID: studioID)) { like in
+            succed(like)
+        }
+    }
+
+    
     //MARK: Present sheet StudioInfoController
     private func presentSheetInfoController(studio: GMSPlace) {
-        let infoVC = StudioInfoController(nibName: String(describing: StudioInfoController.self), bundle: nil)
-
-        infoVC.set(studio: studio)
-        infoVC.isModalInPresentation = true
-        present(infoVC, animated: true)
+        self.spinner.startAnimating()
+        getLike(studio: studio) { like in
+            let infoVC = StudioInfoController(nibName: String(describing: StudioInfoController.self), bundle: nil)
+            
+            infoVC.likeFromFIR = like
+            infoVC.set(studio: studio)
+            infoVC.isModalInPresentation = true
+            self.present(infoVC, animated: true)
+            self.spinner.stopAnimating()
+        }
     }
 }
+
 
 //MARK: GMSMapViewDelegate
 extension MapController: GMSMapViewDelegate {
