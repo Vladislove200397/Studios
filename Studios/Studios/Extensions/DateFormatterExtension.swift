@@ -17,6 +17,7 @@ extension Int {
         case MMMdyyyy = "MMM d, yyyy"             //Sep 12, 2018
         case ddMMyy = "dd.MM.yy"                  //12.09.18
         case HHmm = "HH:mm"                     //14:11
+        case ddMMyyyy = "dd-MM-yyyy"            //12-09-2022
     }
     
     func formatData(formatType: FormatTypes) -> String {

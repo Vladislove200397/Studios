@@ -85,9 +85,6 @@
 		B9FABB13291A5E3700232D9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9FABB12291A5E3700232D9C /* Assets.xcassets */; };
 		B9FABB16291A5E3700232D9C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9FABB14291A5E3700232D9C /* LaunchScreen.storyboard */; };
 		B9FABB60291B112000232D9C /* SSPLace.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FABB5F291B112000232D9C /* SSPLace.swift */; };
-		B9FABB66291BC02600232D9C /* StudiosTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FABB65291BC02600232D9C /* StudiosTableViewController.swift */; };
-		B9FABB6A291BC2CA00232D9C /* MarkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FABB68291BC2CA00232D9C /* MarkerCell.swift */; };
-		B9FABB6B291BC2CA00232D9C /* MarkerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FABB69291BC2CA00232D9C /* MarkerCell.xib */; };
 		B9FABB6E291BD47C00232D9C /* RealmSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FABB6D291BD47C00232D9C /* RealmSwift.swift */; };
 /* End PBXBuildFile section */
 
@@ -174,9 +171,6 @@
 		B9FABB12291A5E3700232D9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9FABB17291A5E3700232D9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9FABB5F291B112000232D9C /* SSPLace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSPLace.swift; sourceTree = "<group>"; };
-		B9FABB65291BC02600232D9C /* StudiosTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudiosTableViewController.swift; sourceTree = "<group>"; };
-		B9FABB68291BC2CA00232D9C /* MarkerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCell.swift; sourceTree = "<group>"; };
-		B9FABB69291BC2CA00232D9C /* MarkerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerCell.xib; sourceTree = "<group>"; };
 		B9FABB6D291BD47C00232D9C /* RealmSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmSwift.swift; sourceTree = "<group>"; };
 		E343C47D2F5DDB807538EBB0 /* Pods-Studios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studios.release.xcconfig"; path = "Target Support Files/Pods-Studios/Pods-Studios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -678,27 +672,8 @@
 				B9442C932977DAD600CEDEA6 /* BookingConfirmController */,
 				B9FA0412295E20280097DF24 /* BookingHistoryController */,
 				B9A36FC0292CF483009825F9 /* SegmentControllers */,
-				B9FABB64291BBFFB00232D9C /* L1kedStudiosController */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		B9FABB64291BBFFB00232D9C /* L1kedStudiosController */ = {
-			isa = PBXGroup;
-			children = (
-				B9FABB67291BC2AC00232D9C /* Cell */,
-				B9FABB65291BC02600232D9C /* StudiosTableViewController.swift */,
-			);
-			path = L1kedStudiosController;
-			sourceTree = "<group>";
-		};
-		B9FABB67291BC2AC00232D9C /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				B9FABB68291BC2CA00232D9C /* MarkerCell.swift */,
-				B9FABB69291BC2CA00232D9C /* MarkerCell.xib */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		B9FABB6C291BD46500232D9C /* Manager */ = {
@@ -796,7 +771,6 @@
 				B951EBFF297551EE0076EB67 /* HorizontalCalendar.xib in Resources */,
 				B9678D99295A2D3B002CFE75 /* HoursCell.xib in Resources */,
 				B951EC0C2975A72F0076EB67 /* CalendarCell.xib in Resources */,
-				B9FABB6B291BC2CA00232D9C /* MarkerCell.xib in Resources */,
 				B9FABB13291A5E3700232D9C /* Assets.xcassets in Resources */,
 				B949AFEC2954B20B00025011 /* ViewController3.xib in Resources */,
 				B9A36FC6292CF4ED009825F9 /* InfoViewController.xib in Resources */,
@@ -889,7 +863,6 @@
 				B99E0D89295E689D00E4204B /* FlexView.swift in Sources */,
 				B9916B902976B57E00C0A0CF /* SectionHeader.swift in Sources */,
 				B9FABB0C291A5E3500232D9C /* SceneDelegate.swift in Sources */,
-				B9FABB6A291BC2CA00232D9C /* MarkerCell.swift in Sources */,
 				B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */,
 				B9DD0129297C4BCC007C266D /* StringExtension.swift in Sources */,
 				B9DD0140297CDBC1007C266D /* Alerts.swift in Sources */,
@@ -899,7 +872,6 @@
 				B9E0F1CA2987B1680087A48A /* LikedStudiosViewController.swift in Sources */,
 				B9FA042D295E47190097DF24 /* Delegates.swift in Sources */,
 				B9DD012F297C8E84007C266D /* ValidationType.swift in Sources */,
-				B9FABB66291BC02600232D9C /* StudiosTableViewController.swift in Sources */,
 				B9A36FC5292CF4ED009825F9 /* InfoViewController.swift in Sources */,
 				B972CBF1297E916D00FBFCFD /* ArrayIntExtension.swift in Sources */,
 				B9FA0415295E204E0097DF24 /* BookingHistoryController.swift in Sources */,

@@ -13,6 +13,7 @@ import FirebaseCore
 class BookingHistoryController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var calendar: HorizontalCalendar!
     
     private var user = Auth.auth().currentUser
     private var bookingArray: [FirebaseBookingModel] = []
@@ -22,6 +23,9 @@ class BookingHistoryController: UIViewController {
         getBookings()
         registerCell()
         self.tableView.dataSource = self
+        calendar.collectionView.dataSource = self
+        calendar.collectionView.delegate = self
+        calendar.set(delegate: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +48,18 @@ class BookingHistoryController: UIViewController {
             self.spinner.stopAnimating()
         }
     }
+    
+    private func showBookingToSelectedDate(_ date: String) {
+        guard let user else { return }
+        self.spinner.startAnimating()
+        FirebaseProvider().getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) { booking in
+            self.bookingArray = booking
+            let filtredFirebaseBookingArr = self.bookingArray.filter({$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
+            self.bookingArray = filtredFirebaseBookingArr
+            self.tableView.reloadData()
+            self.spinner.stopAnimating()
+        }
+    }
 }
 
 extension BookingHistoryController: UITableViewDataSource {
@@ -55,5 +71,56 @@ extension BookingHistoryController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookingCell.id, for: indexPath)
         (cell as? BookingCell)?.set(booking: bookingArray[indexPath.row])
         return cell
+    }
+}
+
+extension BookingHistoryController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.id, for: indexPath)
+        guard let calendarCell = cell as? CalendarCell else { return cell }
+        let redCircleEnabled = calendar.sevenDates[indexPath.row] == calendar.currentDate
+        let selectedCell = calendar.sevenDates[indexPath.row] == calendar.dateFromCell
+        
+        calendarCell.set(dateToShow: calendar.selectedDate,
+                         selectedDate: calendar.sevenDates[indexPath.row],
+                         index: indexPath.row,
+                         today: redCircleEnabled,
+                         pastSelectedCell: selectedCell)
+        
+        return calendarCell
+    }
+}
+
+extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let leading = 16.0
+        let cellCount = 7.0
+        let width = calendar.collectionView.frame.width / cellCount - leading
+        let height = calendar.collectionView.frame.height
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarCell else { return }
+        calendar.dateDelegate?.setDate(date: cell.selectedDate)
+        
+    }
+}
+
+extension BookingHistoryController: SetDateFromViewDelegate {
+    func setDate(date: String) {
+        print(date)
+        showBookingToSelectedDate(date)
     }
 }

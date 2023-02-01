@@ -12,10 +12,18 @@ import GooglePlaces
 
 public class FirebaseProvider {
     
+    private func getStartDayTime(timeStamp: Int) -> Int {
+        let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
+        let todayStartOfDay = Calendar.current.startOfDay(for: date)
+        let timeOfStartDay = Int(todayStartOfDay.timeIntervalSince1970)
+        return timeOfStartDay
+    }
+    
     func postBookingModel(bookingModel: FirebaseBookingModel, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: @escaping () -> Void) {
         
         //get the uniqID path for save data to booking list
         let bookingID = Int(NSDate.timeIntervalSinceReferenceDate)
+        
         guard let userID = bookingModel.userID,
               let userName = bookingModel.userName,
               let userEmail = bookingModel.userEmail,
@@ -25,6 +33,7 @@ public class FirebaseProvider {
               let studioName = bookingModel.studioName,
               let comment = bookingModel.comment else { return }
         
+        let timeOfStartDay = getStartDayTime(timeStamp: bookingTime.first ?? 0)
         let booking = ["user_id": userID,
                        "user": userName,
                        "user_email": userEmail,
@@ -34,6 +43,7 @@ public class FirebaseProvider {
                        "studio_name": studioName,
                        "booking_id": bookingID,
                        "comment": comment,
+                       "booking_day": timeOfStartDay
         ] as [String : Any]
         
         let ref: DatabaseReference = referenceType.references
@@ -84,8 +94,9 @@ public class FirebaseProvider {
                     let studioName = bookingObject ["studio_name"] as! String
                     let bookingID = bookingObject ["booking_id"] as! Int
                     let studioID = bookingObject["studio_id"] as! String
+                    let bookingDay = bookingObject["booking_day"] as! Int
                     
-                    let firebaseBooking = FirebaseBookingModel(bookingTime: time, studioName: studioName, bookingID: bookingID, studioID: studioID)
+                    let firebaseBooking = FirebaseBookingModel(bookingTime: time, studioName: studioName, bookingID: bookingID, studioID: studioID, bookingDay: bookingDay)
                     
                     bookingArr.append(firebaseBooking)
                 }
