@@ -136,8 +136,6 @@ class BookingStudioController: UIViewController {
             self.timesArray = times
             self.collectionView.reloadData()
             self.spinner.stopAnimating()
-        } failure: {
-            self.spinner.stopAnimating()
         }
     }
     

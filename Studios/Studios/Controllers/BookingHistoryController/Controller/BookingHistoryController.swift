@@ -42,8 +42,6 @@ class BookingHistoryController: UIViewController {
             self.bookingArray = booking
             self.tableView.reloadData()
             self.spinner.stopAnimating()
-        } failure: {
-            print("SOSAT")
         }
     }
 }
@@ -58,6 +56,4 @@ extension BookingHistoryController: UITableViewDataSource {
         (cell as? BookingCell)?.set(booking: bookingArray[indexPath.row])
         return cell
     }
-
-
 }

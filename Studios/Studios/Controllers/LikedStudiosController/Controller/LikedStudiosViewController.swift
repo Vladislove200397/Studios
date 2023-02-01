@@ -26,6 +26,7 @@ class LikedStudiosViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getLikedStudios()
         tableView.reloadData()
     }
     
@@ -62,7 +63,7 @@ extension LikedStudiosViewController: UITableViewDataSource {
 
 extension LikedStudiosViewController: PushButtonDelegate {
     func pushButton(studioID: String) {
-        var allStudios = Service.shared.studios
+        let allStudios = Service.shared.studios
         let studio = allStudios.first(where: {$0.placeID == studioID})
         let studioInfoVC = StudioInfoController(nibName: String(describing: StudioInfoController.self), bundle: nil)
 

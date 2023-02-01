@@ -49,7 +49,7 @@ public class FirebaseProvider {
         }
     }
     
-    func getBookingTimes(referenceType: FirebaseReferenses, succed: @escaping ([Int]) -> Void, failure: @escaping () -> Void) {
+    func getBookingTimes(referenceType: FirebaseReferenses, succed: @escaping ([Int]) -> Void, failure: ((Error) -> Void)? = nil) {
         let ref: DatabaseReference = referenceType.references
         
         var timesArray: [Int] = []
@@ -67,12 +67,12 @@ public class FirebaseProvider {
             succed(timesArray)
             ref.removeAllObservers()
         }) { error in
-            failure()
+            failure!(error)
             print(error.localizedDescription)
         }
     }
     
-    func getBookings(referenceType: FirebaseReferenses, succed: @escaping ([FirebaseBookingModel]) -> Void, failure: @escaping () -> Void) {
+    func getBookings(referenceType: FirebaseReferenses, succed: @escaping ([FirebaseBookingModel]) -> Void, failure: ((Error) -> Void)? = nil) {
         let ref = referenceType.references
         var bookingArr: [FirebaseBookingModel] = []
         
@@ -93,12 +93,13 @@ public class FirebaseProvider {
             succed(bookingArr)
             ref.removeAllObservers()
         }) { error in
-            failure()
+            
+            failure!(error)
             print(error.localizedDescription)
         }
     }
     
-    func getLike(referenceType: FirebaseReferenses, succed: @escaping (Bool) -> Void, failure: (() -> Void)? = nil) {
+    func getLike(referenceType: FirebaseReferenses, succed: @escaping (Bool) -> Void, failure: ((Error) -> Void)? = nil) {
         let ref = referenceType.references
         
         ref.getData(completion: { error, snapshot in
@@ -114,23 +115,23 @@ public class FirebaseProvider {
         ref.removeAllObservers()
     }
     
-    func postLikedStudio(studio: GMSPlace, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: (() -> Void)? = nil) {
+    func postLikedStudio(studio: GMSPlace, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: ((Error) -> Void)? = nil) {
         let ref = referenceType.references
         
         guard let stdioID = studio.placeID,
               let studioName = studio.name else { return }
-              let rating = studio.rating
-              
+        let rating = studio.rating
+        
         
         let likedStudio = ["studio_id": stdioID,
-                       "studio_name": studioName,
-                       "studio_rating": rating,
-                        ] as [String : Any]
+                           "studio_name": studioName,
+                           "studio_rating": rating,
+        ] as [String : Any]
         
         
         ref.setValue(likedStudio) { error, result in
             if let error = error {
-                failure!()
+                failure!(error)
                 print(error.localizedDescription)
             } else {
                 succed()
@@ -138,12 +139,12 @@ public class FirebaseProvider {
         }
     }
     
-    func getLikedStudios(referenceType: FirebaseReferenses, succed: @escaping([FirebaseLikedStudioModel]) -> Void, failure: (() ->Void)? = nil) {
+    func getLikedStudios(referenceType: FirebaseReferenses, succed: @escaping([FirebaseLikedStudioModel]) -> Void, failure: ((Error?) -> Void)? = nil) {
         let ref = referenceType.references
         
         var likedStudiosArr: [FirebaseLikedStudioModel] = []
         
-        ref.observe(DataEventType.value, with: { (snapshot)  in
+        ref.observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 for likedStudios in snapshot.children.allObjects as! [DataSnapshot] {
                     guard let likedObject = likedStudios.value as? [String: Any] else { return }
@@ -157,11 +158,36 @@ public class FirebaseProvider {
                 }
             }
             succed(likedStudiosArr)
-        }) { error in
-            failure!()
+            ref.removeAllObservers()
+        } withCancel: { error in
+            failure!(error)
             print(error.localizedDescription)
         }
     }
+    
+    func removeStudioFromLiked(referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: ((Error) -> Void)? = nil ) {
+        let reference = referenceType.references
+        reference.removeValue(completionBlock: { error, _ in
+            if let error {
+                print(error.localizedDescription)
+            } else {
+                succed()
+            }
+        })
+    }
+    
+    func setLikeValue(_ likeFromFir: Bool, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: ((Error) -> Void)? = nil) {
+        let ref = referenceType.references
+        let sendLike = ["like": likeFromFir ? false : true ] as [String : Any]
+        ref.setValue(sendLike) { error,_  in
+            if let error {
+                failure!(error)
+            } else {
+                succed()
+            }
+        }
+    }
 }
+
 
 
