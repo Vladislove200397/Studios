@@ -33,16 +33,7 @@ class StudioInfoController: UIViewController {
     private var reviews: ReviewModel?
     private var user = Auth.auth().currentUser
     
-    private var likeFromFIR = Bool() {
-        didSet{
-            
-            let heartFill = UIImage(systemName: "heart.fill")
-            let heart = UIImage(systemName: "heart")!
-            
-            self.likeButton.setImage( likeFromFIR ? heartFill : heart .withRenderingMode(.alwaysTemplate), for: .normal)
-            self.likeButton.tintColor = .red
-        }
-    }
+    var likeFromFIR = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,13 +171,12 @@ class StudioInfoController: UIViewController {
                 break
         }
     }
-    
     private func setupLikeButton() {
-        guard let studioID = studio?.placeID,
-              let userID = user?.uid else { return }
-        FirebaseProvider().getLike(referenceType: .getLike(userID: userID, studioID: studioID)) { like in
-            self.likeFromFIR = like
-        }
+        let heartFill = UIImage(systemName: "heart.fill")
+        let heart = UIImage(systemName: "heart")!
+        
+        self.likeButton.setImage( likeFromFIR ? heartFill : heart .withRenderingMode(.alwaysTemplate), for: .normal)
+        self.likeButton.tintColor = .red
     }
     
     private func getLike() {
@@ -194,15 +184,16 @@ class StudioInfoController: UIViewController {
               let userID = user?.uid else { return }
         FirebaseProvider().getLike(referenceType: .getLike(userID: userID, studioID: studioID)) { like in
             self.likeFromFIR = like
+            self.setupLikeButton()
         }
     }
     
-    private func postLike(referenceType: FirebaseReferenses) {
-        let ref = referenceType.references
-        let sendLike = ["like": likeFromFIR ? false : true ] as [String : Any]
-        ref.setValue(sendLike)
-        getLike()
-    }
+    //    private func postLike(referenceType: FirebaseReferenses) {
+    //        let ref = referenceType.references
+    //        let sendLike = ["like": likeFromFIR ? false : true ] as [String : Any]
+    //        ref.setValue(sendLike)
+    //
+    //    }
     
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
         guard sender.selectedSegmentIndex < 2 else { return }
@@ -223,13 +214,22 @@ class StudioInfoController: UIViewController {
         guard let studio = studio,
               let studioID = studio.placeID,
               let userID =  user?.uid else { return }
-        postLike(referenceType: .getLike(userID: userID, studioID: studioID))
-        
-        FirebaseProvider().postLikedStudio(studio: studio, referenceType: .postLike(userID: userID, studioID: studioID)) {
-            print("успешно")
+        FirebaseProvider().setLikeValue(self.likeFromFIR, referenceType: .getLike(userID: userID, studioID: studioID)) {
+            self.getLike()
+        }
+        if likeFromFIR {
+            FirebaseProvider().removeStudioFromLiked(referenceType: .removeLikedStudio(userID: userID, studioID: studioID)) {
+                print("Удалено")
+            }
+
+        } else {
+            FirebaseProvider().postLikedStudio(studio: studio, referenceType: .postLike(userID: userID, studioID: studioID)) {
+                print("успешно")
+            }
         }
     }
 }
+
 
 extension StudioInfoController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
