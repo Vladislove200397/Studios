@@ -53,7 +53,7 @@ class CalendarCell: UICollectionViewCell {
         setUpCell()
     }
     
-    func setUpCell() {
+   private func setUpCell() {
         let dateFormatterMonth = DateFormatter()
         dateFormatterMonth.locale = Locale(identifier: "en_US_POSIX")
         dateFormatterMonth.dateFormat = "dd-MM-yyyy"

@@ -268,7 +268,6 @@ extension BookingStudioController: UICollectionViewDataSource {
                              pastSelectedCell: selectedCell,
                              type: .booking)
             
-            
             return calendarCell
         }
     }
