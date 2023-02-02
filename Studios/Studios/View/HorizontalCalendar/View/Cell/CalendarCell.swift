@@ -49,7 +49,6 @@ class CalendarCell: UICollectionViewCell {
         self.today = today
         self.index = index
         self.pastSelectedCell = pastSelectedCell
-        self.bookingDay = bookingDay!
         setUpCell()
     }
     

@@ -106,8 +106,7 @@ extension BookingHistoryController: UICollectionViewDataSource {
                          index: indexPath.row,
                          today: redCircleEnabled,
                          pastSelectedCell: selectedCell,
-                         type: .history,
-                         bookingDay: boold)
+                         type: .history)
         
         return calendarCell
     }
