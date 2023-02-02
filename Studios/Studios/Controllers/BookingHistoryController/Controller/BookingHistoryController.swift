@@ -17,15 +17,17 @@ class BookingHistoryController: UIViewController {
     
     private var user = Auth.auth().currentUser
     private var bookingArray: [FirebaseBookingModel] = []
+    private var bookingDays: [Int]? = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getBookings()
         registerCell()
         self.tableView.dataSource = self
-        calendar.collectionView.dataSource = self
+        self.calendar.collectionView.dataSource = self
         calendar.collectionView.delegate = self
-        calendar.set(delegate: self)
+        calendar.set(delegate: self, swipeDelegate: self)
+        self.navigationItem.title = "История бронирований"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,29 +46,30 @@ class BookingHistoryController: UIViewController {
         self.spinner.startAnimating()
         FirebaseProvider().getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) { booking in
             self.bookingArray = booking
-            self.tableView.reloadData()
             self.spinner.stopAnimating()
+            self.tableView.reloadData()
         }
     }
     
     private func showBookingToSelectedDate(_ date: String) {
         guard let user else { return }
         self.spinner.startAnimating()
-        FirebaseProvider().getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) { booking in
+        FirebaseProvider().getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) { [self] booking in
             self.bookingArray = booking
             let filtredFirebaseBookingArr = self.bookingArray.filter({$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
             self.bookingArray = filtredFirebaseBookingArr
-            self.tableView.reloadData()
             self.spinner.stopAnimating()
+            self.tableView.reloadData()
         }
     }
 }
-
+    
+    //MARK: TableViewDataSource
 extension BookingHistoryController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookingArray.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookingCell.id, for: indexPath)
         (cell as? BookingCell)?.set(booking: bookingArray[indexPath.row])
@@ -74,6 +77,8 @@ extension BookingHistoryController: UITableViewDataSource {
     }
 }
 
+
+//MARK: CollectionViewDataSource
 extension BookingHistoryController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -87,17 +92,28 @@ extension BookingHistoryController: UICollectionViewDataSource {
         guard let calendarCell = cell as? CalendarCell else { return cell }
         let redCircleEnabled = calendar.sevenDates[indexPath.row] == calendar.currentDate
         let selectedCell = calendar.sevenDates[indexPath.row] == calendar.dateFromCell
+        var boold = Bool()
+        calendar.sevenDates.forEach { date in
+            let circleOfContainsBooking = bookingArray.contains(where: {$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
+            if circleOfContainsBooking {
+                boold = circleOfContainsBooking
+            }
+        }
+        print(boold)
         
         calendarCell.set(dateToShow: calendar.selectedDate,
                          selectedDate: calendar.sevenDates[indexPath.row],
                          index: indexPath.row,
                          today: redCircleEnabled,
-                         pastSelectedCell: selectedCell)
+                         pastSelectedCell: selectedCell,
+                         type: .history,
+                         bookingDay: boold)
         
         return calendarCell
     }
 }
 
+//MARK: CollectionViewDelegateFlowLayout
 extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let leading = 16.0
@@ -113,14 +129,18 @@ extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarCell else { return }
-        calendar.dateDelegate?.setDate(date: cell.selectedDate)
-        
+        showBookingToSelectedDate(cell.selectedDate)
     }
 }
 
+//MARK: SetDateFromViewDelegate
 extension BookingHistoryController: SetDateFromViewDelegate {
     func setDate(date: String) {
-        print(date)
-        showBookingToSelectedDate(date)
+    }
+}
+
+extension BookingHistoryController: SwipeCalendarDelegate {
+    func didSwipeCalendar() {
+        
     }
 }

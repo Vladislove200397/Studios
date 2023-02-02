@@ -10,15 +10,10 @@
 		8F7BFC5A2406194B69CB2FA0 /* Pods_Studios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52318DDE97DFA9543EF9AC75 /* Pods_Studios.framework */; };
 		B90D38FF2922B23000F77AF8 /* StudioInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D38FD2922B23000F77AF8 /* StudioInfoController.swift */; };
 		B90D39002922B23000F77AF8 /* StudioInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D38FE2922B23000F77AF8 /* StudioInfoController.xib */; };
+		B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */; };
 		B9442C962977E97A00CEDEA6 /* BookingConfirmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */; };
 		B9442C972977E97A00CEDEA6 /* BookingConfirmController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */; };
 		B949AFE7295433F300025011 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFE6295433F300025011 /* UIViewExtension.swift */; };
-		B949AFEB2954B20B00025011 /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFE92954B20B00025011 /* ViewController3.swift */; };
-		B949AFEC2954B20B00025011 /* ViewController3.xib in Resources */ = {isa = PBXBuildFile; fileRef = B949AFEA2954B20B00025011 /* ViewController3.xib */; };
-		B949AFEF2954BA5E00025011 /* ViewController4.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFED2954BA5E00025011 /* ViewController4.swift */; };
-		B949AFF02954BA5E00025011 /* ViewController4.xib in Resources */ = {isa = PBXBuildFile; fileRef = B949AFEE2954BA5E00025011 /* ViewController4.xib */; };
-		B949AFF32954BA6700025011 /* ViewController5.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFF12954BA6700025011 /* ViewController5.swift */; };
-		B949AFF42954BA6700025011 /* ViewController5.xib in Resources */ = {isa = PBXBuildFile; fileRef = B949AFF22954BA6700025011 /* ViewController5.xib */; };
 		B951EBFC297551C90076EB67 /* HorizontalCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B951EBFB297551C90076EB67 /* HorizontalCalendar.swift */; };
 		B951EBFF297551EE0076EB67 /* HorizontalCalendar.xib in Resources */ = {isa = PBXBuildFile; fileRef = B951EBFE297551EE0076EB67 /* HorizontalCalendar.xib */; };
 		B951EC0B2975A72F0076EB67 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B951EC092975A72F0076EB67 /* CalendarCell.swift */; };
@@ -29,10 +24,6 @@
 		B972AB872951C6170025683F /* TabBarEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB862951C6170025683F /* TabBarEnum.swift */; };
 		B972AB892951CCF60025683F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB882951CCF60025683F /* TabBarController.swift */; };
 		B972AB8E2951D6B30025683F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B972AB8D2951D6B30025683F /* SnapKit */; };
-		B972AB912951E1DD0025683F /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB8F2951E1DD0025683F /* ViewController1.swift */; };
-		B972AB922951E1DD0025683F /* ViewController1.xib in Resources */ = {isa = PBXBuildFile; fileRef = B972AB902951E1DD0025683F /* ViewController1.xib */; };
-		B972AB952951E1EE0025683F /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB932951E1EE0025683F /* ViewController2.swift */; };
-		B972AB962951E1EE0025683F /* ViewController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = B972AB942951E1EE0025683F /* ViewController2.xib */; };
 		B972CBF1297E916D00FBFCFD /* ArrayIntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972CBF0297E916D00FBFCFD /* ArrayIntExtension.swift */; };
 		B972CBF4297E97E500FBFCFD /* SelectionTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972CBF3297E97E500FBFCFD /* SelectionTypeEnum.swift */; };
 		B97A7A65292B9B750025F310 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97A7A63292B9B750025F310 /* PhotoCell.swift */; };
@@ -93,15 +84,10 @@
 		5E2CADCA7624B814E168AFB0 /* Pods-Studios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studios.debug.xcconfig"; path = "Target Support Files/Pods-Studios/Pods-Studios.debug.xcconfig"; sourceTree = "<group>"; };
 		B90D38FD2922B23000F77AF8 /* StudioInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioInfoController.swift; sourceTree = "<group>"; };
 		B90D38FE2922B23000F77AF8 /* StudioInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudioInfoController.xib; sourceTree = "<group>"; };
+		B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCellTypeEnum.swift; sourceTree = "<group>"; };
 		B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmController.swift; sourceTree = "<group>"; };
 		B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingConfirmController.xib; sourceTree = "<group>"; };
 		B949AFE6295433F300025011 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		B949AFE92954B20B00025011 /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
-		B949AFEA2954B20B00025011 /* ViewController3.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController3.xib; sourceTree = "<group>"; };
-		B949AFED2954BA5E00025011 /* ViewController4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController4.swift; sourceTree = "<group>"; };
-		B949AFEE2954BA5E00025011 /* ViewController4.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController4.xib; sourceTree = "<group>"; };
-		B949AFF12954BA6700025011 /* ViewController5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController5.swift; sourceTree = "<group>"; };
-		B949AFF22954BA6700025011 /* ViewController5.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController5.xib; sourceTree = "<group>"; };
 		B951EBFB297551C90076EB67 /* HorizontalCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCalendar.swift; sourceTree = "<group>"; };
 		B951EBFE297551EE0076EB67 /* HorizontalCalendar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HorizontalCalendar.xib; sourceTree = "<group>"; };
 		B951EC092975A72F0076EB67 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
@@ -111,10 +97,6 @@
 		B9678D97295A2D3B002CFE75 /* HoursCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoursCell.xib; sourceTree = "<group>"; };
 		B972AB862951C6170025683F /* TabBarEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarEnum.swift; sourceTree = "<group>"; };
 		B972AB882951CCF60025683F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		B972AB8F2951E1DD0025683F /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
-		B972AB902951E1DD0025683F /* ViewController1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController1.xib; sourceTree = "<group>"; };
-		B972AB932951E1EE0025683F /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
-		B972AB942951E1EE0025683F /* ViewController2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController2.xib; sourceTree = "<group>"; };
 		B972CBF0297E916D00FBFCFD /* ArrayIntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIntExtension.swift; sourceTree = "<group>"; };
 		B972CBF3297E97E500FBFCFD /* SelectionTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTypeEnum.swift; sourceTree = "<group>"; };
 		B97A7A63292B9B750025F310 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
@@ -214,6 +196,14 @@
 			path = StudioInfoController;
 			sourceTree = "<group>";
 		};
+		B9245A75298BC30A000C5823 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		B9442C932977DAD600CEDEA6 /* BookingConfirmController */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +237,7 @@
 		B951EBF92975514E0076EB67 /* HorizontalCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				B9245A75298BC30A000C5823 /* Enum */,
 				B951EBFD297551CE0076EB67 /* Xib */,
 				B951EBFA297551A60076EB67 /* View */,
 			);
@@ -293,16 +284,6 @@
 			children = (
 				B972AB862951C6170025683F /* TabBarEnum.swift */,
 				B972AB882951CCF60025683F /* TabBarController.swift */,
-				B972AB8F2951E1DD0025683F /* ViewController1.swift */,
-				B972AB902951E1DD0025683F /* ViewController1.xib */,
-				B972AB932951E1EE0025683F /* ViewController2.swift */,
-				B972AB942951E1EE0025683F /* ViewController2.xib */,
-				B949AFE92954B20B00025011 /* ViewController3.swift */,
-				B949AFEA2954B20B00025011 /* ViewController3.xib */,
-				B949AFED2954BA5E00025011 /* ViewController4.swift */,
-				B949AFEE2954BA5E00025011 /* ViewController4.xib */,
-				B949AFF12954BA6700025011 /* ViewController5.swift */,
-				B949AFF22954BA6700025011 /* ViewController5.xib */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -754,30 +735,25 @@
 			files = (
 				B97A7A66292B9B750025F310 /* PhotoCell.xib in Resources */,
 				B9C63E882933C2C600754496 /* ReviewCell.xib in Resources */,
-				B972AB922951E1DD0025683F /* ViewController1.xib in Resources */,
 				B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */,
 				B9E0F1CB2987B1680087A48A /* LikedStudiosViewController.xib in Resources */,
 				B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */,
 				B9FABB16291A5E3700232D9C /* LaunchScreen.storyboard in Resources */,
 				B90D39002922B23000F77AF8 /* StudioInfoController.xib in Resources */,
 				B9442C972977E97A00CEDEA6 /* BookingConfirmController.xib in Resources */,
-				B949AFF02954BA5E00025011 /* ViewController4.xib in Resources */,
 				B9916B912976B57E00C0A0CF /* SectionHeader.xib in Resources */,
 				B9FA0416295E204E0097DF24 /* BookingHistoryController.xib in Resources */,
 				B9FA041E295E2AB80097DF24 /* BookingCell.xib in Resources */,
-				B949AFF42954BA6700025011 /* ViewController5.xib in Resources */,
 				B9E0F1D22988079F0087A48A /* LikedStudioCell.xib in Resources */,
 				B9EFC27E297F282500FF7291 /* GoogleService-Info.plist in Resources */,
 				B951EBFF297551EE0076EB67 /* HorizontalCalendar.xib in Resources */,
 				B9678D99295A2D3B002CFE75 /* HoursCell.xib in Resources */,
 				B951EC0C2975A72F0076EB67 /* CalendarCell.xib in Resources */,
 				B9FABB13291A5E3700232D9C /* Assets.xcassets in Resources */,
-				B949AFEC2954B20B00025011 /* ViewController3.xib in Resources */,
 				B9A36FC6292CF4ED009825F9 /* InfoViewController.xib in Resources */,
 				B9C63E7F2933C26C00754496 /* ReviewTableController.xib in Resources */,
 				B9FABB11291A5E3500232D9C /* Main.storyboard in Resources */,
 				B99E0D87295E689300E4204B /* FlexView.xib in Resources */,
-				B972AB962951E1EE0025683F /* ViewController2.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,8 +825,6 @@
 			files = (
 				B9442C962977E97A00CEDEA6 /* BookingConfirmController.swift in Sources */,
 				B9FA0411295E19A50097DF24 /* FirebaseBookingModel.swift in Sources */,
-				B949AFEB2954B20B00025011 /* ViewController3.swift in Sources */,
-				B972AB912951E1DD0025683F /* ViewController1.swift in Sources */,
 				B97A7A65292B9B750025F310 /* PhotoCell.swift in Sources */,
 				B9F08DA929478CF20059614C /* BookingStudioController.swift in Sources */,
 				B9C63E872933C2C600754496 /* ReviewCell.swift in Sources */,
@@ -884,14 +858,12 @@
 				B9DC2C032941CE22009EEE43 /* TestController.swift in Sources */,
 				B951EBFC297551C90076EB67 /* HorizontalCalendar.swift in Sources */,
 				B9E0F1D12988079F0087A48A /* LikedStudioCell.swift in Sources */,
+				B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */,
 				B9FA0420295E2FD50097DF24 /* DateFormatterExtension.swift in Sources */,
 				B9C63E772933BC0A00754496 /* StudioReviewAPI.swift in Sources */,
 				B9C63E7E2933C26C00754496 /* ReviewTableController.swift in Sources */,
-				B949AFF32954BA6700025011 /* ViewController5.swift in Sources */,
-				B972AB952951E1EE0025683F /* ViewController2.swift in Sources */,
 				B958E83829212EA400F2059A /* Service.swift in Sources */,
 				B9DD012B297C6870007C266D /* UIImageExtension.swift in Sources */,
-				B949AFEF2954BA5E00025011 /* ViewController4.swift in Sources */,
 				B949AFE7295433F300025011 /* UIViewExtension.swift in Sources */,
 				B9C63E7B2933C0D900754496 /* StudioReviewProvider.swift in Sources */,
 				B9FA0419295E21590097DF24 /* FirebaseProvider.swift in Sources */,

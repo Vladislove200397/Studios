@@ -6,9 +6,7 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseAuth
-import FirebaseCore
+
 
 class TabBarController: UITabBarController {
     
@@ -60,7 +58,5 @@ class TabBarController: UITabBarController {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
     }
-    private func wrappedInNavigationController(with: UIViewController) -> UINavigationController {
-         UINavigationController(rootViewController: with)
-    }
+    
 }

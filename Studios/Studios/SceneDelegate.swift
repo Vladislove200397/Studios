@@ -22,11 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func setTabBarIsInitial() {
         let tabBar = TabBarController(nibName: String(describing: TabBarController.self), bundle: nil)
-        window?.rootViewController = UINavigationController(rootViewController: tabBar)
+        window?.rootViewController = tabBar
     }
     
     func setLoginIsInitial() {
-        window?.rootViewController = UINavigationController(rootViewController: TestController(nibName: String(describing: TestController.self), bundle: nil))
+        let loginVc = TestController(nibName: String(describing: TestController.self), bundle: nil)
+        window?.rootViewController = UINavigationController(rootViewController: loginVc)
         
     }
     

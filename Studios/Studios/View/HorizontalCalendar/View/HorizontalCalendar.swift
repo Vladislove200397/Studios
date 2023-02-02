@@ -13,6 +13,7 @@ class HorizontalCalendar: UIView {
     @IBOutlet weak var monthLabel: UILabel!
     
     weak var dateDelegate: SetDateFromViewDelegate?
+    weak var swipeDelegate: SwipeCalendarDelegate?
     var date = Date()
     var month = [""]
     var sevenDates: [String] = [""]
@@ -54,8 +55,11 @@ class HorizontalCalendar: UIView {
         self.collectionView.register(nib, forCellWithReuseIdentifier: CalendarCell.id)
     }
     
-    func set(delegate: SetDateFromViewDelegate) {
+    func set(delegate: SetDateFromViewDelegate, swipeDelegate: SwipeCalendarDelegate? = nil) {
         self.dateDelegate = delegate
+        if let swipeDelegate {
+            self.swipeDelegate = swipeDelegate
+        }
     }
     
     private func getCurrentDate() {
@@ -238,7 +242,7 @@ class HorizontalCalendar: UIView {
                         self.collectionView.layoutSubviews()
                         self.collectionView.reloadData()
                         self.monthLabel.text = self.monthToShow.localizedCapitalized
-                        
+                        self.swipeDelegate?.didSwipeCalendar()
                     }
                 }
             case .right:
@@ -250,6 +254,7 @@ class HorizontalCalendar: UIView {
                         self.collectionView.layoutSubviews()
                         self.collectionView.reloadData()
                         self.monthLabel.text = self.monthToShow.localizedCapitalized
+                        self.swipeDelegate?.didSwipeCalendar()
                     }
                 }
             default:
