@@ -15,7 +15,9 @@ class CalendarCell: UICollectionViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var redCircle: UIView!
+    @IBOutlet weak var grayCircle: UIView!
     
+    private(set) var type: CalendarCellType = .booking
     private var dateToShow = ""
     var selectedDate = ""
     private var index = 0
@@ -23,6 +25,7 @@ class CalendarCell: UICollectionViewCell {
     private var today = false
     private var selectedColor = UIColor(hue: 0.7, saturation: 0.4, brightness: 0.37, alpha: 1.0) // #40385e
     private var todayColor = UIColor(hue: 0.71, saturation: 0.13, brightness: 0.82, alpha: 1.0) // #bdb5d1
+    private var bookingDay = false
     
     override var isSelected: Bool {
         didSet {
@@ -40,12 +43,13 @@ class CalendarCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    func set(dateToShow: String, selectedDate: String, index: Int, today: Bool, pastSelectedCell: Bool) {
+    func set(dateToShow: String, selectedDate: String, index: Int, today: Bool, pastSelectedCell: Bool, type: CalendarCellType, bookingDay: Bool? = nil) {
         self.selectedDate = selectedDate
         self.dateToShow = dateToShow
         self.today = today
         self.index = index
         self.pastSelectedCell = pastSelectedCell
+        self.bookingDay = bookingDay!
         setUpCell()
     }
     
@@ -65,8 +69,11 @@ class CalendarCell: UICollectionViewCell {
         self.dayLabel.text = dayLit
         self.dateLabel.text = dayNum
         self.redCircle.isHidden = !today
+        self.grayCircle.isHidden = !bookingDay
         self.redCircle.layer.cornerRadius = self.redCircle.bounds.width / 2
         self.redCircle.clipsToBounds = true
+        self.grayCircle.layer.cornerRadius = self.grayCircle.bounds.width / 2
+        self.grayCircle.clipsToBounds = true
         self.stackView.layer.cornerRadius = 12
         self.checkSelectedDate()
     }

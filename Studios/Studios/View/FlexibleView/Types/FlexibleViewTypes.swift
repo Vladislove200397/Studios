@@ -29,19 +29,18 @@ enum FlexibleViewTypes: String, CaseIterable {
             case .date:
                 break
             case .startTime:
-                let vc1 = ViewController5(nibName: String(describing: ViewController5.self), bundle: nil)
-
-                vc1.view.frame = view.bounds
-                view.addSubview(vc1.view)
+//                let vc1 = ViewController5(nibName: String(describing: ViewController5.self), bundle: nil)
+//                vc1.view.frame = view.bounds
+//                view.addSubview(vc1.view)
           
                 return view
             case .endTime:
-                let vc1 = ViewController5(nibName: String(describing: ViewController5.self), bundle: nil)
-                let bookVC = BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
-                bookVC.addChild(vc1)
-                vc1.view.frame = view.bounds
-                view.addSubview(vc1.view)
-                bookVC.didMove(toParent: vc1)
+//                let vc1 = ViewController5(nibName: String(describing: ViewController5.self), bundle: nil)
+                //let bookVC = BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
+//                bookVC.addChild(vc1)
+//                vc1.view.frame = view.bounds
+//                view.addSubview(vc1.view)
+//                bookVC.didMove(toParent: vc1)
                 return view
         }
         return UIView()

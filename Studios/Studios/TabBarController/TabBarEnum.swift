@@ -23,13 +23,15 @@ enum TabItem: String, CaseIterable {
                 let mapVC = storyboard.instantiateViewController(withIdentifier: "ViewController")
                 return mapVC
             case .favorite:
-                return LikedStudiosViewController(nibName: String(describing: LikedStudiosViewController.self), bundle: nil)
+                let vc = LikedStudiosViewController(nibName: String(describing: LikedStudiosViewController.self), bundle: nil)
+                return self.wrappedInNavigationController(with: vc)
             case .booking:
-                return BookingHistoryController(nibName: String(describing: BookingHistoryController.self), bundle: nil)
+                let vc = BookingHistoryController(nibName: String(describing: BookingHistoryController.self), bundle: nil)
+                return self.wrappedInNavigationController(with: vc)
             case .test:
-                return ViewController5(nibName: String(describing: ViewController5.self), bundle: nil)
+                return UIViewController()
             case . test1:
-                return ViewController3(nibName: String(describing: ViewController3.self), bundle: nil)
+                return UIViewController()
         }
     }
     
@@ -47,5 +49,9 @@ enum TabItem: String, CaseIterable {
                 return UIImage(systemName: "square.and.arrow.down.on.square")!
             
         }
+    }
+    
+    private func wrappedInNavigationController(with: UIViewController) -> UINavigationController {
+         UINavigationController(rootViewController: with)
     }
 }

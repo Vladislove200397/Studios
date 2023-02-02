@@ -265,7 +265,8 @@ extension BookingStudioController: UICollectionViewDataSource {
                              selectedDate: calendar.sevenDates[indexPath.row],
                              index: indexPath.row,
                              today: redCircleEnabled,
-                             pastSelectedCell: selectedCell)
+                             pastSelectedCell: selectedCell,
+                             type: .booking)
             
             
             return calendarCell

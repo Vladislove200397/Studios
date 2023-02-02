@@ -22,3 +22,7 @@ protocol SetDateFromViewDelegate: AnyObject {
 protocol SetSelectedCellDelegate: AnyObject {
     func setSelectedCell(date: String)
 }
+
+protocol SwipeCalendarDelegate: AnyObject {
+    func didSwipeCalendar()
+}
