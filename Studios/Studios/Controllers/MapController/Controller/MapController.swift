@@ -99,7 +99,7 @@ extension MapController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
+
         mapView.animate(toLocation: CLLocationCoordinate2D(
             latitude: marker.position.latitude,
             longitude: marker.position.longitude))

@@ -18,7 +18,7 @@ class BookingHistoryController: UIViewController {
     private var user = Auth.auth().currentUser
     private var bookingArray: [FirebaseBookingModel] = []
     private var bookingDays: [Int]? = []
-    
+    private var presentingBookingArray: [FirebaseBookingModel] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         getBookings()
@@ -48,31 +48,26 @@ class BookingHistoryController: UIViewController {
             self.bookingArray = booking
             self.spinner.stopAnimating()
             self.tableView.reloadData()
+            self.calendar.collectionView.reloadData()
         }
     }
     
     private func showBookingToSelectedDate(_ date: String) {
-        guard let user else { return }
-        self.spinner.startAnimating()
-        FirebaseProvider().getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) { [self] booking in
-            self.bookingArray = booking
-            let filtredFirebaseBookingArr = self.bookingArray.filter({$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
-            self.bookingArray = filtredFirebaseBookingArr
-            self.spinner.stopAnimating()
-            self.tableView.reloadData()
-        }
+        let filtredFirebaseBookingArr = self.bookingArray.filter({$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
+        self.presentingBookingArray = filtredFirebaseBookingArr
+        self.tableView.reloadData()
     }
 }
     
     //MARK: TableViewDataSource
 extension BookingHistoryController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookingArray.count
+        return presentingBookingArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookingCell.id, for: indexPath)
-        (cell as? BookingCell)?.set(booking: bookingArray[indexPath.row])
+        (cell as? BookingCell)?.set(booking: presentingBookingArray[indexPath.row])
         return cell
     }
 }
@@ -92,21 +87,16 @@ extension BookingHistoryController: UICollectionViewDataSource {
         guard let calendarCell = cell as? CalendarCell else { return cell }
         let redCircleEnabled = calendar.sevenDates[indexPath.row] == calendar.currentDate
         let selectedCell = calendar.sevenDates[indexPath.row] == calendar.dateFromCell
-        var boold = Bool()
-        calendar.sevenDates.forEach { date in
-            let circleOfContainsBooking = bookingArray.contains(where: {$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
-            if circleOfContainsBooking {
-                boold = circleOfContainsBooking
-            }
-        }
-        print(boold)
+        let circleOfContainsBooking = bookingArray.contains(where: {$0.bookingDay?.formatData(formatType: .ddMMyyyy) == calendar.sevenDates[indexPath.row]})
+        print(circleOfContainsBooking)
         
         calendarCell.set(dateToShow: calendar.selectedDate,
                          selectedDate: calendar.sevenDates[indexPath.row],
                          index: indexPath.row,
                          today: redCircleEnabled,
                          pastSelectedCell: selectedCell,
-                         type: .history)
+                         type: .history,
+                         bookingDay: circleOfContainsBooking)
         
         return calendarCell
     }
@@ -140,6 +130,5 @@ extension BookingHistoryController: SetDateFromViewDelegate {
 
 extension BookingHistoryController: SwipeCalendarDelegate {
     func didSwipeCalendar() {
-        
     }
 }
