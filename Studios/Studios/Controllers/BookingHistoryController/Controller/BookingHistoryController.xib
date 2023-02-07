@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookingHistoryController" customModule="Studios" customModuleProvider="target">
             <connections>
+                <outlet property="alertLabel" destination="8Jw-WR-65S" id="P42-Ng-Aaz"/>
+                <outlet property="alertView" destination="bMW-zs-quW" id="HAu-61-f1i"/>
                 <outlet property="calendar" destination="eUO-ps-uK3" id="EFu-ZE-rSL"/>
                 <outlet property="spinner" destination="btq-kJ-VCi" id="kjm-Cb-YOM"/>
                 <outlet property="tableView" destination="jm2-y2-qSv" id="0AT-sO-e4B"/>
@@ -35,18 +37,39 @@
                         <constraint firstAttribute="height" constant="107" id="nBS-x6-Uao"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMW-zs-quW">
+                    <rect key="frame" x="0.0" y="154" width="390" height="656"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выберите дату на календаре для просмотра ваших бронирований." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Jw-WR-65S">
+                            <rect key="frame" x="20" y="310" width="350" height="36"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="8Jw-WR-65S" secondAttribute="trailing" constant="20" id="3J5-XK-p5b"/>
+                        <constraint firstItem="8Jw-WR-65S" firstAttribute="leading" secondItem="bMW-zs-quW" secondAttribute="leading" constant="20" id="8eH-7t-Boa"/>
+                        <constraint firstItem="8Jw-WR-65S" firstAttribute="centerY" secondItem="bMW-zs-quW" secondAttribute="centerY" id="xEy-jj-jkc"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bMW-zs-quW" secondAttribute="bottom" id="5AX-FM-7HZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jm2-y2-qSv" secondAttribute="trailing" id="5pU-qc-MD2"/>
                 <constraint firstItem="jm2-y2-qSv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8dW-K3-RzC"/>
+                <constraint firstItem="bMW-zs-quW" firstAttribute="top" secondItem="eUO-ps-uK3" secondAttribute="bottom" id="PW9-Kg-A4G"/>
                 <constraint firstItem="jm2-y2-qSv" firstAttribute="top" secondItem="eUO-ps-uK3" secondAttribute="bottom" id="TBP-bK-6ZD"/>
                 <constraint firstItem="eUO-ps-uK3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dlI-Tu-bJu"/>
                 <constraint firstItem="eUO-ps-uK3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="dxB-BJ-OLW"/>
                 <constraint firstItem="btq-kJ-VCi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hen-7E-mR2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eUO-ps-uK3" secondAttribute="trailing" constant="16" id="mNm-3i-ST6"/>
+                <constraint firstItem="bMW-zs-quW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="o8u-Cs-Xq7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="jm2-y2-qSv" secondAttribute="bottom" id="pdG-lR-x9t"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bMW-zs-quW" secondAttribute="trailing" id="sgf-WQ-sk2"/>
                 <constraint firstItem="btq-kJ-VCi" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="ypT-tT-IQ2"/>
             </constraints>
             <point key="canvasLocation" x="24.615384615384613" y="20.616113744075829"/>
