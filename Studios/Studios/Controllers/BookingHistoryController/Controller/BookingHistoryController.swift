@@ -14,6 +14,8 @@ class BookingHistoryController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var calendar: HorizontalCalendar!
+    @IBOutlet weak var alertView: UIView!
+    @IBOutlet weak var alertLabel: UILabel!
     
     private var user = Auth.auth().currentUser
     private var bookingArray: [FirebaseBookingModel] = []
@@ -27,13 +29,19 @@ class BookingHistoryController: UIViewController {
         self.calendar.collectionView.dataSource = self
         calendar.collectionView.delegate = self
         calendar.set(delegate: self, swipeDelegate: self)
-        self.navigationItem.title = "История бронирований"
+        setupVC()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getBookings()
         tableView.reloadData()
+    }
+    
+    private func setupVC() {
+        self.navigationItem.title = "История бронирований"
+        alertView.isHidden = false
+        tableView.isHidden = true
     }
     
     private func registerCell() {
@@ -56,6 +64,14 @@ class BookingHistoryController: UIViewController {
         let filtredFirebaseBookingArr = self.bookingArray.filter({$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
         self.presentingBookingArray = filtredFirebaseBookingArr
         self.tableView.reloadData()
+        if filtredFirebaseBookingArr.isEmpty {
+            tableView.isHidden = true
+            alertView.isHidden = false
+            alertLabel.text = "На эту дату нет бронирований."
+        } else {
+            tableView.isHidden = false
+            alertView.isHidden = true
+        }
     }
 }
     
