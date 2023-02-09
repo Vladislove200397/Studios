@@ -9,8 +9,9 @@ import Foundation
 import FirebaseAuth
 
 class FirebaseUser {
-    var userName = String()
-    var userEmail = String()
-    var uid = String()
-    var photoURL = String()
+    var userName: String
+    var userEmail: String
+    var userPhone: String
+    var uid: String
+    var photoURL: String
 }

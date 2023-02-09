@@ -95,8 +95,10 @@ public class FirebaseProvider {
                     let bookingID = bookingObject ["booking_id"] as! Int
                     let studioID = bookingObject["studio_id"] as! String
                     let bookingDay = bookingObject["booking_day"] as! Int
+                    let comment = bookingObject["comment"] as! String
+                    let userPhone = bookingObject["user_phone"] as! String
                     
-                    let firebaseBooking = FirebaseBookingModel(bookingTime: time, studioName: studioName, bookingID: bookingID, studioID: studioID, bookingDay: bookingDay)
+                    let firebaseBooking = FirebaseBookingModel(bookingTime: time, bookingID: bookingID, userPhone: userPhone, studioID: studioID, studioName: studioName, comment: comment, bookingDay: bookingDay)
                     
                     bookingArr.append(firebaseBooking)
                 }
@@ -193,6 +195,43 @@ public class FirebaseProvider {
         ref.setValue(sendLike) { error,_  in
             if let error {
                 failure!(error)
+            } else {
+                succed()
+            }
+        }
+    }
+    
+    func updateStudioBooking(_ bookingModel: FirebaseBookingModel, _ referenceType: FirebaseReferenses, succed: @escaping (() -> Void), failure: @escaping (() -> Void)) {
+       
+        guard let userID = bookingModel.userID,
+              let userName = bookingModel.userName,
+              let userEmail = bookingModel.userEmail,
+              let userPhone = bookingModel.userPhone,
+              let bookingTime = bookingModel.bookingTime,
+              let studioID = bookingModel.studioID,
+              let studioName = bookingModel.studioName,
+              let comment = bookingModel.comment else { return }
+        
+        let ref = referenceType.references
+        
+        let timeOfStartDay = getStartDayTime(timeStamp: bookingTime.first ?? 0)
+        let booking = ["user_id": userID,
+                       "user": userName,
+                       "user_email": userEmail,
+                       "user_phone": userPhone,
+                       "booking_time": bookingTime,
+                       "studio_id": studioID,
+                       "studio_name": studioName,
+                       "booking_id": bookingModel.bookingID!,
+                       "comment": comment,
+                       "booking_day": timeOfStartDay
+        ] as [String : Any]
+        
+        ref.child("\(bookingModel.bookingID!)").setValue(booking) {
+            (error:Error?, ref:DatabaseReference) in
+            if let error = error {
+                failure()
+                print(error.localizedDescription)
             } else {
                 succed()
             }

@@ -9,6 +9,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
+import FirebaseStorage
 
 class BookingConfirmController: UIViewController {
     @IBOutlet weak var userNameTF: UITextField!
@@ -25,7 +26,9 @@ class BookingConfirmController: UIViewController {
     private var timer: Timer?
     private var type: ValidationType = .name
     private var bookingType: SelectionType = .singleSelection
-    
+    private var controllerType: BookingStudioControllerType = .booking
+    private var editBookingModel = FirebaseBookingModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupVC()
@@ -40,10 +43,11 @@ class BookingConfirmController: UIViewController {
         print("DEINIT CONFIRMATION CONTROLLER")
     }
     
-    func set(bookingModel: FirebaseBookingModel, bookingType: SelectionType) {
+    func set(bookingModel: FirebaseBookingModel, bookingType: SelectionType, controllerType: BookingStudioControllerType) {
         self.bookingModel = bookingModel
         self.bookingType = bookingType
         self.title = "Запись"
+        self.controllerType = controllerType
     }
     
     private func setupVC() {
@@ -60,7 +64,6 @@ class BookingConfirmController: UIViewController {
         self.bookingTimeLabel.text = message(bookingTime)
                                     
                                     
-    
         let studioImage = UIImage().imageWith(bookingModel.studioName!)
         self.studioImageView.image = studioImage
         self.studioImageView.clipsToBounds = true
@@ -68,6 +71,11 @@ class BookingConfirmController: UIViewController {
         
         self.bookingButton.isEnabled = false
         self.bookingButton.setTitle("Заполните поля", for: .normal)
+        
+        if controllerType == .editBooking {
+            self.commentTF.text = bookingModel.comment
+            self.userPhoneNumberTF.text = bookingModel.userPhone
+        }
     }
     
     private func validateTextFields() {
@@ -128,24 +136,44 @@ class BookingConfirmController: UIViewController {
         bookingModel.userEmail = userEmail
         self.spinner.startAnimating()
         
-        FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postUserBookingRef(userID: userID)) {
-            print("ЗАБРОНИРОВАНО")
-            self.spinner.stopAnimating()
-        } failure: {
-            self.spinner.stopAnimating()
-            print("ERROR")
-        }
-        
-        FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postStudioBookingRef(studioID: studioID)) {
-            Service().alert.showAlert(controller: self, title: "Успешно", message: self.message(bookingTime)) {
-                self.spinner.stopAnimating()
-                self.dismiss(animated: true)
-            }
-        } failure: {
-            Service().alert.showAlert(controller: self, title: "Упс.. Произошла ошибка", message: "Не удалось забронировать студию, попробуйте позже.") {
-                self.spinner.stopAnimating()
-                self.dismiss(animated: true)
-            }
+        switch controllerType {
+            case .booking:
+                FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postUserBookingRef(userID: userID)) {
+                    print("ЗАБРОНИРОВАНО")
+                    self.spinner.stopAnimating()
+                } failure: {
+                    self.spinner.stopAnimating()
+                    print("ERROR")
+                }
+                
+                FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postStudioBookingRef(studioID: studioID)) {
+                    Service().alert.showAlert(controller: self, title: "Успешно", message: self.message(bookingTime)) {
+                        self.spinner.stopAnimating()
+                        self.dismiss(animated: true)
+                    }
+                } failure: {
+                    Service().alert.showAlert(controller: self, title: "Упс.. Произошла ошибка", message: "Не удалось забронировать студию, попробуйте позже.") {
+                        self.spinner.stopAnimating()
+                        self.dismiss(animated: true)
+                    }
+                }
+                
+            case .editBooking:
+                FirebaseProvider().updateStudioBooking(bookingModel, .postStudioBookingRef(studioID: studioID)) {
+                    print("SUCCED")
+                    self.spinner.stopAnimating()
+                } failure: {
+                    print("ZALUPA")
+                    self.spinner.stopAnimating()
+                }
+                
+                FirebaseProvider().updateStudioBooking(bookingModel, .postUserBookingRef(userID: userID)) {
+                    print("SUCCED")
+                    self.spinner.stopAnimating()
+                } failure: {
+                    print("ZALUPA")
+                    self.spinner.stopAnimating()
+                }
         }
     }
 }
