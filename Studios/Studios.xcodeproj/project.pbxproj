@@ -34,6 +34,8 @@
 		B99E0D89295E689D00E4204B /* FlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99E0D88295E689D00E4204B /* FlexView.swift */; };
 		B9A36FC5292CF4ED009825F9 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A36FC3292CF4ED009825F9 /* InfoViewController.swift */; };
 		B9A36FC6292CF4ED009825F9 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9A36FC4292CF4ED009825F9 /* InfoViewController.xib */; };
+		B9B43FDB299507C9003A073D /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B43FD9299507C9003A073D /* RegistrationViewController.swift */; };
+		B9B43FDC299507C9003A073D /* RegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9B43FDA299507C9003A073D /* RegistrationViewController.xib */; };
 		B9C63E772933BC0A00754496 /* StudioReviewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E762933BC0A00754496 /* StudioReviewAPI.swift */; };
 		B9C63E792933BED900754496 /* StudioReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E782933BED900754496 /* StudioReviewModel.swift */; };
 		B9C63E7B2933C0D900754496 /* StudioReviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */; };
@@ -60,6 +62,7 @@
 		B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9F08DA829478CF20059614C /* BookingStudioController.xib */; };
 		B9F08DAD294793890059614C /* FirebaseUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F08DAC294793890059614C /* FirebaseUserModel.swift */; };
 		B9F08DB029479CF30059614C /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F08DAF29479CF30059614C /* Environment.swift */; };
+		B9F44DD62994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F44DD52994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift */; };
 		B9FA0411295E19A50097DF24 /* FirebaseBookingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA0410295E19A50097DF24 /* FirebaseBookingModel.swift */; };
 		B9FA0415295E204E0097DF24 /* BookingHistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA0413295E204E0097DF24 /* BookingHistoryController.swift */; };
 		B9FA0416295E204E0097DF24 /* BookingHistoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FA0414295E204E0097DF24 /* BookingHistoryController.xib */; };
@@ -107,6 +110,8 @@
 		B99E0D88295E689D00E4204B /* FlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexView.swift; sourceTree = "<group>"; };
 		B9A36FC3292CF4ED009825F9 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		B9A36FC4292CF4ED009825F9 /* InfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoViewController.xib; sourceTree = "<group>"; };
+		B9B43FD9299507C9003A073D /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		B9B43FDA299507C9003A073D /* RegistrationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationViewController.xib; sourceTree = "<group>"; };
 		B9C63E762933BC0A00754496 /* StudioReviewAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewAPI.swift; sourceTree = "<group>"; };
 		B9C63E782933BED900754496 /* StudioReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewModel.swift; sourceTree = "<group>"; };
 		B9C63E7A2933C0D900754496 /* StudioReviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioReviewProvider.swift; sourceTree = "<group>"; };
@@ -133,6 +138,7 @@
 		B9F08DA829478CF20059614C /* BookingStudioController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingStudioController.xib; sourceTree = "<group>"; };
 		B9F08DAC294793890059614C /* FirebaseUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserModel.swift; sourceTree = "<group>"; };
 		B9F08DAF29479CF30059614C /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		B9F44DD52994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingStudioControllerTypeEnum.swift; sourceTree = "<group>"; };
 		B9FA0410295E19A50097DF24 /* FirebaseBookingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseBookingModel.swift; sourceTree = "<group>"; };
 		B9FA0413295E204E0097DF24 /* BookingHistoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingHistoryController.swift; sourceTree = "<group>"; };
 		B9FA0414295E204E0097DF24 /* BookingHistoryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingHistoryController.xib; sourceTree = "<group>"; };
@@ -293,6 +299,7 @@
 			children = (
 				B9DD012E297C8E84007C266D /* ValidationType.swift */,
 				B972CBF3297E97E500FBFCFD /* SelectionTypeEnum.swift */,
+				B9F44DD52994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -355,6 +362,15 @@
 				B9C63E842933C2BB00754496 /* Cell */,
 			);
 			path = ReviewsController;
+			sourceTree = "<group>";
+		};
+		B9B43FD8299507A5003A073D /* RegistrationController */ = {
+			isa = PBXGroup;
+			children = (
+				B9B43FD9299507C9003A073D /* RegistrationViewController.swift */,
+				B9B43FDA299507C9003A073D /* RegistrationViewController.xib */,
+			);
+			path = RegistrationController;
 			sourceTree = "<group>";
 		};
 		B9C63E732933BB9B00754496 /* GooglePlaceAPI */ = {
@@ -646,6 +662,7 @@
 		B9FABB63291BBFEE00232D9C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B9B43FD8299507A5003A073D /* RegistrationController */,
 				B9E0F1C72987B1380087A48A /* LikedStudiosController */,
 				B97A7A67292BAD8B0025F310 /* MapController */,
 				B90D38FC2922B1D800F77AF8 /* StudioInfoController */,
@@ -738,6 +755,7 @@
 				B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */,
 				B9E0F1CB2987B1680087A48A /* LikedStudiosViewController.xib in Resources */,
 				B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */,
+				B9B43FDC299507C9003A073D /* RegistrationViewController.xib in Resources */,
 				B9FABB16291A5E3700232D9C /* LaunchScreen.storyboard in Resources */,
 				B90D39002922B23000F77AF8 /* StudioInfoController.xib in Resources */,
 				B9442C972977E97A00CEDEA6 /* BookingConfirmController.xib in Resources */,
@@ -831,6 +849,7 @@
 				B9678D98295A2D3B002CFE75 /* HoursCell.swift in Sources */,
 				B9FABB60291B112000232D9C /* SSPLace.swift in Sources */,
 				B9FABB0E291A5E3500232D9C /* MapController.swift in Sources */,
+				B9F44DD62994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift in Sources */,
 				B9DD0131297C97CF007C266D /* UITextFieldExtension.swift in Sources */,
 				B9FABB0A291A5E3500232D9C /* AppDelegate.swift in Sources */,
 				B9F08DB029479CF30059614C /* Environment.swift in Sources */,
@@ -861,6 +880,7 @@
 				B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */,
 				B9FA0420295E2FD50097DF24 /* DateFormatterExtension.swift in Sources */,
 				B9C63E772933BC0A00754496 /* StudioReviewAPI.swift in Sources */,
+				B9B43FDB299507C9003A073D /* RegistrationViewController.swift in Sources */,
 				B9C63E7E2933C26C00754496 /* ReviewTableController.swift in Sources */,
 				B958E83829212EA400F2059A /* Service.swift in Sources */,
 				B9DD012B297C6870007C266D /* UIImageExtension.swift in Sources */,

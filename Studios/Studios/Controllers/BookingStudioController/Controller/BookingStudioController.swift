@@ -32,6 +32,8 @@ class BookingStudioController: UIViewController {
     private var previusSelectedIndexPathRow = 0
     private var tapCounter = 0
     private var afterResetCells = false
+    private var controllerType: BookingStudioControllerType = .booking
+    private var bookingModelEdit = FirebaseBookingModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,9 +70,12 @@ class BookingStudioController: UIViewController {
         self.collectionView.register(sectionHeaderNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.id)
     }
     
-    func setData(studio: GMSPlace) {
+    func setData(studio: GMSPlace, controllerType: BookingStudioControllerType, bookingModel: FirebaseBookingModel? = nil) {
         self.studio = studio
         self.title = "Выберите дату и время"
+        self.controllerType = controllerType
+        guard let bookingModel else { return }
+        self.bookingModelEdit = bookingModel
     }
     
     private func getCurrentDateTimeStamp() -> Int {
@@ -156,17 +161,40 @@ class BookingStudioController: UIViewController {
               let studioName = self.studio?.name
         else { return }
         
-        let bookingModel = FirebaseBookingModel(bookingTime: self.compareBookingTImeStampArray,
-                                                userName: user.displayName,
-                                                userEmail: user.email,
-                                                userID: user.uid,
-                                                studioID: studioID,
-                                                studioName: studioName)
-        
         let confirmationBookingVC = BookingConfirmController(nibName: String(describing: BookingConfirmController.self), bundle: nil)
         
-        confirmationBookingVC.set(bookingModel: bookingModel, bookingType: self.selectionType)
-        navigationController?.pushViewController(confirmationBookingVC, animated: true)
+        switch controllerType {
+            case .booking:
+                let bookingModel = FirebaseBookingModel(bookingTime: self.compareBookingTImeStampArray,
+                                                        userName: user.displayName,
+                                                        userEmail: user.email,
+                                                        userID: user.uid,
+                                                        studioID: studioID,
+                                                        studioName: studioName)
+                
+                confirmationBookingVC.set(bookingModel: bookingModel, bookingType: self.selectionType, controllerType: .booking)
+                navigationController?.pushViewController(confirmationBookingVC, animated: true)
+            case .editBooking:
+                let bookingModel = FirebaseBookingModel(bookingTime: self.compareBookingTImeStampArray,
+                                                        bookingID: bookingModelEdit.bookingID,
+                                                        userName: user.displayName,
+                                                        userEmail: user.email,
+                                                        userPhone: bookingModelEdit.userPhone,
+                                                        userID: user.uid,
+                                                        studioID: studioID,
+                                                        studioName: studioName,
+                                                        comment: bookingModelEdit.comment)
+                
+                
+                confirmationBookingVC.set(bookingModel: bookingModel, bookingType: self.selectionType, controllerType: .editBooking)
+                navigationController?.pushViewController(confirmationBookingVC, animated: true)
+        }
+        
+        
+        
+        
+        
+        
     }
     
     private func allowSelectNextCell(bookingTime: Int) {

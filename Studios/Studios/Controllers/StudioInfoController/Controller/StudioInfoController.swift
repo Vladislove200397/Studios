@@ -206,7 +206,7 @@ class StudioInfoController: UIViewController {
         let bookingVC =  BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
         let nav = UINavigationController(rootViewController:    bookingVC)
         
-        bookingVC.setData(studio: studio)
+        bookingVC.setData(studio: studio, controllerType: .booking)
         present(nav, animated: true)
     }
     

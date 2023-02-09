@@ -12,7 +12,7 @@ class BookingCell: UITableViewCell {
     @IBOutlet weak var cellStudioNameLabel: UILabel!
     @IBOutlet weak var cellBookingTimeLabel: UILabel!
     
-    private var bookingModel = FirebaseBookingModel()
+    private(set) public var bookingModel = FirebaseBookingModel()
     override func awakeFromNib() {
         super.awakeFromNib()
         

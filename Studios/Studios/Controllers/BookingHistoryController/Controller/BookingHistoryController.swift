@@ -21,12 +21,14 @@ class BookingHistoryController: UIViewController {
     private var bookingArray: [FirebaseBookingModel] = []
     private var bookingDays: [Int]? = []
     private var presentingBookingArray: [FirebaseBookingModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getBookings()
         registerCell()
-        self.tableView.dataSource = self
-        self.calendar.collectionView.dataSource = self
+        tableView.dataSource = self
+        tableView.delegate = self
+        calendar.collectionView.dataSource = self
         calendar.collectionView.delegate = self
         calendar.set(delegate: self, swipeDelegate: self)
         setupVC()
@@ -88,6 +90,17 @@ extension BookingHistoryController: UITableViewDataSource {
     }
 }
 
+//MARK: TableViewDelegate
+extension BookingHistoryController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? BookingCell else { return }
+        let bookingVC = BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
+        guard let studio = Service.shared.studios.first(where: {$0.placeID == cell.bookingModel.studioID}) else { return }
+        
+        bookingVC.setData(studio: studio, controllerType: .editBooking, bookingModel: cell.bookingModel)
+        navigationController?.pushViewController(bookingVC, animated: true)
+    }
+}
 
 //MARK: CollectionViewDataSource
 extension BookingHistoryController: UICollectionViewDataSource {
