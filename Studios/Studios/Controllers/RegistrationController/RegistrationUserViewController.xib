@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegistrationUserViewController" customModule="Studios" customModuleProvider="target">
+            <connections>
+                <outlet property="doublePasswordTF" destination="ujw-FV-l2k" id="8Ox-zG-09A"/>
+                <outlet property="emailTF" destination="11Z-WN-Wou" id="zCu-iS-g2F"/>
+                <outlet property="nameTF" destination="G6S-4z-cp6" id="gIL-Mn-f9f"/>
+                <outlet property="passwordTF" destination="b4C-oP-WWr" id="YcK-2L-SHf"/>
+                <outlet property="phoneNumberTF" destination="rhb-UK-knw" id="dX1-6K-3GU"/>
+                <outlet property="registrationButton" destination="z2g-Fq-L1T" id="Rwx-xR-5Vm"/>
+                <outlet property="scrollView" destination="Lon-o1-S2Z" id="V6b-kL-VA7"/>
+                <outlet property="surnameTF" destination="Q25-94-Q48" id="eui-Kg-ZCX"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lon-o1-S2Z">
+                    <rect key="frame" x="0.0" y="47" width="390" height="763"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDI-Bh-t8e">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="763"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1b3-uK-N54">
+                                    <rect key="frame" x="16" y="0.0" width="358" height="114.33333333333333"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pyb-QS-eDQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="15.666666666666666"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" tag="1001" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G6S-4z-cp6">
+                                            <rect key="frame" x="0.0" y="20.666666666666671" width="358" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldsDidEditing:" destination="-1" eventType="editingChanged" id="rV1-mp-GKE"/>
+                                                <outlet property="delegate" destination="-1" id="e2r-px-AGy"/>
+                                            </connections>
+                                        </textField>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите Фамилию" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uht-VS-FfS">
+                                            <rect key="frame" x="0.0" y="59.666666666666664" width="358" height="15.666666666666664"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" tag="1001" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Фамилия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q25-94-Q48">
+                                            <rect key="frame" x="0.0" y="80.333333333333329" width="358" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldsDidEditing:" destination="-1" eventType="editingChanged" id="QIa-Ex-ogr"/>
+                                                <outlet property="delegate" destination="-1" id="Q4b-MT-Foy"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OUg-nG-CaQ">
+                                    <rect key="frame" x="16" y="134.33333333333334" width="358" height="54.666666666666657"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFJ-SI-HoJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="15.666666666666666"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" tag="1002" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="11Z-WN-Wou">
+                                            <rect key="frame" x="0.0" y="20.666666666666657" width="358" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldsDidEditing:" destination="-1" eventType="editingChanged" id="ROm-Wo-NBt"/>
+                                                <outlet property="delegate" destination="-1" id="kbE-mz-SFp"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uBQ-eu-5Li">
+                                    <rect key="frame" x="16" y="209" width="358" height="86"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите номер телефона" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MWn-cT-1Jw">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="15.666666666666666"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Номер телефона будет использован для подтверждения бронирований." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wR1-zd-hG9">
+                                            <rect key="frame" x="0.0" y="20.666666666666686" width="358" height="26.333333333333329"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" tag="1003" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="+375291234567" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rhb-UK-knw">
+                                            <rect key="frame" x="0.0" y="52" width="358" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldsDidEditing:" destination="-1" eventType="editingChanged" id="Uoi-zg-o0X"/>
+                                                <outlet property="delegate" destination="-1" id="fmA-07-GKI"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="leE-HJ-bD8">
+                                    <rect key="frame" x="16" y="315" width="358" height="54.666666666666686"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите пароль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tje-KO-vpI">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="15.666666666666666"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" tag="1004" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b4C-oP-WWr">
+                                            <rect key="frame" x="0.0" y="20.666666666666686" width="358" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldsDidEditing:" destination="-1" eventType="editingChanged" id="x7r-EW-ftL"/>
+                                                <outlet property="delegate" destination="-1" id="a2K-mV-6rt"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="y6H-7n-bwn">
+                                    <rect key="frame" x="16" y="379.66666666666669" width="358" height="54.666666666666686"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Повторите пароль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBK-uy-Lfn">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="15.666666666666666"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" tag="1005" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Повторите пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ujw-FV-l2k">
+                                            <rect key="frame" x="0.0" y="20.666666666666629" width="358" height="34"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldDidBeginEditing:" destination="-1" eventType="editingDidBegin" id="wDV-fo-wT6"/>
+                                                <action selector="textFieldDidEndEditing:" destination="-1" eventType="editingDidEnd" id="siC-FD-vfT"/>
+                                                <action selector="textFieldsDidEditing:" destination="-1" eventType="editingChanged" id="4Zj-jn-1jn"/>
+                                                <outlet property="delegate" destination="-1" id="10S-dL-ThZ"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </stackView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2g-Fq-L1T">
+                                    <rect key="frame" x="132" y="504.33333333333337" width="126" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="hl1-LE-wLz"/>
+                                    </constraints>
+                                    <color key="tintColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Регистрация">
+                                        <color key="baseBackgroundColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </buttonConfiguration>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="y6H-7n-bwn" secondAttribute="trailing" constant="16" id="7aR-cM-rZY"/>
+                                <constraint firstItem="OUg-nG-CaQ" firstAttribute="top" secondItem="1b3-uK-N54" secondAttribute="bottom" constant="20" id="FY7-jd-XfU"/>
+                                <constraint firstItem="z2g-Fq-L1T" firstAttribute="top" secondItem="y6H-7n-bwn" secondAttribute="bottom" constant="70" id="Jna-5P-zKR"/>
+                                <constraint firstAttribute="trailing" secondItem="OUg-nG-CaQ" secondAttribute="trailing" constant="16" id="QfN-VH-18e"/>
+                                <constraint firstAttribute="trailing" secondItem="leE-HJ-bD8" secondAttribute="trailing" constant="16" id="R23-Lr-TaE"/>
+                                <constraint firstItem="uBQ-eu-5Li" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="R2e-sQ-lFd"/>
+                                <constraint firstItem="uBQ-eu-5Li" firstAttribute="top" secondItem="OUg-nG-CaQ" secondAttribute="bottom" constant="20" id="aQQ-4N-t0V"/>
+                                <constraint firstItem="1b3-uK-N54" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="apE-2a-H8j"/>
+                                <constraint firstItem="leE-HJ-bD8" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="cUU-QR-OYn"/>
+                                <constraint firstItem="z2g-Fq-L1T" firstAttribute="centerX" secondItem="bDI-Bh-t8e" secondAttribute="centerX" id="cXY-pi-jZu"/>
+                                <constraint firstItem="OUg-nG-CaQ" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="eSk-dZ-CyB"/>
+                                <constraint firstItem="leE-HJ-bD8" firstAttribute="top" secondItem="uBQ-eu-5Li" secondAttribute="bottom" constant="20" id="ekv-Hg-KzR"/>
+                                <constraint firstItem="y6H-7n-bwn" firstAttribute="top" secondItem="leE-HJ-bD8" secondAttribute="bottom" constant="10" id="ik7-RP-ZYA"/>
+                                <constraint firstAttribute="trailing" secondItem="1b3-uK-N54" secondAttribute="trailing" constant="16" id="pIN-3g-zO3"/>
+                                <constraint firstItem="y6H-7n-bwn" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="q4h-An-p1Y"/>
+                                <constraint firstItem="1b3-uK-N54" firstAttribute="top" secondItem="bDI-Bh-t8e" secondAttribute="top" id="uEB-Zb-6n7"/>
+                                <constraint firstAttribute="height" constant="763" id="uX8-a8-Eto"/>
+                                <constraint firstAttribute="trailing" secondItem="uBQ-eu-5Li" secondAttribute="trailing" constant="16" id="yFt-YK-SRE"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="bDI-Bh-t8e" firstAttribute="leading" secondItem="KK7-xb-1E5" secondAttribute="leading" id="6Kr-o2-0nY"/>
+                        <constraint firstItem="bDI-Bh-t8e" firstAttribute="width" secondItem="Wcu-uC-Lr8" secondAttribute="width" id="OFY-4r-BVg"/>
+                        <constraint firstItem="bDI-Bh-t8e" firstAttribute="trailing" secondItem="KK7-xb-1E5" secondAttribute="trailing" id="Sqk-Cz-38g"/>
+                        <constraint firstItem="bDI-Bh-t8e" firstAttribute="bottom" secondItem="KK7-xb-1E5" secondAttribute="bottom" id="aka-di-PMG"/>
+                        <constraint firstItem="bDI-Bh-t8e" firstAttribute="top" secondItem="KK7-xb-1E5" secondAttribute="top" id="k6Y-Wq-HoE"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="KK7-xb-1E5"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="Wcu-uC-Lr8"/>
+                </scrollView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Lon-o1-S2Z" secondAttribute="trailing" id="HDH-Ow-GZg"/>
+                <constraint firstItem="Lon-o1-S2Z" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="l6q-XR-c7K"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Lon-o1-S2Z" secondAttribute="bottom" id="oix-Xv-Rdc"/>
+                <constraint firstItem="Lon-o1-S2Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qoY-1k-gQd"/>
+            </constraints>
+            <point key="canvasLocation" x="27.69230769230769" y="20.616113744075829"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

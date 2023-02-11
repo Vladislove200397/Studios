@@ -14,4 +14,12 @@ class FirebaseUser {
     var userPhone: String
     var uid: String
     var photoURL: String
+    
+    init(userName: String, userEmail: String, userPhone: String, uid: String, photoURL: String) {
+        self.userName = userName
+        self.userEmail = userEmail
+        self.userPhone = userPhone
+        self.uid = uid
+        self.photoURL = photoURL
+    }
 }

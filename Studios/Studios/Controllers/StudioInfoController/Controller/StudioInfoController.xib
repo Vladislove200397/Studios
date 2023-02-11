@@ -220,6 +220,11 @@
             <point key="canvasLocation" x="-75.384615384615387" y="676.77725118483409"/>
         </view>
     </objects>
+    <designables>
+        <designable name="81t-Kt-LCL">
+            <size key="intrinsicContentSize" width="85" height="13"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

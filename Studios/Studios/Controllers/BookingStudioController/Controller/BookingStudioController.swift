@@ -43,7 +43,7 @@ class BookingStudioController: UIViewController {
         calendar.collectionView.delegate = self
         calendar.set(delegate: self)
         self.setUpVC()
-        
+        navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
     deinit {
@@ -60,6 +60,7 @@ class BookingStudioController: UIViewController {
         self.registerCell()
         self.nextVCButton.isEnabled = false
         self.nextVCButton.setTitle("Выберите дату и время", for: .normal)
+        self.title = controllerType.title
     }
     
     private func registerCell() {
@@ -72,7 +73,6 @@ class BookingStudioController: UIViewController {
     
     func setData(studio: GMSPlace, controllerType: BookingStudioControllerType, bookingModel: FirebaseBookingModel? = nil) {
         self.studio = studio
-        self.title = "Выберите дату и время"
         self.controllerType = controllerType
         guard let bookingModel else { return }
         self.bookingModelEdit = bookingModel
@@ -174,8 +174,9 @@ class BookingStudioController: UIViewController {
                 
                 confirmationBookingVC.set(bookingModel: bookingModel, bookingType: self.selectionType, controllerType: .booking)
                 navigationController?.pushViewController(confirmationBookingVC, animated: true)
+                
             case .editBooking:
-                let bookingModel = FirebaseBookingModel(bookingTime: self.compareBookingTImeStampArray,
+                let editBookingModel = FirebaseBookingModel(bookingTime: self.compareBookingTImeStampArray,
                                                         bookingID: bookingModelEdit.bookingID,
                                                         userName: user.displayName,
                                                         userEmail: user.email,
@@ -186,15 +187,9 @@ class BookingStudioController: UIViewController {
                                                         comment: bookingModelEdit.comment)
                 
                 
-                confirmationBookingVC.set(bookingModel: bookingModel, bookingType: self.selectionType, controllerType: .editBooking)
+                confirmationBookingVC.set(bookingModel: editBookingModel, bookingType: self.selectionType, controllerType: .editBooking)
                 navigationController?.pushViewController(confirmationBookingVC, animated: true)
         }
-        
-        
-        
-        
-        
-        
     }
     
     private func allowSelectNextCell(bookingTime: Int) {
@@ -212,35 +207,25 @@ class BookingStudioController: UIViewController {
         self.tapCounter = 0
         afterResetCells = true
     }
-    //    @IBAction func logOutDidTap(_ sender: Any) {
-    //        let ud = UserDefaults.standard
-    //        let firebaseAuth = Auth.auth()
-    //    do {
-    //      try firebaseAuth.signOut()
-    //        Environment.scenDelegate?.setLoginIsInitial()
-    //        ud.set(nil, forKey: "uid")
-    //    } catch let signOutError as NSError {
-    //      print("Error signing out: %@", signOutError)
-    //    }
-    //    }
+
     
     @IBAction func selectionTypeButtonDidTap(_ sender: UIButton) {
         switch self.selectionType {
             case .singleSelection:
-                self.compareBookingTImeStampArray.removeAll()
-                self.selectionType = .multipleSelection
+                resetCollectionView()
+                selectionType = .multipleSelection
                 self.collectionView.allowsMultipleSelection = true
                 sender.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
                 sender.tintColor = .tintColor.withAlphaComponent(0.66)
+                
             case .multipleSelection:
-                self.compareBookingTImeStampArray.removeAll()
-                self.selectionType = .singleSelection
+                resetCollectionView()
+                selectionType = .singleSelection
                 self.collectionView.allowsMultipleSelection = false
                 self.collectionView.allowsSelection = true
                 sender.setImage(UIImage(systemName: "square"), for: .normal)
                 sender.tintColor = .tintColor.withAlphaComponent(0.66)
         }
-        self.collectionView.reloadData()
     }
 }
 
@@ -314,7 +299,6 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
                 case 2:     textHeader.sectionLabel.text = "Вечер"
                 default:    textHeader.sectionLabel.text = "Section \(indexPath.section)"
             }
-            
             return sectionHeader
         }
         return UICollectionReusableView()

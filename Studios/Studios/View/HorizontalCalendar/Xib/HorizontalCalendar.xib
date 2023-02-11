@@ -16,23 +16,20 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="332" height="107"/>
+            <rect key="frame" x="0.0" y="0.0" width="332" height="96"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hK-8v-jcf">
-                    <rect key="frame" x="0.0" y="0.0" width="332" height="107"/>
+                    <rect key="frame" x="0.0" y="0.0" width="332" height="96"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OvM-mF-RHH">
-                            <rect key="frame" x="20" y="5" width="292" height="17"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="17" id="hC6-Al-PYG"/>
-                            </constraints>
+                            <rect key="frame" x="20" y="5" width="292" height="6"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="s1A-du-Pus">
-                            <rect key="frame" x="0.0" y="27" width="332" height="80"/>
+                            <rect key="frame" x="0.0" y="16" width="332" height="80"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="80" id="exf-hE-hzY"/>
@@ -65,7 +62,7 @@
                 <constraint firstItem="1hK-8v-jcf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="puk-u4-SxO"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="241.53846153846152" y="-328.08056872037912"/>
+            <point key="canvasLocation" x="241.53846153846152" y="-331.99052132701422"/>
         </view>
     </objects>
     <resources>

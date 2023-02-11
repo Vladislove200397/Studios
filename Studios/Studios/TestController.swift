@@ -37,11 +37,11 @@ class TestController: UIViewController {
                 changeRequest?.displayName = displayName
                 changeRequest?.commitChanges(completion: { error in
                     if error == nil {
-
+                        print(error?.localizedDescription)
                     }
                 })
             } else {
-                print(error?.localizedDescription)
+                
             }
         }
     }

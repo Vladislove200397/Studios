@@ -23,20 +23,17 @@ class BookingConfirmController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     private var bookingModel = FirebaseBookingModel()
-    private var timer: Timer?
-    private var type: ValidationType = .name
     private var bookingType: SelectionType = .singleSelection
     private var controllerType: BookingStudioControllerType = .booking
-    private var editBookingModel = FirebaseBookingModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupVC()
-        self.userEmailTF.delegate = self
-        self.userPhoneNumberTF.delegate = self
-        self.commentTF.delegate = self
-        self.userNameTF.delegate = self
-        validateTextFields()
+        setupVC()
+        userEmailTF.delegate = self
+        userPhoneNumberTF.delegate = self
+        commentTF.delegate = self
+        userNameTF.delegate = self
+        setupTextFields()
     }
     
     deinit {
@@ -52,40 +49,38 @@ class BookingConfirmController: UIViewController {
     
     private func setupVC() {
         guard let bookingTime = bookingModel.bookingTime else { return }
+        userNameTF.text = bookingModel.userName
+        userEmailTF.text = bookingModel.userEmail
+        studioNameLabel.text = bookingModel.studioName
+        bookingTimeLabel.text = message(bookingTime)
         
-        self.userPhoneNumberTF.setupForRegEx()
-        self.userNameTF.setupForRegEx()
-        self.userEmailTF.setupForRegEx()
-        self.commentTF.setupForRegEx()
-        
-        self.userNameTF.text = bookingModel.userName
-        self.userEmailTF.text = bookingModel.userEmail
-        self.studioNameLabel.text = bookingModel.studioName
-        self.bookingTimeLabel.text = message(bookingTime)
-                                    
-                                    
         let studioImage = UIImage().imageWith(bookingModel.studioName!)
-        self.studioImageView.image = studioImage
-        self.studioImageView.clipsToBounds = true
-        self.studioImageView.layer.cornerRadius = studioImageView.frame.width / 2
+        studioImageView.image = studioImage
+        studioImageView.clipsToBounds = true
+        studioImageView.layer.cornerRadius = studioImageView.frame.width / 2
         
-        self.bookingButton.isEnabled = false
-        self.bookingButton.setTitle("Заполните поля", for: .normal)
+        bookingButton.isEnabled = false
+        bookingButton.setTitle("Заполните поля", for: .normal)
         
         if controllerType == .editBooking {
-            self.commentTF.text = bookingModel.comment
-            self.userPhoneNumberTF.text = bookingModel.userPhone
+            commentTF.text = bookingModel.comment
+            userPhoneNumberTF.text = bookingModel.userPhone
         }
     }
     
-    private func validateTextFields() {
-        self.userNameTF.validateRegEx(type: .name)
-        self.userPhoneNumberTF.validateRegEx(type: .phone)
-        self.userEmailTF.validateRegEx(type: .email)
+    private func setupTextFields() {
+        userPhoneNumberTF.setupForRegEx()
+        userNameTF.setupForRegEx()
+        userEmailTF.setupForRegEx()
+        commentTF.setupForRegEx()
+        
+        userNameTF.validateRegEx(type: .name)
+        userPhoneNumberTF.validateRegEx(type: .phone)
+        userEmailTF.validateRegEx(type: .email)
     }
-
+    
     private func isValidTextField() {
-        let results = [self.userNameTF.isValid(type: .name), self.userPhoneNumberTF.isValid(type:.phone), self.userEmailTF.isValid(type: .email)]
+        let results = [userNameTF.isValid(type: .name), userPhoneNumberTF.isValid(type:.phone), userEmailTF.isValid(type: .email)]
         let positive = results.filter( {$0 }).count == results.count
         
         if positive {
@@ -97,7 +92,7 @@ class BookingConfirmController: UIViewController {
     private func message(_ bookingArray: [Int]) -> String {
         switch bookingType {
             case .singleSelection:
-               let message = "\(bookingArray.first?.formatData(formatType: .dMMMHHmm) ?? "")"
+                let message = "\(bookingArray.first?.formatData(formatType: .dMMMHHmm) ?? "")"
                 return message
             case .multipleSelection:
                 let message = "\(bookingArray.first?.formatData(formatType: .dMMMHHmm) ?? "") - \((bookingArray.last! + 3600).formatData(formatType: .HHmm))"
@@ -120,6 +115,58 @@ class BookingConfirmController: UIViewController {
         isValidTextField()
     }
     
+    private func postBookingStudio(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String) {
+        FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postUserBookingRef(userID: userID)) {[weak self] in
+            guard let self else { return }
+            print("ЗАБРОНИРОВАНО")
+            self.spinner.stopAnimating()
+        } failure: {[weak self] in
+            guard let self else { return }
+            self.spinner.stopAnimating()
+            print("ERROR")
+        }
+        
+        FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postStudioBookingRef(studioID: studioID)) {[weak self] in
+            guard let self else { return }
+            Alerts().showAlert(controller: self, title: "Успешно", message: self.message(bookingModel.bookingTime!)) {
+                self.spinner.stopAnimating()
+                self.dismiss(animated: true)
+            }
+        } failure: {[weak self] in
+            guard let self else { return }
+            Alerts().showAlert(controller: self, title: "Упс.. ", message: "Произошла ошибка, попробуйте позже.") {
+                self.spinner.stopAnimating()
+                self.dismiss(animated: true)
+            }
+        }
+    }
+    
+    private func updateBookingStudio(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String) {
+        FirebaseProvider().updateStudioBooking(bookingModel, .postStudioBookingRef(studioID: studioID)) {[weak self] in
+            guard let self else { return }
+            self.spinner.stopAnimating()
+            Alerts().showAlert(controller: self, title: "Успешно", message: "Бронирование изменено на \(self.message(bookingModel.bookingTime!))") {
+                self.spinner.stopAnimating()
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        } failure: {[weak self] in
+            guard let self else { return }
+            Alerts().showAlert(controller: self, title: "Упс.. ", message: "Произошла ошибка, попробуйте позже.") {
+                self.spinner.stopAnimating()
+            }
+        }
+        
+        FirebaseProvider().updateStudioBooking(bookingModel, .postUserBookingRef(userID: userID)) {[weak self] in
+            guard let self else { return }
+            print("SUCCED")
+            self.spinner.stopAnimating()
+        } failure: {[weak self] in
+            guard let self else { return }
+            print("ZALUPA")
+            self.spinner.stopAnimating()
+        }
+    }
+    
     @IBAction func bookingButtonDidTap(_ sender: UIButton) {
         guard let name = userNameTF.text,
               let userPhone = userPhoneNumberTF.text,
@@ -127,53 +174,21 @@ class BookingConfirmController: UIViewController {
               let comment = commentTF.text,
               let studioID = bookingModel.studioID,
               let userID = bookingModel.userID,
-              let bookingTime = bookingModel.bookingTime else { return }
+              let _ = bookingModel.bookingTime else { return }
         
         let bookingModel = self.bookingModel
         bookingModel.userPhone = userPhone
         bookingModel.comment = comment
         bookingModel.userName = name
         bookingModel.userEmail = userEmail
+        
         self.spinner.startAnimating()
         
         switch controllerType {
             case .booking:
-                FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postUserBookingRef(userID: userID)) {
-                    print("ЗАБРОНИРОВАНО")
-                    self.spinner.stopAnimating()
-                } failure: {
-                    self.spinner.stopAnimating()
-                    print("ERROR")
-                }
-                
-                FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postStudioBookingRef(studioID: studioID)) {
-                    Service().alert.showAlert(controller: self, title: "Успешно", message: self.message(bookingTime)) {
-                        self.spinner.stopAnimating()
-                        self.dismiss(animated: true)
-                    }
-                } failure: {
-                    Service().alert.showAlert(controller: self, title: "Упс.. Произошла ошибка", message: "Не удалось забронировать студию, попробуйте позже.") {
-                        self.spinner.stopAnimating()
-                        self.dismiss(animated: true)
-                    }
-                }
-                
+                postBookingStudio(bookingModel, userID, studioID)
             case .editBooking:
-                FirebaseProvider().updateStudioBooking(bookingModel, .postStudioBookingRef(studioID: studioID)) {
-                    print("SUCCED")
-                    self.spinner.stopAnimating()
-                } failure: {
-                    print("ZALUPA")
-                    self.spinner.stopAnimating()
-                }
-                
-                FirebaseProvider().updateStudioBooking(bookingModel, .postUserBookingRef(userID: userID)) {
-                    print("SUCCED")
-                    self.spinner.stopAnimating()
-                } failure: {
-                    print("ZALUPA")
-                    self.spinner.stopAnimating()
-                }
+                updateBookingStudio(bookingModel, userID, studioID)
         }
     }
 }
