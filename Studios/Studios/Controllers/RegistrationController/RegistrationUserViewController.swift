@@ -150,10 +150,12 @@ class RegistrationUserViewController: UIViewController {
               !passwordTF.text.isEmptyOrNil,
               !surnameTF.text.isEmptyOrNil else { return }
         
-        FirebaseProvider().createUser(email: emailTF.text!,
+        FirebaseProvider().createUser(viewController: self,
+                                      email: emailTF.text!,
                                       password: passwordTF.text!,
                                       displayName: nameTF.text!) { [weak self] uid in
             guard let self else { return }
+            
             FirebaseProvider().saveUser(referenceType: .addUserInfo(userID: uid),
                                         self.emailTF.text!,
                                         self.passwordTF.text!,
@@ -161,10 +163,10 @@ class RegistrationUserViewController: UIViewController {
                                         self.surnameTF.text!,
                                         self.phoneNumberTF.text!,
                                         uid)
-            
+
             Alerts().showAlert(controller: self,
                                title: "Успешная регистрация",
-                               message: "") {
+                               message: "На почтовый ящик \(self.emailTF.text!) отправлено письмо для подтверждения регистрации.") {
                 self.navigationController?.popToRootViewController(animated: true)
             }
         } failure: {[weak self] in

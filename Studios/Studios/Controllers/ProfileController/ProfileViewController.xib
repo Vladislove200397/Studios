@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="profileAvatarImage" destination="b1s-8J-TOq" id="rCq-N4-mlb"/>
                 <outlet property="profileNameLabel" destination="7eg-lc-GgH" id="IR1-Zp-YWS"/>
+                <outlet property="spinner" destination="Ihl-dp-gok" id="cfz-sD-FKv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -37,11 +38,16 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="gray" title="Редактировать"/>
                 </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Ihl-dp-gok">
+                    <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="Ihl-dp-gok" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7Bh-U8-QI7"/>
                 <constraint firstItem="7eg-lc-GgH" firstAttribute="leading" secondItem="b1s-8J-TOq" secondAttribute="trailing" constant="10" id="BFo-lW-AvD"/>
+                <constraint firstItem="Ihl-dp-gok" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="DbU-kl-bCX"/>
                 <constraint firstItem="fca-vD-FiJ" firstAttribute="top" secondItem="b1s-8J-TOq" secondAttribute="bottom" constant="10" id="GEA-c5-D1f"/>
                 <constraint firstItem="fca-vD-FiJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Gb9-eS-A1j"/>
                 <constraint firstItem="b1s-8J-TOq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="25:211" id="PNP-jd-TbY"/>

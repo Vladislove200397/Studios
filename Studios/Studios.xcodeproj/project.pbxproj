@@ -11,12 +11,14 @@
 		B90871E02998175900247729 /* RegistrationUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90871DE2998175900247729 /* RegistrationUserViewController.swift */; };
 		B90871E12998175900247729 /* RegistrationUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90871DF2998175900247729 /* RegistrationUserViewController.xib */; };
 		B90871E3299824F500247729 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90871E2299824F500247729 /* UIViewController+Extension.swift */; };
+		B90871E729982F7F00247729 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90871E529982F7F00247729 /* ProfileEditViewController.swift */; };
+		B90871E829982F7F00247729 /* ProfileEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90871E629982F7F00247729 /* ProfileEditViewController.xib */; };
 		B90D38FF2922B23000F77AF8 /* StudioInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90D38FD2922B23000F77AF8 /* StudioInfoController.swift */; };
 		B90D39002922B23000F77AF8 /* StudioInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D38FE2922B23000F77AF8 /* StudioInfoController.xib */; };
 		B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */; };
 		B9442C962977E97A00CEDEA6 /* BookingConfirmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */; };
 		B9442C972977E97A00CEDEA6 /* BookingConfirmController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */; };
-		B949AFE7295433F300025011 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFE6295433F300025011 /* UIViewExtension.swift */; };
+		B949AFE7295433F300025011 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFE6295433F300025011 /* UIView+Extension.swift */; };
 		B94D86882997BD150033F2B4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94D86862997BD150033F2B4 /* ProfileViewController.swift */; };
 		B94D86892997BD150033F2B4 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94D86872997BD150033F2B4 /* ProfileViewController.xib */; };
 		B951EBFC297551C90076EB67 /* HorizontalCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B951EBFB297551C90076EB67 /* HorizontalCalendar.swift */; };
@@ -30,7 +32,7 @@
 		B972AB872951C6170025683F /* TabBarEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB862951C6170025683F /* TabBarEnum.swift */; };
 		B972AB892951CCF60025683F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB882951CCF60025683F /* TabBarController.swift */; };
 		B972AB8E2951D6B30025683F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B972AB8D2951D6B30025683F /* SnapKit */; };
-		B972CBF1297E916D00FBFCFD /* ArrayIntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972CBF0297E916D00FBFCFD /* ArrayIntExtension.swift */; };
+		B972CBF1297E916D00FBFCFD /* ArrayInt+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972CBF0297E916D00FBFCFD /* ArrayInt+Extension.swift */; };
 		B972CBF4297E97E500FBFCFD /* SelectionTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972CBF3297E97E500FBFCFD /* SelectionTypeEnum.swift */; };
 		B97A7A65292B9B750025F310 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97A7A63292B9B750025F310 /* PhotoCell.swift */; };
 		B97A7A66292B9B750025F310 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B97A7A64292B9B750025F310 /* PhotoCell.xib */; };
@@ -51,10 +53,10 @@
 		B9C63E882933C2C600754496 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C63E862933C2C600754496 /* ReviewCell.xib */; };
 		B9DC2C032941CE22009EEE43 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC2C012941CE22009EEE43 /* TestController.swift */; };
 		B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9DC2C022941CE22009EEE43 /* TestController.xib */; };
-		B9DD0129297C4BCC007C266D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0128297C4BCC007C266D /* StringExtension.swift */; };
-		B9DD012B297C6870007C266D /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD012A297C6870007C266D /* UIImageExtension.swift */; };
+		B9DD0129297C4BCC007C266D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0128297C4BCC007C266D /* String+Extension.swift */; };
+		B9DD012B297C6870007C266D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD012A297C6870007C266D /* UIImage+Extension.swift */; };
 		B9DD012F297C8E84007C266D /* ValidationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD012E297C8E84007C266D /* ValidationType.swift */; };
-		B9DD0131297C97CF007C266D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0130297C97CF007C266D /* UITextFieldExtension.swift */; };
+		B9DD0131297C97CF007C266D /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0130297C97CF007C266D /* UITextField+Extension.swift */; };
 		B9DD013A297CB7C5007C266D /* FirebaseReferenceEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0139297CB7C5007C266D /* FirebaseReferenceEnum.swift */; };
 		B9DD0140297CDBC1007C266D /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD013F297CDBC1007C266D /* Alerts.swift */; };
 		B9E0F1CA2987B1680087A48A /* LikedStudiosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1C82987B1680087A48A /* LikedStudiosViewController.swift */; };
@@ -75,7 +77,7 @@
 		B9FA0419295E21590097DF24 /* FirebaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA0418295E21590097DF24 /* FirebaseProvider.swift */; };
 		B9FA041D295E2AB80097DF24 /* BookingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA041B295E2AB80097DF24 /* BookingCell.swift */; };
 		B9FA041E295E2AB80097DF24 /* BookingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9FA041C295E2AB80097DF24 /* BookingCell.xib */; };
-		B9FA0420295E2FD50097DF24 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA041F295E2FD50097DF24 /* DateFormatterExtension.swift */; };
+		B9FA0420295E2FD50097DF24 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA041F295E2FD50097DF24 /* DateFormatter+Extension.swift */; };
 		B9FA042D295E47190097DF24 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA042C295E47190097DF24 /* Delegates.swift */; };
 		B9FA0430295E47520097DF24 /* FlexibleViewTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA042F295E47520097DF24 /* FlexibleViewTypes.swift */; };
 		B9FABB0A291A5E3500232D9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FABB09291A5E3500232D9C /* AppDelegate.swift */; };
@@ -94,12 +96,14 @@
 		B90871DE2998175900247729 /* RegistrationUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationUserViewController.swift; sourceTree = "<group>"; };
 		B90871DF2998175900247729 /* RegistrationUserViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistrationUserViewController.xib; sourceTree = "<group>"; };
 		B90871E2299824F500247729 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		B90871E529982F7F00247729 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		B90871E629982F7F00247729 /* ProfileEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileEditViewController.xib; sourceTree = "<group>"; };
 		B90D38FD2922B23000F77AF8 /* StudioInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioInfoController.swift; sourceTree = "<group>"; };
 		B90D38FE2922B23000F77AF8 /* StudioInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudioInfoController.xib; sourceTree = "<group>"; };
 		B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCellTypeEnum.swift; sourceTree = "<group>"; };
 		B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmController.swift; sourceTree = "<group>"; };
 		B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingConfirmController.xib; sourceTree = "<group>"; };
-		B949AFE6295433F300025011 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		B949AFE6295433F300025011 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		B94D86862997BD150033F2B4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B94D86872997BD150033F2B4 /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		B951EBFB297551C90076EB67 /* HorizontalCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCalendar.swift; sourceTree = "<group>"; };
@@ -112,7 +116,7 @@
 		B9678D97295A2D3B002CFE75 /* HoursCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoursCell.xib; sourceTree = "<group>"; };
 		B972AB862951C6170025683F /* TabBarEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarEnum.swift; sourceTree = "<group>"; };
 		B972AB882951CCF60025683F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		B972CBF0297E916D00FBFCFD /* ArrayIntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayIntExtension.swift; sourceTree = "<group>"; };
+		B972CBF0297E916D00FBFCFD /* ArrayInt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArrayInt+Extension.swift"; sourceTree = "<group>"; };
 		B972CBF3297E97E500FBFCFD /* SelectionTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTypeEnum.swift; sourceTree = "<group>"; };
 		B97A7A63292B9B750025F310 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		B97A7A64292B9B750025F310 /* PhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
@@ -133,10 +137,10 @@
 		B9C63E862933C2C600754496 /* ReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
 		B9DC2C012941CE22009EEE43 /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
 		B9DC2C022941CE22009EEE43 /* TestController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestController.xib; sourceTree = "<group>"; };
-		B9DD0128297C4BCC007C266D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		B9DD012A297C6870007C266D /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		B9DD0128297C4BCC007C266D /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		B9DD012A297C6870007C266D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B9DD012E297C8E84007C266D /* ValidationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationType.swift; sourceTree = "<group>"; };
-		B9DD0130297C97CF007C266D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		B9DD0130297C97CF007C266D /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		B9DD0139297CB7C5007C266D /* FirebaseReferenceEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseReferenceEnum.swift; sourceTree = "<group>"; };
 		B9DD013F297CDBC1007C266D /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		B9E0F1C82987B1680087A48A /* LikedStudiosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedStudiosViewController.swift; sourceTree = "<group>"; };
@@ -157,7 +161,7 @@
 		B9FA0418295E21590097DF24 /* FirebaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProvider.swift; sourceTree = "<group>"; };
 		B9FA041B295E2AB80097DF24 /* BookingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCell.swift; sourceTree = "<group>"; };
 		B9FA041C295E2AB80097DF24 /* BookingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingCell.xib; sourceTree = "<group>"; };
-		B9FA041F295E2FD50097DF24 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
+		B9FA041F295E2FD50097DF24 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		B9FA0421295E40220097DF24 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		B9FA0422295E40220097DF24 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B9FA0423295E40380097DF24 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -205,6 +209,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B90871E429982F6800247729 /* ProfileEditController */ = {
+			isa = PBXGroup;
+			children = (
+				B90871E529982F7F00247729 /* ProfileEditViewController.swift */,
+				B90871E629982F7F00247729 /* ProfileEditViewController.xib */,
+			);
+			path = ProfileEditController;
+			sourceTree = "<group>";
+		};
 		B90D38FC2922B1D800F77AF8 /* StudioInfoController */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,12 +246,12 @@
 		B949AFE5295433E400025011 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				B949AFE6295433F300025011 /* UIViewExtension.swift */,
-				B9FA041F295E2FD50097DF24 /* DateFormatterExtension.swift */,
-				B9DD0128297C4BCC007C266D /* StringExtension.swift */,
-				B9DD012A297C6870007C266D /* UIImageExtension.swift */,
-				B9DD0130297C97CF007C266D /* UITextFieldExtension.swift */,
-				B972CBF0297E916D00FBFCFD /* ArrayIntExtension.swift */,
+				B949AFE6295433F300025011 /* UIView+Extension.swift */,
+				B9FA041F295E2FD50097DF24 /* DateFormatter+Extension.swift */,
+				B9DD0128297C4BCC007C266D /* String+Extension.swift */,
+				B9DD012A297C6870007C266D /* UIImage+Extension.swift */,
+				B9DD0130297C97CF007C266D /* UITextField+Extension.swift */,
+				B972CBF0297E916D00FBFCFD /* ArrayInt+Extension.swift */,
 				B962ABA1299514B20053F1AB /* StringOpt+Extension.swift */,
 				B90871E2299824F500247729 /* UIViewController+Extension.swift */,
 			);
@@ -694,6 +707,7 @@
 		B9FABB63291BBFEE00232D9C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B90871E429982F6800247729 /* ProfileEditController */,
 				B94D86852997BCF80033F2B4 /* ProfileController */,
 				B9B43FDD29950DAA003A073D /* LoginController */,
 				B9B43FD8299507A5003A073D /* RegistrationController */,
@@ -788,6 +802,7 @@
 				B9C63E882933C2C600754496 /* ReviewCell.xib in Resources */,
 				B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */,
 				B9E0F1CB2987B1680087A48A /* LikedStudiosViewController.xib in Resources */,
+				B90871E829982F7F00247729 /* ProfileEditViewController.xib in Resources */,
 				B90871E12998175900247729 /* RegistrationUserViewController.xib in Resources */,
 				B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */,
 				B9FABB16291A5E3700232D9C /* LaunchScreen.storyboard in Resources */,
@@ -886,7 +901,7 @@
 				B9FABB60291B112000232D9C /* SSPLace.swift in Sources */,
 				B9FABB0E291A5E3500232D9C /* MapController.swift in Sources */,
 				B9F44DD62994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift in Sources */,
-				B9DD0131297C97CF007C266D /* UITextFieldExtension.swift in Sources */,
+				B9DD0131297C97CF007C266D /* UITextField+Extension.swift in Sources */,
 				B94D86882997BD150033F2B4 /* ProfileViewController.swift in Sources */,
 				B9FABB0A291A5E3500232D9C /* AppDelegate.swift in Sources */,
 				B9F08DB029479CF30059614C /* Environment.swift in Sources */,
@@ -894,7 +909,7 @@
 				B9916B902976B57E00C0A0CF /* SectionHeader.swift in Sources */,
 				B9FABB0C291A5E3500232D9C /* SceneDelegate.swift in Sources */,
 				B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */,
-				B9DD0129297C4BCC007C266D /* StringExtension.swift in Sources */,
+				B9DD0129297C4BCC007C266D /* String+Extension.swift in Sources */,
 				B9DD0140297CDBC1007C266D /* Alerts.swift in Sources */,
 				B9F08DAD294793890059614C /* FirebaseUserModel.swift in Sources */,
 				B972CBF4297E97E500FBFCFD /* SelectionTypeEnum.swift in Sources */,
@@ -903,8 +918,9 @@
 				B9FA042D295E47190097DF24 /* Delegates.swift in Sources */,
 				B9DD012F297C8E84007C266D /* ValidationType.swift in Sources */,
 				B9A36FC5292CF4ED009825F9 /* InfoViewController.swift in Sources */,
-				B972CBF1297E916D00FBFCFD /* ArrayIntExtension.swift in Sources */,
+				B972CBF1297E916D00FBFCFD /* ArrayInt+Extension.swift in Sources */,
 				B9FA0415295E204E0097DF24 /* BookingHistoryController.swift in Sources */,
+				B90871E729982F7F00247729 /* ProfileEditViewController.swift in Sources */,
 				B9DD013A297CB7C5007C266D /* FirebaseReferenceEnum.swift in Sources */,
 				B9FA0430295E47520097DF24 /* FlexibleViewTypes.swift in Sources */,
 				B972AB872951C6170025683F /* TabBarEnum.swift in Sources */,
@@ -916,14 +932,14 @@
 				B962ABA2299514B20053F1AB /* StringOpt+Extension.swift in Sources */,
 				B9E0F1D12988079F0087A48A /* LikedStudioCell.swift in Sources */,
 				B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */,
-				B9FA0420295E2FD50097DF24 /* DateFormatterExtension.swift in Sources */,
+				B9FA0420295E2FD50097DF24 /* DateFormatter+Extension.swift in Sources */,
 				B9B43FE029950DC0003A073D /* LoginViewController.swift in Sources */,
 				B9C63E772933BC0A00754496 /* StudioReviewAPI.swift in Sources */,
 				B9C63E7E2933C26C00754496 /* ReviewTableController.swift in Sources */,
 				B90871E02998175900247729 /* RegistrationUserViewController.swift in Sources */,
 				B958E83829212EA400F2059A /* Service.swift in Sources */,
-				B9DD012B297C6870007C266D /* UIImageExtension.swift in Sources */,
-				B949AFE7295433F300025011 /* UIViewExtension.swift in Sources */,
+				B9DD012B297C6870007C266D /* UIImage+Extension.swift in Sources */,
+				B949AFE7295433F300025011 /* UIView+Extension.swift in Sources */,
 				B9C63E7B2933C0D900754496 /* StudioReviewProvider.swift in Sources */,
 				B9FA0419295E21590097DF24 /* FirebaseProvider.swift in Sources */,
 				B90871E3299824F500247729 /* UIViewController+Extension.swift in Sources */,

@@ -203,7 +203,7 @@ public class FirebaseProvider {
     }
     
     func updateStudioBooking(_ bookingModel: FirebaseBookingModel, _ referenceType: FirebaseReferenses, succed: @escaping (() -> Void), failure: @escaping (() -> Void)) {
-       
+        
         guard let userID = bookingModel.userID,
               let userName = bookingModel.userName,
               let userEmail = bookingModel.userEmail,
@@ -239,8 +239,7 @@ public class FirebaseProvider {
         }
     }
     
-    func createUser(email: String, password: String, displayName: String, succed: @escaping ((String) -> Void), failure: @escaping (() -> Void)) {
-        
+    func createUser(viewController: UIViewController, email: String, password: String, displayName: String, succed: @escaping ((String) -> Void), failure: @escaping (() -> Void)) {
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let user  {
                 let uid = user.user.uid
@@ -254,7 +253,8 @@ public class FirebaseProvider {
                         print("Успешно дабвлено имя пользователя")
                     }
                 })
-             succed(uid)
+                Auth.auth().currentUser?.sendEmailVerification()
+                succed(uid)
             } else if let error {
                 failure()
                 print(error.localizedDescription)
@@ -262,16 +262,20 @@ public class FirebaseProvider {
         }
     }
     
-    func signInWithUser(email: String, password: String, succed: @escaping (() -> Void), failure: @escaping (() -> Void)) {
+    func signInWithUser(email: String, password: String, succed: @escaping (() -> Void), failureWithEmailOrPassword: @escaping (() -> Void), failureWithEmailAuthentification: @escaping (() -> Void)) {
         let userD = UserDefaults.standard
         
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
             if let user {
                 let uid = user.user.uid
-                userD.set(uid, forKey: "uid")
-                succed()
+                if user.user.isEmailVerified {
+                    succed()
+                    userD.set(uid, forKey: "uid")
+                } else {
+                    failureWithEmailAuthentification()
+                }
             } else if let error {
-                failure()
+                failureWithEmailOrPassword()
                 print(error.localizedDescription)
             }
         }
@@ -283,6 +287,7 @@ public class FirebaseProvider {
         let user = ["user_id": userID,
                     "display_name": displayName,
                     "surname": surname,
+                    "phone_number": phoneNumber,
                     "user_email": email,
                     "password": password,
                     "profile_photo": "",
@@ -295,6 +300,28 @@ public class FirebaseProvider {
             } else {
                 print("succesfully added userInfo to FIRA")
             }
+        }
+    }
+    
+    func getUserInfo(referenceType: FirebaseReferenses, _ userID: String, succed: @escaping ((FirebaseUser) -> Void), failure: @escaping (() -> Void)) {
+        let ref = referenceType.references
+
+        ref.observe(DataEventType.value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                guard let userObject = snapshot.childSnapshot(forPath: "\(userID)").value as? [String: Any] else { return }
+                    let userId = userObject["user_id"] as! String
+                    let userDisplaName = userObject["display_name"] as! String
+                    let userSurname = userObject["surname"] as! String
+                    let userEmail = userObject["user_email"] as! String
+                    let userProfilePhoto = userObject["profile_photo"] as! String
+                    let userPhoneNumber = userObject["phone_number"] as! String
+                    let user = FirebaseUser(userName: userDisplaName, userSurname: userSurname, userEmail: userEmail, userPhone: userPhoneNumber, uid: userId, photoURL: userProfilePhoto)
+                succed(user)
+            }
+            ref.removeAllObservers()
+        } withCancel: { error in
+            failure()
+            print(error.localizedDescription)
         }
     }
 }

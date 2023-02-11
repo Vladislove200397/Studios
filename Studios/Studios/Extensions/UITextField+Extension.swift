@@ -68,4 +68,20 @@ extension UITextField {
         let passPred = NSPredicate(format: "SELF MATCHES %@", pattern.rawValue)
         return passPred.evaluate(with: string)
     }
+
+    func enablePasswordToggle(button: UIButton){
+        button.setImage(UIImage(named: "eye-72"), for: .normal)
+        button.setImage(UIImage(named: "closed-eye-72"), for: .selected)
+        button.addTarget(self, action: #selector(togglePasswordView), for: .touchDragInside)
+        rightView = button
+        rightViewMode = .always
+        
+        button.alpha = 0.4
+    }
+    
+    @objc func togglePasswordView(_ button: UIButton, _ sender: Any) {
+        isSecureTextEntry.toggle()
+        button.isSelected.toggle()
+    }
 }
+

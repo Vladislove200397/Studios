@@ -20,6 +20,7 @@ enum FirebaseReferenses {
     case getLikedStudios(userID: String)
     case removeLikedStudio(userID: String, studioID: String)
     case addUserInfo(userID: String)
+    case getUserInfo(userID: String)
     
     var references: DatabaseReference {
         switch self {
@@ -43,6 +44,8 @@ enum FirebaseReferenses {
                     Database.database().reference().child("users_data").child("\(userID)").child("likedStudios").child("\(studioID)")
             case .addUserInfo(userID: let userID):
                 return Database.database().reference().child("private_users_data").child("\(userID)")
+            case .getUserInfo(userID: let userID):
+                return Database.database().reference().child("private_users_data")
         }
     }
 }
