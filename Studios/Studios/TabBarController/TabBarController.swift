@@ -11,6 +11,7 @@ import UIKit
 class TabBarController: UITabBarController {
     
     let dataSource = TabItem.allCases
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configurateTabBar()
@@ -26,6 +27,7 @@ class TabBarController: UITabBarController {
         hapticAlternative()
     }
     
+    
     private var bounceAnimation: CAKeyframeAnimation = {
         let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
         bounceAnimation.values = [1.0, 1.3, 0.9, 1.0]
@@ -34,7 +36,7 @@ class TabBarController: UITabBarController {
         return bounceAnimation
     }()
     
-    private func configurateTabBar() {
+    func configurateTabBar() {
         var controllers: [UIViewController] = []
         
         dataSource.forEach { controller in

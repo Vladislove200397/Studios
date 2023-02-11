@@ -8,27 +8,26 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
     let readDF = UserDefaults.standard
-
-        func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-            guard let windowScene = (scene as? UIWindowScene) else { return }
-            window = UIWindow(windowScene: windowScene)
-            window?.windowScene = windowScene
-            checkToken()
-            window?.makeKeyAndVisible()
+    
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        window?.windowScene = windowScene
+        checkToken()
+        window?.makeKeyAndVisible()
     }
-
+    
     func setTabBarIsInitial() {
         let tabBar = TabBarController(nibName: String(describing: TabBarController.self), bundle: nil)
         window?.rootViewController = tabBar
     }
     
     func setLoginIsInitial() {
-        let loginVc = TestController(nibName: String(describing: TestController.self), bundle: nil)
+        let loginVc = LoginViewController(nibName: String(describing: LoginViewController.self), bundle: nil)
         window?.rootViewController = UINavigationController(rootViewController: loginVc)
-        
     }
     
     private func checkToken() {

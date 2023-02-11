@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseCore
 import FirebaseDatabase
+import FirebaseAuth
 import GooglePlaces
 
 public class FirebaseProvider {
@@ -234,6 +235,65 @@ public class FirebaseProvider {
                 print(error.localizedDescription)
             } else {
                 succed()
+            }
+        }
+    }
+    
+    func createUser(email: String, password: String, displayName: String, succed: @escaping ((String) -> Void), failure: @escaping (() -> Void)) {
+        
+        Auth.auth().createUser(withEmail: email, password: password) { user, error in
+            if let user  {
+                let uid = user.user.uid
+                let changeRequest = user.user.createProfileChangeRequest()
+                changeRequest.displayName = displayName
+                changeRequest.commitChanges(completion: { error in
+                    if let error {
+                        failure()
+                        print(error.localizedDescription)
+                    } else {
+                        print("Успешно дабвлено имя пользователя")
+                    }
+                })
+             succed(uid)
+            } else if let error {
+                failure()
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func signInWithUser(email: String, password: String, succed: @escaping (() -> Void), failure: @escaping (() -> Void)) {
+        let userD = UserDefaults.standard
+        
+        Auth.auth().signIn(withEmail: email, password: password) { user, error in
+            if let user {
+                let uid = user.user.uid
+                userD.set(uid, forKey: "uid")
+                succed()
+            } else if let error {
+                failure()
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func saveUser(referenceType: FirebaseReferenses, _ email: String, _ password: String, _ displayName: String,_ surname: String, _ phoneNumber: String, _ userID: String) {
+        let ref = referenceType.references
+        
+        let user = ["user_id": userID,
+                    "display_name": displayName,
+                    "surname": surname,
+                    "user_email": email,
+                    "password": password,
+                    "profile_photo": "",
+        ] as [String : Any]
+        
+        ref.setValue(user) {
+            (error:Error?, ref:DatabaseReference) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("succesfully added userInfo to FIRA")
             }
         }
     }

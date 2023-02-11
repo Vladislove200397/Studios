@@ -29,7 +29,8 @@ enum TabItem: String, CaseIterable {
                 let vc = BookingHistoryController(nibName: String(describing: BookingHistoryController.self), bundle: nil)
                 return self.wrappedInNavigationController(with: vc)
             case .test:
-                return UIViewController()
+                let vc = ProfileViewController(nibName: String(describing: ProfileViewController.self), bundle: nil)
+                return self.wrappedInNavigationController(with: vc)
             case . test1:
                 return UIViewController()
         }

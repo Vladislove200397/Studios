@@ -26,3 +26,7 @@ protocol SetSelectedCellDelegate: AnyObject {
 protocol SwipeCalendarDelegate: AnyObject {
     func didSwipeCalendar()
 }
+
+protocol SideMenuViewControllerDelegate: AnyObject {
+    func selectedCell(_ row: Int)
+}
