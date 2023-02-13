@@ -34,8 +34,7 @@ class LoginViewController: UIViewController {
     }
     
     private func setupPasswordTextField() {
-        let button = UIButton()
-        passwordTF.enablePasswordToggle(button: button)
+        passwordTF.enablePasswordToggle()
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
@@ -124,6 +123,26 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonDidTap(_ sender: Any) {
         signIn()
+    }
+    
+    @IBAction func forgotPasswordButtonDidTap(_ sender: Any) {
+        Alerts().showAlertsWithTextField(controller: self,
+                                         title: "Сброс пароля",
+                                         textFieldPlaceHoledr: "Введите email",
+                                         message: "Введите email который используется для входа в аккаунт") {[weak self] login in
+            guard let self else { return }
+            Auth.auth().sendPasswordReset(withEmail: login) { error in
+                if let error {
+                    print(error.localizedDescription)
+                } else {
+                    Alerts().showAlert(controller: self,
+                                       title: "",
+                                       message: "На почтовый ящик \(login) отправлено письмо с инструкцией по сбросу пароля")
+                }
+            }
+        } failure: {
+            Alerts().showAlert(controller: self, title: "Ошибка", message: "Введите логин")
+        }
     }
 }
 

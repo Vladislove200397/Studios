@@ -10,7 +10,6 @@ import UIKit
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
@@ -27,7 +26,6 @@ extension UIViewController {
     }
     
     func deregisterFromKeyboardNotifications() {
-        //Removing notifies on keyboard appearing
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }

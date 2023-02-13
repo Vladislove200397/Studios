@@ -33,4 +33,28 @@ class Alerts {
         alertController.addAction(dismissAction)
         controller.present(alertController, animated: true, completion: nil)
     }
+    
+    func showAlertsWithTextField(controller: UIViewController, title: String, textFieldPlaceHoledr: String, message: String, completion: @escaping ((String) -> Void), failure: @escaping (()-> Void)) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Далее", style: .default) { (alertAction) in
+            guard let textField = alertController.textFields?.first else { return }
+
+            if !textField.text.isEmptyOrNil {
+                completion(textField.text!)
+            } else {
+                failure()
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .destructive)
+        
+        alertController.addTextField { (textField) in
+        textField.placeholder = "\(textFieldPlaceHoledr)"
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(action)
+        controller.present(alertController, animated: true, completion: nil)
+    }
 }

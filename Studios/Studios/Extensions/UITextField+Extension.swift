@@ -69,19 +69,45 @@ extension UITextField {
         return passPred.evaluate(with: string)
     }
 
-    func enablePasswordToggle(button: UIButton){
-        button.setImage(UIImage(named: "eye-72"), for: .normal)
-        button.setImage(UIImage(named: "closed-eye-72"), for: .selected)
-        button.addTarget(self, action: #selector(togglePasswordView), for: .touchDragInside)
-        rightView = button
-        rightViewMode = .always
-        
-        button.alpha = 0.4
+//    func enablePasswordToggle(button: UIButton) {
+//        button.setImage(UIImage(named: "eye-72"), for: .normal)
+//        button.setImage(UIImage(named: "closed-eye-72"), for: .selected)
+//        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+//
+//        button.addTarget(self, action: #selector(togglePasswordView), for: .touchDragInside)
+//        self.rightView = button
+//        self.rightViewMode = .always
+//
+//        button.alpha = 0.4
+//    }
+//
+//    @objc func togglePasswordView(_ button: UIButton, _ sender: Any) {
+//        isSecureTextEntry.toggle()
+//        button.isSelected.toggle()
+//    }
+    
+    fileprivate func setPasswordToggleImage(_ button: UIButton) {
+        if(isSecureTextEntry){
+            button.setImage(UIImage(named: "eye-72"), for: .normal)
+        }else{
+            button.setImage(UIImage(named: "closed-eye-72"), for: .normal)
+
+        }
+    }
+
+    func enablePasswordToggle(){
+        let button = UIButton(type: .custom)
+        setPasswordToggleImage(button)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
+        button.frame = CGRect(x: CGFloat(self.frame.size.width - 25), y: CGFloat(5), width: CGFloat(25), height: CGFloat(25))
+        button.addTarget(self, action: #selector(self.togglePasswordView), for: .touchUpInside)
+        self.rightView = button
+        self.rightViewMode = .always
     }
     
-    @objc func togglePasswordView(_ button: UIButton, _ sender: Any) {
-        isSecureTextEntry.toggle()
-        button.isSelected.toggle()
+    @IBAction func togglePasswordView(_ sender: Any) {
+        self.isSecureTextEntry = !self.isSecureTextEntry
+        setPasswordToggleImage(sender as! UIButton)
     }
 }
 
