@@ -76,6 +76,9 @@
                             <buttonConfiguration key="configuration" style="plain" title="Забыли пароль?">
                                 <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="forgotPasswordButtonDidTap:" destination="-1" eventType="touchUpInside" id="5uz-Hf-wvm"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
