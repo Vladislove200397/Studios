@@ -20,7 +20,7 @@ public class FirebaseProvider {
         return timeOfStartDay
     }
     
-    func postBookingModel(bookingModel: FirebaseBookingModel, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: @escaping () -> Void) {
+    func postBookingModel(bookingModel: FirebaseBookingModel, referenceType: FirebaseReferenses, success: @escaping () -> Void, failure: @escaping () -> Void) {
         
         //get the uniqID path for save data to booking list
         let bookingID = Int(NSDate.timeIntervalSinceReferenceDate)
@@ -55,12 +55,12 @@ public class FirebaseProvider {
                 failure()
                 print(error.localizedDescription)
             } else {
-                succed()
+                success()
             }
         }
     }
     
-    func getBookingTimes(referenceType: FirebaseReferenses, succed: @escaping ([Int]) -> Void, failure: ((Error) -> Void)? = nil) {
+    func getBookingTimes(referenceType: FirebaseReferenses, success: @escaping ([Int]) -> Void, failure: ((Error) -> Void)? = nil) {
         let ref: DatabaseReference = referenceType.references
         
         var timesArray: [Int] = []
@@ -75,7 +75,7 @@ public class FirebaseProvider {
                     }
                 }
             }
-            succed(timesArray)
+            success(timesArray)
             ref.removeAllObservers()
         }) { error in
             failure!(error)
@@ -83,7 +83,7 @@ public class FirebaseProvider {
         }
     }
     
-    func getBookings(referenceType: FirebaseReferenses, succed: @escaping ([FirebaseBookingModel]) -> Void, failure: ((Error) -> Void)? = nil) {
+    func getBookings(referenceType: FirebaseReferenses, success: @escaping ([FirebaseBookingModel]) -> Void, failure: ((Error) -> Void)? = nil) {
         let ref = referenceType.references
         var bookingArr: [FirebaseBookingModel] = []
         
@@ -104,7 +104,7 @@ public class FirebaseProvider {
                     bookingArr.append(firebaseBooking)
                 }
             }
-            succed(bookingArr)
+            success(bookingArr)
             ref.removeAllObservers()
         }) { error in
             
@@ -113,7 +113,7 @@ public class FirebaseProvider {
         }
     }
     
-    func getLike(referenceType: FirebaseReferenses, succed: @escaping (Bool) -> Void, failure: ((Error) -> Void)? = nil) {
+    func getLike(referenceType: FirebaseReferenses, success: @escaping (Bool) -> Void, failure: ((Error) -> Void)? = nil) {
         let ref = referenceType.references
         
         ref.getData(completion: { error, snapshot in
@@ -123,37 +123,35 @@ public class FirebaseProvider {
                 guard let snapshot else { return }
                 let value = snapshot.value as? NSDictionary
                 let like = value?["like"] as? Bool ?? false
-                succed(like)
+                success(like)
             }
         })
         ref.removeAllObservers()
     }
     
-    func postLikedStudio(studio: GMSPlace, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: ((Error) -> Void)? = nil) {
+    func postLikedStudio(studio: GMSPlace, referenceType: FirebaseReferenses, success: @escaping () -> Void, failure: ((Error) -> Void)? = nil) {
         let ref = referenceType.references
         
         guard let stdioID = studio.placeID,
               let studioName = studio.name else { return }
         let rating = studio.rating
         
-        
         let likedStudio = ["studio_id": stdioID,
                            "studio_name": studioName,
                            "studio_rating": rating,
         ] as [String : Any]
-        
         
         ref.setValue(likedStudio) { error, result in
             if let error = error {
                 failure!(error)
                 print(error.localizedDescription)
             } else {
-                succed()
+                success()
             }
         }
     }
     
-    func getLikedStudios(referenceType: FirebaseReferenses, succed: @escaping([FirebaseLikedStudioModel]) -> Void, failure: ((Error?) -> Void)? = nil) {
+    func getLikedStudios(referenceType: FirebaseReferenses, success: @escaping([FirebaseLikedStudioModel]) -> Void, failure: ((Error?) -> Void)? = nil) {
         let ref = referenceType.references
         
         var likedStudiosArr: [FirebaseLikedStudioModel] = []
@@ -171,7 +169,7 @@ public class FirebaseProvider {
                     likedStudiosArr.append(likedStudio)
                 }
             }
-            succed(likedStudiosArr)
+            success(likedStudiosArr)
             ref.removeAllObservers()
         } withCancel: { error in
             failure!(error)
@@ -179,30 +177,30 @@ public class FirebaseProvider {
         }
     }
     
-    func removeStudioFromLiked(referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: ((Error) -> Void)? = nil ) {
+    func removeStudioFromLiked(referenceType: FirebaseReferenses, success: @escaping () -> Void, failure: ((Error) -> Void)? = nil ) {
         let reference = referenceType.references
         reference.removeValue(completionBlock: { error, _ in
             if let error {
                 print(error.localizedDescription)
             } else {
-                succed()
+                success()
             }
         })
     }
     
-    func setLikeValue(_ likeFromFir: Bool, referenceType: FirebaseReferenses, succed: @escaping () -> Void, failure: ((Error) -> Void)? = nil) {
+    func setLikeValue(_ likeFromFir: Bool, referenceType: FirebaseReferenses, success: @escaping () -> Void, failure: ((Error) -> Void)? = nil) {
         let ref = referenceType.references
         let sendLike = ["like": likeFromFir ? false : true ] as [String : Any]
         ref.setValue(sendLike) { error,_  in
             if let error {
                 failure!(error)
             } else {
-                succed()
+                success()
             }
         }
     }
     
-    func updateStudioBooking(_ bookingModel: FirebaseBookingModel, _ referenceType: FirebaseReferenses, succed: @escaping (() -> Void), failure: @escaping (() -> Void)) {
+    func updateStudioBooking(_ bookingModel: FirebaseBookingModel, _ referenceType: FirebaseReferenses, success: @escaping (() -> Void), failure: @escaping (() -> Void)) {
         
         guard let userID = bookingModel.userID,
               let userName = bookingModel.userName,
@@ -234,12 +232,12 @@ public class FirebaseProvider {
                 failure()
                 print(error.localizedDescription)
             } else {
-                succed()
+                success()
             }
         }
     }
     
-    func createUser(viewController: UIViewController, email: String, password: String, displayName: String, succed: @escaping ((String) -> Void), failure: @escaping (() -> Void)) {
+    func createUser(viewController: UIViewController, email: String, password: String, displayName: String, success: @escaping ((String) -> Void), failure: @escaping (() -> Void)) {
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let user  {
                 let uid = user.user.uid
@@ -254,7 +252,7 @@ public class FirebaseProvider {
                     }
                 })
                 Auth.auth().currentUser?.sendEmailVerification()
-                succed(uid)
+                success(uid)
             } else if let error {
                 failure()
                 print(error.localizedDescription)
@@ -262,14 +260,14 @@ public class FirebaseProvider {
         }
     }
     
-    func signInWithUser(email: String, password: String, succed: @escaping (() -> Void), failureWithEmailOrPassword: @escaping (() -> Void), failureWithEmailAuthentification: @escaping (() -> Void)) {
+    func signInWithUser(email: String, password: String, success: @escaping (() -> Void), failureWithEmailOrPassword: @escaping (() -> Void), failureWithEmailAuthentification: @escaping (() -> Void)) {
         let userD = UserDefaults.standard
         
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
             if let user {
                 let uid = user.user.uid
                 if user.user.isEmailVerified {
-                    succed()
+                    success()
                     userD.set(uid, forKey: "uid")
                 } else {
                     failureWithEmailAuthentification()
@@ -303,7 +301,7 @@ public class FirebaseProvider {
         }
     }
     
-    func getUserInfo(referenceType: FirebaseReferenses, _ userID: String, succed: @escaping ((FirebaseUser) -> Void), failure: @escaping (() -> Void)) {
+    func getUserInfo(referenceType: FirebaseReferenses, _ userID: String, success: @escaping ((FirebaseUser) -> Void), failure: @escaping (() -> Void)) {
         let ref = referenceType.references
 
         ref.observe(DataEventType.value) { (snapshot) in
@@ -316,7 +314,7 @@ public class FirebaseProvider {
                     let userProfilePhoto = userObject["profile_photo"] as! String
                     let userPhoneNumber = userObject["phone_number"] as! String
                     let user = FirebaseUser(userName: userDisplaName, userSurname: userSurname, userEmail: userEmail, userPhone: userPhoneNumber, uid: userId, photoURL: userProfilePhoto)
-                succed(user)
+                success(user)
             }
             ref.removeAllObservers()
         } withCancel: { error in

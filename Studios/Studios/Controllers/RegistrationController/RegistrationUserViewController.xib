@@ -16,6 +16,7 @@
                 <outlet property="passwordTF" destination="b4C-oP-WWr" id="YcK-2L-SHf"/>
                 <outlet property="phoneNumberTF" destination="rhb-UK-knw" id="dX1-6K-3GU"/>
                 <outlet property="registrationButton" destination="z2g-Fq-L1T" id="Rwx-xR-5Vm"/>
+                <outlet property="registrationButtonBottomContraint" destination="eUq-Rx-pWS" id="5HO-4Z-sox"/>
                 <outlet property="scrollView" destination="Lon-o1-S2Z" id="V6b-kL-VA7"/>
                 <outlet property="surnameTF" destination="Q25-94-Q48" id="eui-Kg-ZCX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -27,10 +28,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lon-o1-S2Z">
-                    <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                    <rect key="frame" x="0.0" y="47" width="390" height="763"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDI-Bh-t8e">
-                            <rect key="frame" x="0.0" y="0.0" width="390" height="763"/>
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="754.33333333333337"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1b3-uK-N54">
                                     <rect key="frame" x="16" y="0.0" width="358" height="114.33333333333333"/>
@@ -97,7 +98,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Номер телефона будет использован для подтверждения бронирований." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wR1-zd-hG9">
-                                            <rect key="frame" x="0.0" y="20.666666666666657" width="358" height="26.333333333333329"/>
+                                            <rect key="frame" x="0.0" y="20.666666666666686" width="358" height="26.333333333333329"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -156,7 +157,7 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2g-Fq-L1T">
-                                    <rect key="frame" x="132" y="504.33333333333326" width="126" height="50"/>
+                                    <rect key="frame" x="132" y="504.33333333333337" width="126" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="hl1-LE-wLz"/>
                                     </constraints>
@@ -183,12 +184,12 @@
                                 <constraint firstItem="leE-HJ-bD8" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="cUU-QR-OYn"/>
                                 <constraint firstItem="z2g-Fq-L1T" firstAttribute="centerX" secondItem="bDI-Bh-t8e" secondAttribute="centerX" id="cXY-pi-jZu"/>
                                 <constraint firstItem="OUg-nG-CaQ" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="eSk-dZ-CyB"/>
+                                <constraint firstAttribute="bottom" secondItem="z2g-Fq-L1T" secondAttribute="bottom" constant="200" id="eUq-Rx-pWS"/>
                                 <constraint firstItem="leE-HJ-bD8" firstAttribute="top" secondItem="uBQ-eu-5Li" secondAttribute="bottom" constant="20" id="ekv-Hg-KzR"/>
                                 <constraint firstItem="y6H-7n-bwn" firstAttribute="top" secondItem="leE-HJ-bD8" secondAttribute="bottom" constant="10" id="ik7-RP-ZYA"/>
                                 <constraint firstAttribute="trailing" secondItem="1b3-uK-N54" secondAttribute="trailing" constant="16" id="pIN-3g-zO3"/>
                                 <constraint firstItem="y6H-7n-bwn" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="q4h-An-p1Y"/>
                                 <constraint firstItem="1b3-uK-N54" firstAttribute="top" secondItem="bDI-Bh-t8e" secondAttribute="top" id="uEB-Zb-6n7"/>
-                                <constraint firstAttribute="height" constant="763" id="uX8-a8-Eto"/>
                                 <constraint firstAttribute="trailing" secondItem="uBQ-eu-5Li" secondAttribute="trailing" constant="16" id="yFt-YK-SRE"/>
                             </constraints>
                         </view>

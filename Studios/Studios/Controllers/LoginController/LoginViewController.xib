@@ -10,7 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Studios" customModuleProvider="target">
             <connections>
+                <outlet property="loginButtonBottomConstraint" destination="Hjc-EW-Bp1" id="Qtk-IX-hSj"/>
                 <outlet property="loginTF" destination="a3t-iK-iMc" id="xEd-Vz-HhX"/>
+                <outlet property="mainLogoBottomConstraint" destination="21g-9f-nxh" id="vgd-0V-Ulu"/>
                 <outlet property="passwordTF" destination="BqP-UX-ab0" id="83z-nJ-2QS"/>
                 <outlet property="spinner" destination="9ta-5V-sbp" id="xKV-yG-Jwe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -22,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aaV-6b-WMt">
-                    <rect key="frame" x="0.0" y="247" width="390" height="188.66666666666663"/>
+                    <rect key="frame" x="0.0" y="284.66666666666669" width="390" height="188.66666666666669"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="USO-Ch-NeK">
                             <rect key="frame" x="20" y="20" width="350" height="56"/>
@@ -42,6 +44,9 @@
                                     </connections>
                                 </textField>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="79b-pq-TI7"/>
+                            </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hnU-pG-9Uh">
                             <rect key="frame" x="20" y="91" width="350" height="56"/>
@@ -87,7 +92,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NBH-jG-q3m">
-                    <rect key="frame" x="0.0" y="435.66666666666669" width="390" height="128.00000000000006"/>
+                    <rect key="frame" x="0.0" y="473.33333333333331" width="390" height="66.666666666666686"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нет аккаунта? Зарегистрируйтесь!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sh-rI-E0W">
                             <rect key="frame" x="20" y="8" width="350" height="13.333333333333336"/>
@@ -96,7 +101,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETw-bS-8P5">
-                            <rect key="frame" x="140.66666666666666" y="26.333333333333314" width="108.66666666666666" height="30.333333333333329"/>
+                            <rect key="frame" x="140.66666666666666" y="26.333333333333371" width="108.66666666666666" height="30.333333333333329"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Регистрация">
                                 <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
@@ -105,29 +110,13 @@
                                 <action selector="registrationButtonDidTap:" destination="-1" eventType="touchUpInside" id="QBC-hD-UhC"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvB-uy-U8V">
-                            <rect key="frame" x="118.66666666666667" y="86.666666666666686" width="152.66666666666663" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="j1y-s6-coo"/>
-                            </constraints>
-                            <color key="tintColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title="Войти в аккаунт">
-                                <color key="baseBackgroundColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                            </buttonConfiguration>
-                            <connections>
-                                <action selector="loginButtonDidTap:" destination="-1" eventType="touchUpInside" id="0kw-Rd-kXA"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="128" id="EFv-8A-U0n"/>
                         <constraint firstItem="ETw-bS-8P5" firstAttribute="top" secondItem="6sh-rI-E0W" secondAttribute="bottom" constant="5" id="Fa9-lt-cGq"/>
                         <constraint firstAttribute="trailing" secondItem="6sh-rI-E0W" secondAttribute="trailing" constant="20" id="T5c-sh-njr"/>
                         <constraint firstItem="6sh-rI-E0W" firstAttribute="top" secondItem="NBH-jG-q3m" secondAttribute="top" constant="8" id="XFh-hc-iAO"/>
-                        <constraint firstItem="JvB-uy-U8V" firstAttribute="top" secondItem="ETw-bS-8P5" secondAttribute="bottom" constant="30" id="elG-H3-LyM"/>
-                        <constraint firstItem="JvB-uy-U8V" firstAttribute="centerX" secondItem="NBH-jG-q3m" secondAttribute="centerX" id="jtF-Bh-jRg"/>
+                        <constraint firstAttribute="bottom" secondItem="ETw-bS-8P5" secondAttribute="bottom" constant="10" id="evU-lK-vzh"/>
                         <constraint firstItem="ETw-bS-8P5" firstAttribute="centerX" secondItem="NBH-jG-q3m" secondAttribute="centerX" id="n9R-bX-nCo"/>
                         <constraint firstItem="6sh-rI-E0W" firstAttribute="leading" secondItem="NBH-jG-q3m" secondAttribute="leading" constant="20" id="rIl-4a-R5X"/>
                     </constraints>
@@ -135,18 +124,42 @@
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="9ta-5V-sbp">
                     <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
                 </activityIndicatorView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvB-uy-U8V">
+                    <rect key="frame" x="112.99999999999999" y="560" width="152.66666666666663" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="j1y-s6-coo"/>
+                    </constraints>
+                    <color key="tintColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Войти в аккаунт">
+                        <color key="baseBackgroundColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="loginButtonDidTap:" destination="-1" eventType="touchUpInside" id="0kw-Rd-kXA"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Studios" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJ1-wa-IXz">
+                    <rect key="frame" x="136" y="141.33333333333334" width="118.33333333333331" height="43.333333333333343"/>
+                    <fontDescription key="fontDescription" name="Thonburi-Bold" family="Thonburi" pointSize="33"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="aaV-6b-WMt" firstAttribute="top" secondItem="bJ1-wa-IXz" secondAttribute="bottom" constant="100" id="21g-9f-nxh"/>
                 <constraint firstItem="9ta-5V-sbp" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="9SI-M6-lH2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NBH-jG-q3m" secondAttribute="trailing" id="AuR-m0-J2O"/>
                 <constraint firstItem="9ta-5V-sbp" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="GzN-Ba-jso"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aaV-6b-WMt" secondAttribute="trailing" id="H4e-8j-QFS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="JvB-uy-U8V" secondAttribute="bottom" constant="200" id="Hjc-EW-Bp1"/>
+                <constraint firstItem="bJ1-wa-IXz" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KQI-ep-i8M"/>
+                <constraint firstItem="JvB-uy-U8V" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-5.6666666666666856" id="SF2-XH-sfg"/>
+                <constraint firstItem="JvB-uy-U8V" firstAttribute="top" secondItem="NBH-jG-q3m" secondAttribute="bottom" constant="20" id="Vdl-uF-fQ9"/>
                 <constraint firstItem="NBH-jG-q3m" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="WHn-X4-6KS"/>
                 <constraint firstItem="aaV-6b-WMt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Zef-2y-wVz"/>
                 <constraint firstItem="NBH-jG-q3m" firstAttribute="top" secondItem="aaV-6b-WMt" secondAttribute="bottom" id="b28-lv-Ls6"/>
-                <constraint firstItem="aaV-6b-WMt" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="200" id="cZa-SA-gtb"/>
             </constraints>
             <point key="canvasLocation" x="136.92307692307691" y="20.616113744075829"/>
         </view>

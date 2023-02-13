@@ -19,12 +19,12 @@ class RegistrationUserViewController: UIViewController {
     @IBOutlet weak var doublePasswordTF: UITextField!
     @IBOutlet weak var registrationButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var registrationButtonBottomContraint: NSLayoutConstraint!
     
     var activeField: UITextField?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTextFields()
-        registerForKeyboardNotifications()
         setupVC()
     }
     
@@ -34,10 +34,13 @@ class RegistrationUserViewController: UIViewController {
     }
     
     private func setupVC() {
-        hideKeyboardWhenTappedAround()
+        
         scrollView.isScrollEnabled = false
         registrationButton.isEnabled = false
         self.title = "Регистрация"
+        self.hideKeyboardWhenTappedAround()
+        self.registerForKeyboardShowNotifications(selector: #selector(keyboardWasShown(notification:)))
+        self.registerForKeyboardHideNotifications(selector: #selector(keyboardWillBeHidden(notification:)))
     }
     
     private func setupTextFields() {
@@ -51,7 +54,10 @@ class RegistrationUserViewController: UIViewController {
     }
     
     private func isValidTextField() {
-        let results = [phoneNumberTF.isValid(type:.phone), emailTF.isValid(type: .email), passwordTF.isValid(type: .password)]
+        let results = [phoneNumberTF.isValid(type:.phone),
+                       emailTF.isValid(type: .email),
+                       passwordTF.isValid(type: .password)]
+        
         let positive = results.filter( {$0 }).count == results.count
         
         if positive {
@@ -69,19 +75,7 @@ class RegistrationUserViewController: UIViewController {
             registrationButton.isEnabled = false
         }
     }
-    
-    private func registerForKeyboardNotifications() {
-        //Adding notifies on keyboard appearing
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    private func deregisterFromKeyboardNotifications(){
-        //Removing notifies on keyboard appearing
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
+
     @objc private func keyboardWasShown(notification: NSNotification){
         //Need to calculate keyboard exact size due to Apple suggestions
         self.scrollView.isScrollEnabled = true
@@ -91,6 +85,7 @@ class RegistrationUserViewController: UIViewController {
         
         self.scrollView.contentInset = contentInsets
         self.scrollView.scrollIndicatorInsets = contentInsets
+        self.registrationButtonBottomContraint.constant = 20
         
         var aRect : CGRect = self.view.frame
         aRect.size.height -= keyboardSize!.height
@@ -113,6 +108,7 @@ class RegistrationUserViewController: UIViewController {
         self.scrollView.scrollIndicatorInsets = contentInsets
         self.view.endEditing(true)
         self.scrollView.isScrollEnabled = false
+        self.registrationButtonBottomContraint.constant = 200
     }
     
     @IBAction func textFieldDidBeginEditing(_ sender: UITextField) {
