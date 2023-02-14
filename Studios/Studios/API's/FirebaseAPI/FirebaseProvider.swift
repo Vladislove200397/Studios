@@ -260,7 +260,7 @@ public class FirebaseProvider {
         }
     }
     
-    func signInWithUser(email: String, password: String, success: @escaping (() -> Void), failureWithEmailOrPassword: @escaping (() -> Void), failureWithEmailAuthentification: @escaping (() -> Void)) {
+    func signInWithUser(email: String, password: String, success: @escaping (() -> Void), failureWithEmailOrPassword: @escaping ((String) -> Void), failureWithEmailAuthentification: @escaping ((String) -> Void)) {
         let userD = UserDefaults.standard
         
         Auth.auth().signIn(withEmail: email, password: password) { user, error in
@@ -270,11 +270,10 @@ public class FirebaseProvider {
                     success()
                     userD.set(uid, forKey: "uid")
                 } else {
-                    failureWithEmailAuthentification()
+                    failureWithEmailAuthentification(user.user.isEmailVerifiedMessage)
                 }
             } else if let error {
-                failureWithEmailOrPassword()
-                print(error.localizedDescription)
+                failureWithEmailOrPassword(error.castToFirebaseError())
             }
         }
     }

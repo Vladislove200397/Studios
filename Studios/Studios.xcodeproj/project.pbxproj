@@ -18,6 +18,7 @@
 		B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */; };
 		B94008CB299A5EED00172E01 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94008C9299A5EED00172E01 /* ResetPasswordViewController.swift */; };
 		B94008CC299A5EED00172E01 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94008CA299A5EED00172E01 /* ResetPasswordViewController.xib */; };
+		B94008CE299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */; };
 		B9442C962977E97A00CEDEA6 /* BookingConfirmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */; };
 		B9442C972977E97A00CEDEA6 /* BookingConfirmController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */; };
 		B949AFE7295433F300025011 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFE6295433F300025011 /* UIView+Extension.swift */; };
@@ -105,6 +106,7 @@
 		B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCellTypeEnum.swift; sourceTree = "<group>"; };
 		B94008C9299A5EED00172E01 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		B94008CA299A5EED00172E01 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
+		B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrosCode+FirebaseExtension.swift"; sourceTree = "<group>"; };
 		B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmController.swift; sourceTree = "<group>"; };
 		B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingConfirmController.xib; sourceTree = "<group>"; };
 		B949AFE6295433F300025011 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -248,6 +250,14 @@
 			path = ResetPasswordController;
 			sourceTree = "<group>";
 		};
+		B94008CF299BB28400172E01 /* FirebaseExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */,
+			);
+			path = FirebaseExtensions;
+			sourceTree = "<group>";
+		};
 		B9442C932977DAD600CEDEA6 /* BookingConfirmController */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +269,7 @@
 		B949AFE5295433E400025011 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B94008CF299BB28400172E01 /* FirebaseExtensions */,
 				B949AFE6295433F300025011 /* UIView+Extension.swift */,
 				B9FA041F295E2FD50097DF24 /* DateFormatter+Extension.swift */,
 				B9DD0128297C4BCC007C266D /* String+Extension.swift */,
@@ -947,6 +958,7 @@
 				B962ABA2299514B20053F1AB /* StringOpt+Extension.swift in Sources */,
 				B9E0F1D12988079F0087A48A /* LikedStudioCell.swift in Sources */,
 				B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */,
+				B94008CE299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift in Sources */,
 				B9FA0420295E2FD50097DF24 /* DateFormatter+Extension.swift in Sources */,
 				B9B43FE029950DC0003A073D /* LoginViewController.swift in Sources */,
 				B9C63E772933BC0A00754496 /* StudioReviewAPI.swift in Sources */,

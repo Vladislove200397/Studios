@@ -101,24 +101,24 @@ class LoginViewController: UIViewController {
             guard let self else { return }
             self.spinner.stopAnimating()
             Environment.scenDelegate?.setTabBarIsInitial()
-        } failureWithEmailOrPassword: {[weak self] in
+            
+        } failureWithEmailOrPassword: {[weak self] error in
             guard let self else { return }
             self.spinner.stopAnimating()
-            Alerts().showAlert(controller: self, title: "Ошибка", message: "Неверный логин или пароль") {
+            Alerts().showAlert(controller: self, title: "Ошибка", message: "\(error)") {
                 self.passwordTF.text = nil
             }
-        } failureWithEmailAuthentification: {[weak self] in
+            
+        } failureWithEmailAuthentification: {[weak self] error in
             guard let self else { return }
             self.spinner.stopAnimating()
-
-            Alerts().showAlertsWithTwoAction(controller: self, title: "Ошибка", titleForSecondButton: "Отправить письмо еще раз", message: "Необходимо подтвердить адрес электронной почты. Проверьте почтовый ящик \(self.loginTF.text!)") {
+            Alerts().showAlertsWithTwoAction(controller: self, title: "Ошибка", titleForSecondButton: "Отправить письмо еще раз", message: "\(error) \(self.loginTF.text!)") {
                 self.passwordTF.text = nil
                 self.logOut()
             } okComplition: {
                 Auth.auth().currentUser?.sendEmailVerification()
             }
         }
-
     }
     
     @IBAction func loginButtonDidTap(_ sender: Any) {
@@ -133,6 +133,7 @@ class LoginViewController: UIViewController {
             guard let self else { return }
             Auth.auth().sendPasswordReset(withEmail: login) { error in
                 if let error {
+                    Alerts().showAlert(controller: self, title: "Ошибка", message: "Аккаунт с таким логином не найден или логин введен не корректно.")
                     print(error.localizedDescription)
                 } else {
                     Alerts().showAlert(controller: self,
