@@ -19,21 +19,21 @@ extension AuthErrorCode {
     var authErrorMessage: String {
         switch self.code {
         case .emailAlreadyInUse:
-                return "Выбранный email уже используется с другой учетной записью. Выберите другой email"
+                return "Выбранный email уже используется с другой учетной записью. Выберите другой email."
             case .userNotFound:
-                return "Учетная запись не найдена. \nПожалуйста, проверьте введенные данные и попробуйте еще раз"
+                return "Учетная запись не найдена. \nПожалуйста, проверьте введенные данные и попробуйте еще раз."
             case .userDisabled:
-                return "Ваш аккаунт отключен. Пожалуйста, обратитесь в поддержку"
+                return "Ваш аккаунт отключен. Пожалуйста, обратитесь в поддержку."
             case .invalidEmail, .invalidSender, .invalidRecipientEmail:
-                return "Введите корреектный email"
+                return "Введите корректный email."
             case .networkError:
-                return "Ошибка подключения к сети. \nПопробуйте еще раз"
+                return "Ошибка подключения к сети. \nПопробуйте еще раз."
             case .weakPassword:
-                return "Короткий пароль. \nПароль должен содержать не менее 6 символов"
+                return "Короткий пароль. \nПароль должен содержать не менее 6 символов."
             case .wrongPassword:
-                return "Неверный email или пароль"
+                return "Неверный email или пароль."
             default:
-                return "Упс... Что-то пошло не так. \nПопробуйте позже"
+                return "Упс... Что-то пошло не так. \nПопробуйте позже."
         }
     }
 }
@@ -41,8 +41,8 @@ extension AuthErrorCode {
 extension User {
     var isEmailVerifiedMessage: String {
         switch self.isEmailVerified {
-            case true:     return ""
-            case false:    return "Аккаунт не верефицирован, проверьте почтовый ящик"
+            case false:    return "Аккаунт не верефицирован, проверьте почтовый ящик."
+            default:       return ""
         }
     }
 }

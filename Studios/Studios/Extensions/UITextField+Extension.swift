@@ -17,12 +17,14 @@ extension UITextField {
     }
     
     /// Setup UITextField for RegEx
-    func setupForRegEx() {
+    func setupTextField() {
         self.layer.cornerRadius = 5
         self.layer.borderWidth = 0.8
         self.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
-        self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 10))
         self.leftViewMode = .always
+        self.textColor = .lightGray
+        self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
     }
     
     //Validate UITextField
@@ -68,25 +70,8 @@ extension UITextField {
         let passPred = NSPredicate(format: "SELF MATCHES %@", pattern.rawValue)
         return passPred.evaluate(with: string)
     }
-
-//    func enablePasswordToggle(button: UIButton) {
-//        button.setImage(UIImage(named: "eye-72"), for: .normal)
-//        button.setImage(UIImage(named: "closed-eye-72"), for: .selected)
-//        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -16, bottom: 0, right: 0)
-//
-//        button.addTarget(self, action: #selector(togglePasswordView), for: .touchDragInside)
-//        self.rightView = button
-//        self.rightViewMode = .always
-//
-//        button.alpha = 0.4
-//    }
-//
-//    @objc func togglePasswordView(_ button: UIButton, _ sender: Any) {
-//        isSecureTextEntry.toggle()
-//        button.isSelected.toggle()
-//    }
     
-    fileprivate func setPasswordToggleImage(_ button: UIButton) {
+    func setPasswordToggleImage(_ button: UIButton) {
         if(isSecureTextEntry){
             button.setImage(UIImage(named: "eye-72"), for: .normal)
         }else{

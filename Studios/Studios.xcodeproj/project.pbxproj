@@ -21,6 +21,12 @@
 		B94008CE299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */; };
 		B9442C962977E97A00CEDEA6 /* BookingConfirmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */; };
 		B9442C972977E97A00CEDEA6 /* BookingConfirmController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */; };
+		B946ED16299C4F0F00C82F5C /* VisualEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946ED0F299C4F0F00C82F5C /* VisualEffect.swift */; };
+		B946ED17299C4F0F00C82F5C /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946ED10299C4F0F00C82F5C /* PaddingLabel.swift */; };
+		B946ED18299C4F0F00C82F5C /* PopUpConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946ED12299C4F0F00C82F5C /* PopUpConfiguration.swift */; };
+		B946ED19299C4F0F00C82F5C /* PopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946ED13299C4F0F00C82F5C /* PopUpController.swift */; };
+		B946ED1A299C4F0F00C82F5C /* PopUpTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946ED15299C4F0F00C82F5C /* PopUpTypes.swift */; };
+		B946ED1C299C4F2C00C82F5C /* PopupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946ED1B299C4F2C00C82F5C /* PopupManager.swift */; };
 		B949AFE7295433F300025011 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949AFE6295433F300025011 /* UIView+Extension.swift */; };
 		B94D86882997BD150033F2B4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94D86862997BD150033F2B4 /* ProfileViewController.swift */; };
 		B94D86892997BD150033F2B4 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94D86872997BD150033F2B4 /* ProfileViewController.xib */; };
@@ -32,6 +38,7 @@
 		B962ABA2299514B20053F1AB /* StringOpt+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B962ABA1299514B20053F1AB /* StringOpt+Extension.swift */; };
 		B9678D98295A2D3B002CFE75 /* HoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9678D96295A2D3B002CFE75 /* HoursCell.swift */; };
 		B9678D99295A2D3B002CFE75 /* HoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9678D97295A2D3B002CFE75 /* HoursCell.xib */; };
+		B96EA88929A01971000B138E /* KeyboardHideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96EA88829A01970000B138E /* KeyboardHideViewController.swift */; };
 		B972AB872951C6170025683F /* TabBarEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB862951C6170025683F /* TabBarEnum.swift */; };
 		B972AB892951CCF60025683F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB882951CCF60025683F /* TabBarController.swift */; };
 		B972AB8E2951D6B30025683F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B972AB8D2951D6B30025683F /* SnapKit */; };
@@ -109,6 +116,12 @@
 		B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrosCode+FirebaseExtension.swift"; sourceTree = "<group>"; };
 		B9442C942977E97A00CEDEA6 /* BookingConfirmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmController.swift; sourceTree = "<group>"; };
 		B9442C952977E97A00CEDEA6 /* BookingConfirmController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingConfirmController.xib; sourceTree = "<group>"; };
+		B946ED0F299C4F0F00C82F5C /* VisualEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffect.swift; sourceTree = "<group>"; };
+		B946ED10299C4F0F00C82F5C /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		B946ED12299C4F0F00C82F5C /* PopUpConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpConfiguration.swift; sourceTree = "<group>"; };
+		B946ED13299C4F0F00C82F5C /* PopUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpController.swift; sourceTree = "<group>"; };
+		B946ED15299C4F0F00C82F5C /* PopUpTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpTypes.swift; sourceTree = "<group>"; };
+		B946ED1B299C4F2C00C82F5C /* PopupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupManager.swift; sourceTree = "<group>"; };
 		B949AFE6295433F300025011 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		B94D86862997BD150033F2B4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B94D86872997BD150033F2B4 /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
@@ -120,6 +133,7 @@
 		B962ABA1299514B20053F1AB /* StringOpt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringOpt+Extension.swift"; sourceTree = "<group>"; };
 		B9678D96295A2D3B002CFE75 /* HoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursCell.swift; sourceTree = "<group>"; };
 		B9678D97295A2D3B002CFE75 /* HoursCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoursCell.xib; sourceTree = "<group>"; };
+		B96EA88829A01970000B138E /* KeyboardHideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHideViewController.swift; sourceTree = "<group>"; };
 		B972AB862951C6170025683F /* TabBarEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarEnum.swift; sourceTree = "<group>"; };
 		B972AB882951CCF60025683F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B972CBF0297E916D00FBFCFD /* ArrayInt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArrayInt+Extension.swift"; sourceTree = "<group>"; };
@@ -266,6 +280,50 @@
 			path = BookingConfirmController;
 			sourceTree = "<group>";
 		};
+		B946ED0C299C4ED100C82F5C /* PopupController */ = {
+			isa = PBXGroup;
+			children = (
+				B946ED11299C4F0F00C82F5C /* Controller */,
+				B946ED0D299C4F0F00C82F5C /* CustomUI */,
+				B946ED14299C4F0F00C82F5C /* PopUpTypes */,
+				B946ED1B299C4F2C00C82F5C /* PopupManager.swift */,
+			);
+			path = PopupController;
+			sourceTree = "<group>";
+		};
+		B946ED0D299C4F0F00C82F5C /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				B946ED10299C4F0F00C82F5C /* PaddingLabel.swift */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		B946ED0E299C4F0F00C82F5C /* UIVisualEffect */ = {
+			isa = PBXGroup;
+			children = (
+				B946ED0F299C4F0F00C82F5C /* VisualEffect.swift */,
+			);
+			path = UIVisualEffect;
+			sourceTree = "<group>";
+		};
+		B946ED11299C4F0F00C82F5C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B946ED12299C4F0F00C82F5C /* PopUpConfiguration.swift */,
+				B946ED13299C4F0F00C82F5C /* PopUpController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B946ED14299C4F0F00C82F5C /* PopUpTypes */ = {
+			isa = PBXGroup;
+			children = (
+				B946ED15299C4F0F00C82F5C /* PopUpTypes.swift */,
+			);
+			path = PopUpTypes;
+			sourceTree = "<group>";
+		};
 		B949AFE5295433E400025011 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +352,7 @@
 		B951EBF82975513E0076EB67 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B946ED0E299C4F0F00C82F5C /* UIVisualEffect */,
 				B951EBF92975514E0076EB67 /* HorizontalCalendar */,
 				B9FA0425295E441B0097DF24 /* FlexibleView */,
 			);
@@ -731,6 +790,7 @@
 		B9FABB63291BBFEE00232D9C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B946ED0C299C4ED100C82F5C /* PopupController */,
 				B94008C8299A5ED700172E01 /* ResetPasswordController */,
 				B90871E429982F6800247729 /* ProfileEditController */,
 				B94D86852997BCF80033F2B4 /* ProfileController */,
@@ -743,6 +803,7 @@
 				B9442C932977DAD600CEDEA6 /* BookingConfirmController */,
 				B9FA0412295E20280097DF24 /* BookingHistoryController */,
 				B9A36FC0292CF483009825F9 /* SegmentControllers */,
+				B96EA88829A01970000B138E /* KeyboardHideViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -921,6 +982,7 @@
 				B9442C962977E97A00CEDEA6 /* BookingConfirmController.swift in Sources */,
 				B9FA0411295E19A50097DF24 /* FirebaseBookingModel.swift in Sources */,
 				B97A7A65292B9B750025F310 /* PhotoCell.swift in Sources */,
+				B946ED1A299C4F0F00C82F5C /* PopUpTypes.swift in Sources */,
 				B9F08DA929478CF20059614C /* BookingStudioController.swift in Sources */,
 				B9C63E872933C2C600754496 /* ReviewCell.swift in Sources */,
 				B9678D98295A2D3B002CFE75 /* HoursCell.swift in Sources */,
@@ -929,6 +991,7 @@
 				B9F44DD62994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift in Sources */,
 				B9DD0131297C97CF007C266D /* UITextField+Extension.swift in Sources */,
 				B94D86882997BD150033F2B4 /* ProfileViewController.swift in Sources */,
+				B946ED18299C4F0F00C82F5C /* PopUpConfiguration.swift in Sources */,
 				B9FABB0A291A5E3500232D9C /* AppDelegate.swift in Sources */,
 				B9F08DB029479CF30059614C /* Environment.swift in Sources */,
 				B99E0D89295E689D00E4204B /* FlexView.swift in Sources */,
@@ -938,19 +1001,24 @@
 				B9DD0129297C4BCC007C266D /* String+Extension.swift in Sources */,
 				B9DD0140297CDBC1007C266D /* Alerts.swift in Sources */,
 				B9F08DAD294793890059614C /* FirebaseUserModel.swift in Sources */,
+				B946ED17299C4F0F00C82F5C /* PaddingLabel.swift in Sources */,
 				B972CBF4297E97E500FBFCFD /* SelectionTypeEnum.swift in Sources */,
 				B9FA041D295E2AB80097DF24 /* BookingCell.swift in Sources */,
 				B9E0F1CA2987B1680087A48A /* LikedStudiosViewController.swift in Sources */,
 				B9FA042D295E47190097DF24 /* Delegates.swift in Sources */,
 				B9DD012F297C8E84007C266D /* ValidationType.swift in Sources */,
 				B9A36FC5292CF4ED009825F9 /* InfoViewController.swift in Sources */,
+				B946ED19299C4F0F00C82F5C /* PopUpController.swift in Sources */,
 				B972CBF1297E916D00FBFCFD /* ArrayInt+Extension.swift in Sources */,
 				B9FA0415295E204E0097DF24 /* BookingHistoryController.swift in Sources */,
+				B946ED1C299C4F2C00C82F5C /* PopupManager.swift in Sources */,
 				B90871E729982F7F00247729 /* ProfileEditViewController.swift in Sources */,
 				B9DD013A297CB7C5007C266D /* FirebaseReferenceEnum.swift in Sources */,
 				B9FA0430295E47520097DF24 /* FlexibleViewTypes.swift in Sources */,
+				B96EA88929A01971000B138E /* KeyboardHideViewController.swift in Sources */,
 				B972AB872951C6170025683F /* TabBarEnum.swift in Sources */,
 				B972AB892951CCF60025683F /* TabBarController.swift in Sources */,
+				B946ED16299C4F0F00C82F5C /* VisualEffect.swift in Sources */,
 				B9E0F1CD2987B3D70087A48A /* FirebaseLikedStudioModel.swift in Sources */,
 				B90D38FF2922B23000F77AF8 /* StudioInfoController.swift in Sources */,
 				B9DC2C032941CE22009EEE43 /* TestController.swift in Sources */,

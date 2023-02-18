@@ -69,10 +69,10 @@ class BookingConfirmController: UIViewController {
     }
     
     private func setupTextFields() {
-        userPhoneNumberTF.setupForRegEx()
-        userNameTF.setupForRegEx()
-        userEmailTF.setupForRegEx()
-        commentTF.setupForRegEx()
+        userPhoneNumberTF.setupTextField()
+        userNameTF.setupTextField()
+        userEmailTF.setupTextField()
+        commentTF.setupTextField()
         
         userNameTF.validateRegEx(type: .name)
         userPhoneNumberTF.validateRegEx(type: .phone)

@@ -18,26 +18,39 @@ extension UIView {
         layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
         layer.shouldRasterize = true
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
-      }
+    }
     
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-            let path = UIBezierPath(roundedRect: bounds,
-                                    byRoundingCorners: corners,
-                                    cornerRadii: CGSize(width: radius, height: radius))
-            let mask = CAShapeLayer()
-            mask.path = path.cgPath
-            layer.mask = mask
-        }
+        let path = UIBezierPath(roundedRect: bounds,
+                                byRoundingCorners: corners,
+                                cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
     
-    func addVerticalGradientLayer(topColor: UIColor, bottomColor: UIColor) {
-        let gradient = CAGradientLayer()
-        gradient.frame = self.bounds
-        gradient.colors = [topColor.cgColor, bottomColor.cgColor]
-        gradient.locations = [0.0, 1.0]
-        gradient.startPoint = CGPoint(x: 1, y: 0)
-        gradient.endPoint = CGPoint(x: 1, y: 0)
+    func setGradientBackground(topColor: CGColor, bottomColor: CGColor) {
+        let colorTop =  topColor
+        let colorBottom = bottomColor
         
-        self.clipsToBounds = true
-        self.layer.insertSublayer(gradient, at: 0)
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.frame = self.bounds
+        
+        self.layer.insertSublayer(gradientLayer, at:0)
+    }
+    
+    func addBlurredBackground(style: UIBlurEffect.Style, alpha: Double,blurColor: UIColor) {
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let customBlurEffectView = CustomVisualEffectView(effect: blurEffect, intensity: 0.2)
+        customBlurEffectView.frame =  self.bounds
+        customBlurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let dimmedDraw = UIView()
+        dimmedDraw.backgroundColor = blurColor.withAlphaComponent(alpha)
+        dimmedDraw.frame =  self.frame
+        dimmedDraw.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.addSubview(customBlurEffectView)
+        self.addSubview(dimmedDraw)
     }
 }
