@@ -27,7 +27,7 @@ extension AuthErrorCode {
             case .invalidEmail, .invalidSender, .invalidRecipientEmail:
                 return "Введите корректный email."
             case .networkError:
-                return "Ошибка подключения к сети. \nПопробуйте еще раз."
+                return "Отсутсвует подключения к сети. \nПопробуйте еще раз."
             case .weakPassword:
                 return "Короткий пароль. \nПароль должен содержать не менее 6 символов."
             case .wrongPassword:

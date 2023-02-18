@@ -133,7 +133,6 @@ class ResetPasswordViewController: KeyboardHideViewController {
         }
     }
     
-    
     @IBAction func backButtonDidTap(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
     }
