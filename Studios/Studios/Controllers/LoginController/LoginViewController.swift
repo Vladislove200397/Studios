@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
 
-class LoginViewController: UIViewController {
+class LoginViewController: KeyboardHideViewController {
     @IBOutlet weak var loginTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -19,32 +19,57 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupPasswordTextField()
+        setupTextFields()
         setupVC()
     }
     
-    deinit {
-        deregisterFromKeyboardNotifications()
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        addBackgroundGradient()
     }
     
+    private func addBackgroundGradient() {
+        let topColor = UIColor(
+            hue: 0.64,
+            saturation: 0.68,
+            brightness: 0.19,
+            alpha: 1.0).cgColor // #2e3c91
+        
+        self.view.setGradientBackground(
+            topColor: topColor,
+            bottomColor: UIColor.black.cgColor
+            )
+    }
+
     private func setupVC() {
         self.hideKeyboardWhenTappedAround()
-        self.registerForKeyboardShowNotifications(selector: #selector(self.keyboardWillShow))
-        self.registerForKeyboardHideNotifications(selector: #selector(self.keyboardWillHide))
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    private func setupPasswordTextField() {
+    private func setupTextFields() {
         passwordTF.enablePasswordToggle()
+        loginTF.setupTextField()
+        passwordTF.setupTextField()
+        loginTF.backgroundColor = .clear
+        passwordTF.backgroundColor = .clear
     }
     
-    @objc func keyboardWillShow(_ notification: NSNotification) {
+    @objc override func keyboardWillShow(_ notification: NSNotification) {
         if loginTF.isEditing || passwordTF.isEditing {
-                moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.loginButtonBottomConstraint, keyboardWillShow: true)
+                moveViewWithKeyboard(
+                    notification: notification,
+                    viewBottomConstraint: self.loginButtonBottomConstraint,
+                    keyboardWillShow: true
+                )
             }
     }
     
-    @objc func keyboardWillHide(_ notification: NSNotification) {
-        moveViewWithKeyboard(notification: notification, viewBottomConstraint: self.loginButtonBottomConstraint, keyboardWillShow: false)
+    @objc override func keyboardWillHide(_ notification: NSNotification) {
+        moveViewWithKeyboard(
+            notification: notification,
+            viewBottomConstraint: self.loginButtonBottomConstraint,
+            keyboardWillShow: false
+        )
     }
     
     func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
@@ -62,7 +87,7 @@ class LoginViewController: UIViewController {
             viewBottomConstraint.constant = keyboardHeight + (safeAreaExists ? 0 : bottomConstant)
             self.mainLogoBottomConstraint.constant = 16
         } else {
-            viewBottomConstraint.constant = 200
+            viewBottomConstraint.constant = 157
             self.mainLogoBottomConstraint.constant = 100
         }
         
@@ -93,31 +118,55 @@ class LoginViewController: UIViewController {
     }
     
     private func signIn() {
+        var configure = PopUpConfiguration(
+            confirmButtonTitle: "Ok",
+            title: "Ошибка",
+            titleColor: .black,
+            titleFont: .systemFont(ofSize: 17, weight: .bold),
+            descriptionColor: .black,
+            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
+            image: UIImage(systemName: "nosign"),
+            style: .error,
+            buttonFonts: .boldSystemFont(ofSize: 13),
+            imageTintColor: .red,
+            backgroundColor: .white,
+            buttonBackgroundColor: .lightGray.withAlphaComponent(0.8)
+        )
         guard !loginTF.text.isEmptyOrNil,
-              !passwordTF.text.isEmptyOrNil else { return }
+              !passwordTF.text.isEmptyOrNil else {
+            configure.description = "Введите логин и пароль"
+            PopupManager().showPopup(controller: self, configure: configure)
+            return
+        }
         
         spinner.startAnimating()
-        FirebaseProvider().signInWithUser(email: loginTF.text!, password: passwordTF.text!) {[weak self] in
+
+        FirebaseProvider().signInWithUser(email: loginTF.text!, password: passwordTF.text!) { [weak self] in
             guard let self else { return }
             self.spinner.stopAnimating()
             Environment.scenDelegate?.setTabBarIsInitial()
             
-        } failureWithEmailOrPassword: {[weak self] error in
+        } failureWithEmailOrPassword: { [weak self] error in
             guard let self else { return }
             self.spinner.stopAnimating()
-            Alerts().showAlert(controller: self, title: "Ошибка", message: "\(error)") {
+            configure.description = error
+            PopupManager().showPopup(controller: self, configure: configure, discard:  {
                 self.passwordTF.text = nil
-            }
+            })
+            
             
         } failureWithEmailAuthentification: {[weak self] error in
             guard let self else { return }
+            configure.description = error
+            configure.confirmButtonTitle = "Отправить письмо еще раз"
             self.spinner.stopAnimating()
-            Alerts().showAlertsWithTwoAction(controller: self, title: "Ошибка", titleForSecondButton: "Отправить письмо еще раз", message: "\(error) \(self.loginTF.text!)") {
-                self.passwordTF.text = nil
-                self.logOut()
-            } okComplition: {
-                Auth.auth().currentUser?.sendEmailVerification()
-            }
+            PopupManager().showPopup(
+                controller: self,
+                configure: configure, discard:  {
+                    Auth.auth().currentUser?.sendEmailVerification()
+                    self.passwordTF.text = nil
+                    self.logOut()
+                })
         }
     }
     
@@ -126,24 +175,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordButtonDidTap(_ sender: Any) {
-        Alerts().showAlertsWithTextField(controller: self,
-                                         title: "Сброс пароля",
-                                         textFieldPlaceHoledr: "Введите email",
-                                         message: "Введите email который используется для входа в аккаунт") {[weak self] login in
-            guard let self else { return }
-            Auth.auth().sendPasswordReset(withEmail: login) { error in
-                if let error {
-                    Alerts().showAlert(controller: self, title: "Ошибка", message: "Аккаунт с таким логином не найден или логин введен не корректно.")
-                    print(error.localizedDescription)
-                } else {
-                    Alerts().showAlert(controller: self,
-                                       title: "",
-                                       message: "На почтовый ящик \(login) отправлено письмо с инструкцией по сбросу пароля")
-                }
-            }
-        } failure: {
-            Alerts().showAlert(controller: self, title: "Ошибка", message: "Введите логин")
-        }
+        let resetPasswordVC = ResetPasswordViewController(nibName: String(describing: ResetPasswordViewController.self), bundle: nil)
+        
+        navigationController?.pushViewController(resetPasswordVC, animated: true)
     }
 }
 
