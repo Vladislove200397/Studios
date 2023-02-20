@@ -15,9 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GMSServices.provideAPIKey("AIzaSyAS6qgX2yi3HcDVg_Um0ScpBP4wkp3R5pM")
+        GMSServices.provideAPIKey("AIzaSyC7jgTEkMlHpjxBtehzM9cn09qlAReO4Mo")
         GMSPlacesClient.provideAPIKey("AIzaSyD53rn-Id72muepu5RZX05EMh3dTm028IE")
         FirebaseApp.configure()
+        
+        UITabBar.appearance().barTintColor = .blue
+        UITabBar.appearance().tintColor = .red
+        UITabBar.appearance().isTranslucent = true
+
         if #available(iOS 15.0, *) {
             let navigationBarAppearance = UINavigationBarAppearance()
             
@@ -25,6 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().standardAppearance = navigationBarAppearance
             UINavigationBar.appearance().compactAppearance = navigationBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+            
+            let blurEffect = UIBlurEffect(style: .dark)
+            let appearance = UITabBarAppearance()
+            
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundEffect = blurEffect
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = UITabBar.appearance().standardAppearance
         }
         return true
     }

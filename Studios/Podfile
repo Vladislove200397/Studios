@@ -17,4 +17,5 @@ pod 'Moya-ObjectMapper', '2.9'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
 pod 'FirebaseStorage'
+pod 'QCropper'
 end

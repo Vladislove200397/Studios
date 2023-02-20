@@ -9,6 +9,7 @@ import Foundation
 import FirebaseCore
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 import GooglePlaces
 
 public class FirebaseProvider {
@@ -278,16 +279,12 @@ public class FirebaseProvider {
         }
     }
     
-    func saveUser(referenceType: FirebaseReferenses, _ email: String, _ password: String, _ displayName: String,_ surname: String, _ phoneNumber: String, _ userID: String) {
+    func saveUser(referenceType: FirebaseReferenses,_ displayName: String,_ surname: String,_ phoneNumber: String) {
         let ref = referenceType.references
         
-        let user = ["user_id": userID,
-                    "display_name": displayName,
+        let user = ["display_name": displayName,
                     "surname": surname,
                     "phone_number": phoneNumber,
-                    "user_email": email,
-                    "password": password,
-                    "profile_photo": "",
         ] as [String : Any]
         
         ref.setValue(user) {
@@ -302,23 +299,67 @@ public class FirebaseProvider {
     
     func getUserInfo(referenceType: FirebaseReferenses, _ userID: String, success: @escaping ((FirebaseUser) -> Void), failure: @escaping (() -> Void)) {
         let ref = referenceType.references
-
+        
         ref.observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 guard let userObject = snapshot.childSnapshot(forPath: "\(userID)").value as? [String: Any] else { return }
-                    let userId = userObject["user_id"] as! String
-                    let userDisplaName = userObject["display_name"] as! String
-                    let userSurname = userObject["surname"] as! String
-                    let userEmail = userObject["user_email"] as! String
-                    let userProfilePhoto = userObject["profile_photo"] as! String
-                    let userPhoneNumber = userObject["phone_number"] as! String
-                    let user = FirebaseUser(userName: userDisplaName, userSurname: userSurname, userEmail: userEmail, userPhone: userPhoneNumber, uid: userId, photoURL: userProfilePhoto)
+                let userDisplaName = userObject["display_name"] as! String
+                let userPhoneNumber = userObject["phone_number"] as! String
+                let userSurname = userObject["surname"] as! String
+                let user = FirebaseUser(userName: userDisplaName, userSurname: userSurname, userPhone: userPhoneNumber)
                 success(user)
             }
             ref.removeAllObservers()
         } withCancel: { error in
             failure()
             print(error.localizedDescription)
+        }
+    }
+    
+    func uploadPhoto(userID: String, photo: UIImage, complition: @escaping(URL) -> Void) {
+        let ref = Storage.storage().reference().child("12").child(userID)
+        
+        guard let imageData = photo.jpegData(compressionQuality: 0.4) else { return }
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        ref.putData(imageData, metadata: metadata) { (metadata, error) in
+            if let error {
+                print(error.localizedDescription)
+            }
+            if metadata != nil {
+                ref.downloadURL { url, error in
+                    guard let url = url else { return }
+                    complition(url)
+                }
+            }
+        }
+    }
+    
+    func downloadData(complition: @escaping (UIImage) -> Void) {
+        guard let url = Auth.auth().currentUser?.photoURL else { return }
+        let ref = Storage.storage().reference(forURL: url.absoluteString)
+        let megabyte = Int64(1 * 1024 * 1024)
+        ref.getData(maxSize: megabyte) { imageData, error in
+            guard let imageData else { return }
+            let image = UIImage(data: imageData)
+            complition((image ?? UIImage(systemName: "person"))!)
+        }
+    }
+    
+    func saveAuthuserInfo(photoURL: URL, displaName: String, complition: @escaping (() -> Void)) {
+        guard let user = Auth.auth().currentUser else { return }
+        
+        let changeRequest = user.createProfileChangeRequest()
+        
+        changeRequest.displayName = displaName
+        changeRequest.photoURL = photoURL
+        
+        changeRequest.commitChanges { error in
+            if let error {
+                print(error.localizedDescription)
+            } else {
+                complition()
+            }
         }
     }
 }

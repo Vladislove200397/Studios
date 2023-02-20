@@ -126,7 +126,7 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bj-ff-kgz">
                             <rect key="frame" x="15.999999999999993" y="101" width="121.33333333333331" height="25"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="8uO-Fo-pEL"/>
                             </constraints>
@@ -134,6 +134,7 @@
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" title="Забронировать">
                                 <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
+                                <color key="baseBackgroundColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
                             <connections>
                                 <action selector="bookingButtonDidTap:" destination="-1" eventType="touchUpInside" id="UCG-I5-Ur3"/>

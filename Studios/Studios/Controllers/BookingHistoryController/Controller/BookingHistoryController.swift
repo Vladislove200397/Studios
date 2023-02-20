@@ -40,8 +40,19 @@ class BookingHistoryController: UIViewController {
         tableView.reloadData()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setBackgroundGradient()
+    }
+    
+    private func setBackgroundGradient() {
+        let topColor = UIColor(hue: 0.58, saturation: 0.72, brightness: 0.25, alpha: 1.0).cgColor // #40174f
+        self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
+        
+    }
+    
     private func setupVC() {
-        self.navigationItem.title = "История бронирований"
+        navigationController?.setNavigationBarHidden(true, animated: true)
         alertView.isHidden = false
         tableView.isHidden = true
     }

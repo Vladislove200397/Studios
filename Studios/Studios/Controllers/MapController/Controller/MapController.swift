@@ -15,7 +15,13 @@ import FirebaseDatabase
 class MapController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    @IBOutlet weak var mapView: GMSMapView!
+    lazy var mapView: GMSMapView = {
+        var view = GMSMapView()
+        let camera = GMSCameraPosition(latitude: 53.899986473284805, longitude: 27.55533492413279, zoom: 10.5)
+        let mapID = GMSMapID(identifier: "6fc961a7a5cfbbfa")
+        view = GMSMapView(frame: self.view.frame, mapID: mapID, camera: camera)
+        return view
+    }()
     
     private var user = Auth.auth().currentUser
     var places = RealmManager<SSPlace>().read()
@@ -26,7 +32,7 @@ class MapController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         detectFirstLaunch()
-        cameraOnMinsk()
+        setupVC()
         drawMarker()
         getStudios()
     }
@@ -35,14 +41,10 @@ class MapController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    //MARK: Camera setup
-    private func cameraOnMinsk() {
-        let minsk =
-        CLLocationCoordinate2D(latitude: 53.899986473284805,
-                               longitude: 27.55533492413279)
-        
-        mapView.camera = GMSCameraPosition(target: minsk,
-                                           zoom: 10.5)
+    //MARK: VC setup
+    private func setupVC() {
+        self.view.addSubview(mapView)
+        self.view.sendSubviewToBack(mapView)
     }
     
     private func cameraZoomOnTap(coordinate: CLLocationCoordinate2D) {

@@ -30,8 +30,18 @@ class LikedStudiosViewController: UIViewController {
         tableView.reloadData()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setBackgroundGradient()
+    }
+    
+    private func setBackgroundGradient() {
+        let topColor = UIColor(hue: 0.94, saturation: 0.77, brightness: 0.25, alpha: 1.0).cgColor // #851f42
+        self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
+    }
+    
     private func setupController() {
-        self.title = "Избранное"
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     private func registerCell() {

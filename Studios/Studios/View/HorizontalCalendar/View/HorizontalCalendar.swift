@@ -43,7 +43,7 @@ class HorizontalCalendar: UIView {
         Bundle.main.loadNibNamed(id, owner: self)
         self.addSubview(contentView)
         self.contentView.frame = self.bounds
-        self.monthLabel.textColor = UIColor(hue: 0.68, saturation: 0.27, brightness: 0.29, alpha: 1.0) // #38364a
+        self.monthLabel.textColor = UIColor(hue: 0.68, saturation: 0.27, brightness: 0.70, alpha: 1.0) // #38364a
         registerCell()
         getCurrentDate()
         getSevenDays()

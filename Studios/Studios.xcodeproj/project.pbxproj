@@ -39,6 +39,7 @@
 		B9678D98295A2D3B002CFE75 /* HoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9678D96295A2D3B002CFE75 /* HoursCell.swift */; };
 		B9678D99295A2D3B002CFE75 /* HoursCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9678D97295A2D3B002CFE75 /* HoursCell.xib */; };
 		B96EA88929A01971000B138E /* KeyboardHideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96EA88829A01970000B138E /* KeyboardHideViewController.swift */; };
+		B96EA88C29A176D8000B138E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96EA88B29A176D7000B138E /* ImagePicker.swift */; };
 		B972AB872951C6170025683F /* TabBarEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB862951C6170025683F /* TabBarEnum.swift */; };
 		B972AB892951CCF60025683F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B972AB882951CCF60025683F /* TabBarController.swift */; };
 		B972AB8E2951D6B30025683F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B972AB8D2951D6B30025683F /* SnapKit */; };
@@ -134,6 +135,7 @@
 		B9678D96295A2D3B002CFE75 /* HoursCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursCell.swift; sourceTree = "<group>"; };
 		B9678D97295A2D3B002CFE75 /* HoursCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HoursCell.xib; sourceTree = "<group>"; };
 		B96EA88829A01970000B138E /* KeyboardHideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHideViewController.swift; sourceTree = "<group>"; };
+		B96EA88B29A176D7000B138E /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B972AB862951C6170025683F /* TabBarEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarEnum.swift; sourceTree = "<group>"; };
 		B972AB882951CCF60025683F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B972CBF0297E916D00FBFCFD /* ArrayInt+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArrayInt+Extension.swift"; sourceTree = "<group>"; };
@@ -402,6 +404,14 @@
 				B9678D97295A2D3B002CFE75 /* HoursCell.xib */,
 			);
 			path = hoursCell;
+			sourceTree = "<group>";
+		};
+		B96EA88A29A176A8000B138E /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				B96EA88B29A176D7000B138E /* ImagePicker.swift */,
+			);
+			path = ImagePicker;
 			sourceTree = "<group>";
 		};
 		B972AB852951C5EC0025683F /* TabBarController */ = {
@@ -752,6 +762,7 @@
 		B9FABB08291A5E3500232D9C /* Studios */ = {
 			isa = PBXGroup;
 			children = (
+				B96EA88A29A176A8000B138E /* ImagePicker */,
 				B972CBF2297E97CE00FBFCFD /* Enums */,
 				B9DD013E297CDBB1007C266D /* Alerts */,
 				B9DD013C297CDB01007C266D /* API's */,
@@ -1024,6 +1035,7 @@
 				B9DC2C032941CE22009EEE43 /* TestController.swift in Sources */,
 				B951EBFC297551C90076EB67 /* HorizontalCalendar.swift in Sources */,
 				B962ABA2299514B20053F1AB /* StringOpt+Extension.swift in Sources */,
+				B96EA88C29A176D8000B138E /* ImagePicker.swift in Sources */,
 				B9E0F1D12988079F0087A48A /* LikedStudioCell.swift in Sources */,
 				B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */,
 				B94008CE299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift in Sources */,

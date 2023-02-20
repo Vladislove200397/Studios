@@ -31,7 +31,7 @@ class PopUpController: UIViewController {
     
     lazy var mainView: UIView = {
         let view = UIView()
-        view.backgroundColor = confiuration.backgroundColor
+        view.backgroundColor = configuration.backgroundColor
         view.clipsToBounds = true
         view.layer.borderWidth = 0.7
         view.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
@@ -46,11 +46,11 @@ class PopUpController: UIViewController {
     
     lazy var titleLabel: PaddingLabel = {
         let label = PaddingLabel()
-        label.insets = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        label.insets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         label.numberOfLines = 0
-        label.text = confiuration.title
-        label.textColor = confiuration.titleColor
-        label.font = confiuration.titleFont
+        label.text = configuration.title
+        label.textColor = configuration.titleColor
+        label.font = configuration.titleFont
         label.textAlignment = .center
         return label
     }()
@@ -59,9 +59,9 @@ class PopUpController: UIViewController {
         let label = PaddingLabel()
         label.insets = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         label.numberOfLines = 0
-        label.text = confiuration.description
-        label.textColor = confiuration.descriptionColor
-        label.font = confiuration.descriptionFont
+        label.text = configuration.description
+        label.textColor = configuration.descriptionColor
+        label.font = configuration.descriptionFont
         label.textAlignment = .center
         return label
     }()
@@ -73,10 +73,10 @@ class PopUpController: UIViewController {
             action: #selector(dismissAction),
             for: .touchUpInside
         )
-        button.backgroundColor = confiuration.buttonBackgroundColor
-        button.tintColor = confiuration.dismissButtonTintColor
-        button.titleLabel?.font = confiuration.buttonFonts
-        button.setTitle(confiuration.dismissButtonTitle, for: .normal)
+        button.backgroundColor = configuration.buttonBackgroundColor
+        button.tintColor = configuration.dismissButtonTintColor
+        button.titleLabel?.font = configuration.buttonFonts
+        button.setTitle(configuration.dismissButtonTitle, for: .normal)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -88,10 +88,25 @@ class PopUpController: UIViewController {
             action: #selector(confirmAction),
             for: .touchUpInside
         )
-        button.backgroundColor = confiuration.buttonBackgroundColor
-        button.tintColor = confiuration.confirmButtonTintColor
-        button.titleLabel?.font = confiuration.buttonFonts
-        button.setTitle(confiuration.confirmButtonTitle, for: .normal)
+        button.backgroundColor = configuration.buttonBackgroundColor
+        button.tintColor = configuration.confirmButtonTintColor
+        button.titleLabel?.font = configuration.buttonFonts
+        button.setTitle(configuration.confirmButtonTitle, for: .normal)
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.addTarget(
+            self,
+            action: #selector(cancelAction),
+            for: .touchUpInside
+        )
+        button.backgroundColor = configuration.buttonBackgroundColor
+        button.tintColor = configuration.cancelButtonTintColor
+        button.titleLabel?.font = configuration.buttonFonts
+        button.setTitle(configuration.cancelButtonTitle, for: .normal)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -99,28 +114,28 @@ class PopUpController: UIViewController {
     lazy var popUpImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = confiuration.image
-        imageView.tintColor = confiuration.imageTintColor
+        imageView.image = configuration.image
+        imageView.tintColor = configuration.imageTintColor
         return imageView
     }()
     
     lazy var inputField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        textField.placeholder = confiuration.inputPlaceHolder
+        textField.placeholder = configuration.inputPlaceHolder
         return textField
     }()
     
     private var confirmHandler: VoidBlock?
     private var dismissHandler: VoidBlock?
     private weak var delegate: PopUpControllerDelegate?
-    private var confiuration : PopUpConfiguration = .standart
+    private var configuration : PopUpConfiguration = .standart
     
     init(confirmHandler: VoidBlock? = nil,
          dismissHandler: VoidBlock? = nil,
          config: PopUpConfiguration = .standart
     ) {
-        self.confiuration = config
+        self.configuration = config
         self.confirmHandler = confirmHandler
         self.dismissHandler = dismissHandler
         super .init(nibName: nil, bundle: nil)
@@ -131,7 +146,7 @@ class PopUpController: UIViewController {
          config: PopUpConfiguration = .standart
     ) {
         self.delegate = delegate
-        self.confiuration = config
+        self.configuration = config
         super .init(nibName: nil, bundle: nil)
         initView()
     }
@@ -164,24 +179,30 @@ class PopUpController: UIViewController {
         mainStack.addArrangedSubview(buttonStack)
         buttonStack.addArrangedSubview(dismissButton)
         buttonStack.addArrangedSubview(confirmationButton)
+        mainStack.addArrangedSubview(cancelButton)
         
         self.view.backgroundColor = .black.withAlphaComponent(0.2)
     }
     
     private func setupStyle() {
-        switch confiuration.style {
+        switch configuration.style {
             case .info:
                 dismissButton.isHidden = true
                 imageContrainerView.isHidden = true
                 inputField.isHidden = true
+                cancelButton.isHidden = true
             case .input:
                 imageContrainerView.isHidden = true
+                cancelButton.isHidden = true
             case .error:
                 inputField.isHidden = true
                 dismissButton.isHidden = true
+                cancelButton.isHidden = true
             case .confirmation:
                 inputField.isHidden = true
-                imageContrainerView.isHidden = true
+                cancelButton.isHidden = true
+            case .threeButtons:
+                inputField.isHidden = true
         }
     }
     
@@ -206,17 +227,27 @@ class PopUpController: UIViewController {
         confirmationButton.snp.makeConstraints { make in
             make.height.equalTo(35)
         }
+        
+        cancelButton.snp.makeConstraints { make in
+            make.height.equalTo(35)
+        }
     }
     
     @objc private func dismissAction() {
-        self.dismissHandler?()
-        self.delegate?.dismissAction()
-        self.dismiss(animated: true)
+        self.dismiss(animated: true) {
+            self.dismissHandler?()
+            self.delegate?.dismissAction()
+        }
     }
     
     @objc private func confirmAction() {
-        self.confirmHandler?()
-        self.delegate?.confirmAction()
+        self.dismiss(animated: true) {
+            self.confirmHandler?()
+            self.delegate?.confirmAction()
+        }
+    }
+    
+    @objc private func cancelAction() {
         self.dismiss(animated: true)
     }
 }

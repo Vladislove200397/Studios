@@ -17,7 +17,6 @@ class CalendarCell: UICollectionViewCell {
     @IBOutlet weak var redCircle: UIView!
     @IBOutlet weak var grayCircle: UIView!
     
-    private(set) var type: CalendarCellType = .booking
     private var dateToShow = ""
     var selectedDate = ""
     private var index = 0
@@ -31,16 +30,8 @@ class CalendarCell: UICollectionViewCell {
         didSet {
             self.stackView.backgroundColor = isSelected ? selectedColor : UIColor.clear
             self.dayLabel.textColor = isSelected ? UIColor.white : UIColor.lightGray
-            self.dateLabel.textColor = isSelected ? UIColor.white : UIColor.black
+            self.dateLabel.textColor = isSelected ? UIColor.white : UIColor.lightGray
         }
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
     }
     
     func set(dateToShow: String, selectedDate: String, index: Int, today: Bool, pastSelectedCell: Bool, type: CalendarCellType, bookingDay: Bool? = nil) {
@@ -85,6 +76,6 @@ class CalendarCell: UICollectionViewCell {
     func checkSelectedDate() {
         self.stackView.backgroundColor = self.pastSelectedCell ? selectedColor : UIColor.clear
         self.dayLabel.textColor = self.pastSelectedCell ? UIColor.white : UIColor.lightGray
-        self.dateLabel.textColor = self.pastSelectedCell ? UIColor.white : UIColor.black
+        self.dateLabel.textColor = self.pastSelectedCell ? UIColor.white : UIColor.lightGray
     }
 }
