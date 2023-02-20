@@ -13,6 +13,7 @@ struct PopUpConfiguration {
     var confirmButtonTitle = "OK"
     var dismissButtonTitle = "Cancel"
     var inputPlaceHolder = "Input text here"
+    var cancelButtonTitle = "Cancel"
     
     var title = "Test"
     var titleColor: UIColor = .white
@@ -33,4 +34,5 @@ struct PopUpConfiguration {
     var buttonBackgroundColor: UIColor = .blue
     var confirmButtonTintColor: UIColor = .white
     var dismissButtonTintColor: UIColor = .white
+    var cancelButtonTintColor: UIColor = .white
 }

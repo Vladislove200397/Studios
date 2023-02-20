@@ -48,7 +48,10 @@ class RegistrationUserViewController: KeyboardHideViewController {
             brightness: 0.19,
             alpha: 1.0).cgColor // #73db26
         
-        self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
+        self.view.setGradientBackground(
+            topColor: topColor,
+            bottomColor: UIColor.black.cgColor
+        )
     }
     
     private func setupTextFields() {
@@ -137,6 +140,56 @@ class RegistrationUserViewController: KeyboardHideViewController {
         self.registrationButtonBottomContraint.constant = 199
     }
     
+    private func presentPopup(email: String) {
+        let popupConfigure = PopUpConfiguration(
+            confirmButtonTitle: "Ок",
+            title: "Успешная регистрация",
+            titleColor: .black,
+            titleFont: .systemFont(ofSize: 17, weight: .bold),
+            description: "На почтовый ящик \(email) отправлено письмо для подтверждения регистрации.",
+            descriptionColor: .black,
+            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
+            image: UIImage(systemName: "checkmark.circle"),
+            style: .error,
+            buttonFonts: .boldSystemFont(ofSize: 15),
+            imageTintColor: .systemGreen,
+            backgroundColor: .white,
+            buttonBackgroundColor: .lightGray,
+            confirmButtonTintColor: .white
+        )
+        
+        PopupManager().showPopup(
+            controller: self,
+            configure: popupConfigure) {
+            self.navigationController?.popToRootViewController(animated: true)
+        } discard: {
+        }
+    }
+    
+    private func presentErrorPopup() {
+        let popupConfigure = PopUpConfiguration(
+            confirmButtonTitle: "Ок",
+            title: "Ошибка",
+            titleColor: .black,
+            titleFont: .systemFont(ofSize: 17, weight: .bold),
+            description: "Пользователь с таким email уже существует.",
+            descriptionColor: .black,
+            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
+            image: UIImage(systemName: "nosign"),
+            style: .error,
+            buttonFonts: .boldSystemFont(ofSize: 15),
+            imageTintColor: .red,
+            backgroundColor: .white,
+            buttonBackgroundColor: .lightGray,
+            confirmButtonTintColor: .white
+        )
+        
+        PopupManager().showPopup(controller: self, configure: popupConfigure) {
+            self.emailTF.text = nil
+        } discard: {
+        }
+    }
+    
     
     @IBAction func backButtonDidTap(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
@@ -183,24 +236,16 @@ class RegistrationUserViewController: KeyboardHideViewController {
                                       displayName: nameTF.text!) { [weak self] uid in
             guard let self else { return }
             
-            FirebaseProvider().saveUser(referenceType: .addUserInfo(userID: uid),
-                                        self.emailTF.text!,
-                                        self.passwordTF.text!,
-                                        self.nameTF.text!,
-                                        self.surnameTF.text!,
-                                        self.phoneNumberTF.text!,
-                                        uid)
-
-            Alerts().showAlert(controller: self,
-                               title: "Успешная регистрация",
-                               message: "На почтовый ящик \(self.emailTF.text!) отправлено письмо для подтверждения регистрации.") {
-                self.navigationController?.popToRootViewController(animated: true)
-            }
+            FirebaseProvider().saveUser(
+                referenceType: .addUserInfo(userID: uid),
+                self.nameTF.text!,
+                self.surnameTF.text!,
+                self.phoneNumberTF.text!
+            )
+            self.presentPopup(email: self.emailTF.text!)
         } failure: {[weak self] in
             guard let self else { return }
-            Alerts().showAlert(controller: self,
-                               title: "Ошибка",
-                               message: "Пользователь с таким email уже существует")
+            self.presentErrorPopup()
         }
     }
 }

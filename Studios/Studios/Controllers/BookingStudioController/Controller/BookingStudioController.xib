@@ -42,7 +42,7 @@
                         </collectionView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxF-Ti-TvW" customClass="HorizontalCalendar" customModule="Studios" customModuleProvider="target">
                             <rect key="frame" x="16" y="0.0" width="358" height="107"/>
-                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="107" id="11Y-x1-XrY"/>
                             </constraints>
@@ -70,11 +70,11 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Выбрать более одного часа" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mss-WN-jS8">
                             <rect key="frame" x="164" y="117.33333333333334" width="175" height="15.666666666666657"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Hh5-Hv-4ZW" secondAttribute="bottom" constant="16" id="0ol-Sc-DNm"/>
                         <constraint firstAttribute="trailing" secondItem="lxF-Ti-TvW" secondAttribute="trailing" constant="16" id="F9f-bw-APb"/>
@@ -114,13 +114,11 @@
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZB-wF-U3g">
                                     <rect key="frame" x="0.0" y="0.0" width="370" height="21.666666666666668"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                    <color key="textColor" white="0.14280399659863946" alpha="0.97767487582781454" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0W-MP-VYv">
                                     <rect key="frame" x="0.0" y="21.666666666666671" width="370" height="21.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                    <color key="textColor" white="0.21675701530612246" alpha="0.87127483443708609" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -134,7 +132,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="oxZ-lh-f4t" secondAttribute="trailing" id="1vb-JC-6ET"/>
                         <constraint firstItem="oxZ-lh-f4t" firstAttribute="leading" secondItem="4cv-Ss-zO4" secondAttribute="leading" id="62i-0b-rwE"/>
@@ -150,7 +148,7 @@
                 </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Bm8-mB-76R" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="0N9-u8-rBE"/>
                 <constraint firstItem="4cv-Ss-zO4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="EWj-Qf-Er1"/>
@@ -175,9 +173,6 @@
         </systemColor>
         <systemColor name="systemBrownColor">
             <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

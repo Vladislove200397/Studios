@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseCore
 import FirebaseDatabase
+import FirebaseStorage
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var profileAvatarImage: UIImageView!
@@ -16,19 +17,34 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     private var user: FirebaseUser?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupVC()
-        getUserInfo()
+        setupUser()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setBackgroundGradient()
+    }
+    
+    private func setBackgroundGradient() {
+        let topColor = UIColor(hue: 0.71, saturation: 0.72, brightness: 0.25, alpha: 1.0).cgColor
+        self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
     }
     
     private func setupVC() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выйти",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(logOut))
-        
-        profileAvatarImage.layer.cornerRadius = profileAvatarImage.bounds.width / 2
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        profileAvatarImage.clipsToBounds = true
+        profileAvatarImage.layer.cornerRadius = profileAvatarImage.frame.width / 2
+    }
+    
+    private func setupUser() {
+        getUserInfo()
+        FirebaseProvider().downloadData { image in
+            self.profileAvatarImage.image = image
+        }
     }
     
     private func getUserInfo() {
@@ -37,28 +53,26 @@ class ProfileViewController: UIViewController {
         FirebaseProvider().getUserInfo(referenceType: .getUserInfo(userID: userID), userID) {[weak self] user in
             guard let self else { return }
             self.user = user
+            self.profileNameLabel.text = "\(user.userName) \(user.userSurname)"
+            self.setupUser()
             self.spinner.stopAnimating()
-            self.setOutlets()
         } failure: {
-            print("ZALUPA")
         }
     }
     
-    private func setOutlets() {
+    @IBAction func changeProfileInfoButtonDidTap(_ sender: Any) {
         guard let user else { return }
-        profileNameLabel.text = "\(user.userName) \(user.userSurname)"
-    }
-    
-    @objc private func logOut() {
-            let ud = UserDefaults.standard
-            let firebaseAuth = Auth.auth()
-        do {
-          try firebaseAuth.signOut()
-            Environment.scenDelegate?.setLoginIsInitial()
-            ud.set(nil, forKey: "uid")
-        } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
+        let profileEditVC = ProfileEditViewController(nibName: String(describing: ProfileEditViewController.self), bundle: nil)
+        profileEditVC.set(user, profileImage: profileAvatarImage.image!)
+        
+        profileEditVC.updateBlock = { profileImage in
+            self.profileAvatarImage.image = profileImage
+            self.setupUser()
         }
+        
+        profileEditVC.modalTransitionStyle = .crossDissolve
+        profileEditVC.modalPresentationStyle = .overCurrentContext
+        present(profileEditVC, animated: true)
     }
 }
 

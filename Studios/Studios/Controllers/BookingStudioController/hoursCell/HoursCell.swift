@@ -20,7 +20,7 @@ class HoursCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if bookingTime != 0 {
-                self.containerView.backgroundColor = isSelected ? selectedColor : .white
+                self.containerView.backgroundColor = isSelected ? selectedColor : .lightGray
                 self.hourLabel.textColor = isSelected ? .white : .black
             }
         }
@@ -41,13 +41,13 @@ class HoursCell: UICollectionViewCell {
         containerView.layer.cornerRadius = 12
         containerView.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         containerView.layer.borderWidth = 1
-        hourLabel.textColor = !timeIsBusy ? UIColor.black : UIColor.lightGray
+        hourLabel.textColor = !timeIsBusy ? UIColor.black : UIColor.black.withAlphaComponent(0.3)
         setupPastTimeCell(timeIsPast, bookingTime)
     }
     
     func setupPastTimeCell(_ timeIsPast: Bool, _ bookingTime: Int) {
         self.bookingTime = timeIsPast ? 0 : bookingTime
-        self.hourLabel.isHidden = timeIsPast
+        //self.hourLabel.isHidden = timeIsPast
         self.containerView.isHidden = timeIsPast
     }
 }

@@ -17,25 +17,6 @@ class TabBarController: UITabBarController {
         self.configurateTabBar()
     }
 
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
-        guard let index = tabBar.items?.firstIndex(of: item),
-              tabBar.subviews.count > index + 1,
-              let imageView = tabBar.subviews[index + 1].subviews.compactMap({ $0 as? UIImageView }).first else { return }
-
-        imageView.layer.add(bounceAnimation, forKey: nil)
-        hapticAlternative()
-    }
-    
-    
-    private var bounceAnimation: CAKeyframeAnimation = {
-        let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
-        bounceAnimation.values = [1.0, 1.3, 0.9, 1.0]
-        bounceAnimation.duration = 0.3
-        bounceAnimation.calculationMode = CAAnimationCalculationMode.cubic
-        return bounceAnimation
-    }()
-    
     func configurateTabBar() {
         var controllers: [UIViewController] = []
         
@@ -46,19 +27,9 @@ class TabBarController: UITabBarController {
         viewControllers = controllers
         tabBar.tintColor = .red
         tabBar.unselectedItemTintColor = .lightGray
-        tabBar.backgroundColor = .white
-        tabBar.alpha = 0.9
-        tabBar.layer.borderWidth = 1
-        tabBar.layer.borderColor = UIColor.lightGray.cgColor
         
         viewControllers?.enumerated().forEach({ index, controller in
             controller.tabBarItem = UITabBarItem(title: dataSource[index].rawValue, image: dataSource[index].iconImage, tag: dataSource[index].hashValue)
         })
     }
-    
-    private func hapticAlternative() {
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
-    }
-    
 }

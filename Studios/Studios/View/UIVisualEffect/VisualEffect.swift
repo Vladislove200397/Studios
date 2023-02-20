@@ -8,12 +8,17 @@
 import UIKit
 
 final class CustomVisualEffectView: UIVisualEffectView {
+    private let theEffect: UIVisualEffect
+    private let customIntensity: CGFloat
+    private var animator: UIViewPropertyAnimator?
+    
      init(effect: UIVisualEffect, intensity: CGFloat) {
         theEffect = effect
         customIntensity = intensity
          super.init(effect: nil)
     }
-    required init?(coder aDecoder: NSCoder) { nil }
+    
+    required init?(coder: NSCoder) {nil}
         
         deinit {
             animator?.stopAnimation(true)
@@ -28,8 +33,4 @@ final class CustomVisualEffectView: UIVisualEffectView {
             }
             animator?.fractionComplete = customIntensity
         }
-        
-        private let theEffect: UIVisualEffect
-        private let customIntensity: CGFloat
-        private var animator: UIViewPropertyAnimator?
     }

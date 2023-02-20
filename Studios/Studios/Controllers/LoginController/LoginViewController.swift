@@ -160,13 +160,12 @@ class LoginViewController: KeyboardHideViewController {
             configure.description = error
             configure.confirmButtonTitle = "Отправить письмо еще раз"
             self.spinner.stopAnimating()
-            PopupManager().showPopup(
-                controller: self,
-                configure: configure, discard:  {
-                    Auth.auth().currentUser?.sendEmailVerification()
-                    self.passwordTF.text = nil
-                    self.logOut()
-                })
+            PopupManager().showPopup(controller: self, configure: configure) {
+                Auth.auth().currentUser?.sendEmailVerification()
+                self.passwordTF.text = nil
+                self.logOut()
+            } discard: {
+            }
         }
     }
     
