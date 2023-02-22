@@ -24,15 +24,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DiV-v5-BQT">
-                    <rect key="frame" x="20" y="97" width="100" height="96.666666666666671"/>
+                    <rect key="frame" x="125" y="96.999999999999986" width="140" height="136.66666666666669"/>
                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="100" id="5a6-r9-gaW"/>
-                        <constraint firstAttribute="width" constant="100" id="w0q-8E-rex"/>
+                        <constraint firstAttribute="height" constant="140" id="5a6-r9-gaW"/>
+                        <constraint firstAttribute="width" constant="140" id="w0q-8E-rex"/>
                     </constraints>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KsG-Uc-mve">
+                    <rect key="frame" x="118.66666666666669" y="240" width="153" height="28.333333333333314"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Сменить фотографию" subtitle="" titleAlignment="leading">
+                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="changeProfileButtonDidTap:" destination="-1" eventType="touchUpInside" id="MU4-Sz-5EU"/>
+                    </connections>
+                </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Thm-xC-Nct">
-                    <rect key="frame" x="20" y="248.33333333333337" width="350" height="68"/>
+                    <rect key="frame" x="20" y="285.33333333333331" width="350" height="68"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C8T-1Z-Llt">
                             <rect key="frame" x="0.0" y="0.0" width="350" height="34"/>
@@ -43,7 +53,7 @@
                             </connections>
                         </textField>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AVp-K6-Kzz">
-                            <rect key="frame" x="0.0" y="33.999999999999972" width="350" height="34"/>
+                            <rect key="frame" x="0.0" y="34" width="350" height="34"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -53,13 +63,13 @@
                     </subviews>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Укажите имя и, если хотите, добавьте фотографию для Вашего профиля." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xuz-p9-TV6">
-                    <rect key="frame" x="35" y="321.33333333333331" width="320" height="28.666666666666686"/>
+                    <rect key="frame" x="35" y="358.33333333333331" width="320" height="28.666666666666686"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5EQ-jo-RNe">
-                    <rect key="frame" x="20" y="380" width="350" height="57"/>
+                    <rect key="frame" x="20" y="417" width="350" height="57"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сменить номер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4e-wG-igX">
                             <rect key="frame" x="0.0" y="0.0" width="350" height="18"/>
@@ -78,7 +88,10 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBd-ys-VOm">
-                    <rect key="frame" x="20" y="487" width="350" height="34.333333333333371"/>
+                    <rect key="frame" x="20" y="504" width="350" height="38"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="lJy-AU-Hef"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="gray" title="Сохранить изменения">
                         <color key="baseForegroundColor" systemColor="tintColor"/>
@@ -88,7 +101,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGM-jh-5Zv">
-                    <rect key="frame" x="20" y="537.33333333333337" width="350" height="34.333333333333371"/>
+                    <rect key="frame" x="20" y="552" width="350" height="38"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="38" id="4h0-Ix-Rfp"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="gray" title="Выйти">
                         <color key="baseForegroundColor" red="1" green="0.3708051846" blue="0.38492270779999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -125,49 +141,38 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXQ-nW-LvH">
-                    <rect key="frame" x="130" y="115" width="240" height="0.0"/>
+                    <rect key="frame" x="195" y="276.33333333333331" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" white="0.66666666669999997" alpha="0.39595405630000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KsG-Uc-mve">
-                    <rect key="frame" x="9" y="200" width="153" height="28.333333333333343"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Сменить фотографию" subtitle="" titleAlignment="leading">
-                        <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                    </buttonConfiguration>
-                    <connections>
-                        <action selector="changeProfileButtonDidTap:" destination="-1" eventType="touchUpInside" id="MU4-Sz-5EU"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="KsG-Uc-mve" firstAttribute="top" secondItem="DiV-v5-BQT" secondAttribute="bottom" constant="5" id="7Ec-HA-677"/>
+                <constraint firstItem="DiV-v5-BQT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7Ft-kg-1bw"/>
                 <constraint firstItem="xuz-p9-TV6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="F6R-2I-53c"/>
-                <constraint firstItem="KsG-Uc-mve" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="9" id="G7A-gg-hmb"/>
+                <constraint firstItem="aXQ-nW-LvH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Gdv-5h-JQn"/>
                 <constraint firstItem="ace-ET-NVf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Gj9-I3-YcS"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Thm-xC-Nct" secondAttribute="trailing" constant="20" id="I8A-rB-BoZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5EQ-jo-RNe" secondAttribute="trailing" constant="20" id="JsX-wf-j3d"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aXQ-nW-LvH" secondAttribute="trailing" constant="20" id="K1v-FH-LSN"/>
-                <constraint firstItem="aXQ-nW-LvH" firstAttribute="top" secondItem="ace-ET-NVf" secondAttribute="bottom" constant="30" id="LP3-xn-UCC"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xuz-p9-TV6" secondAttribute="trailing" constant="35" id="LgA-6S-6Rl"/>
                 <constraint firstItem="Thm-xC-Nct" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="MeU-ia-P4R"/>
                 <constraint firstItem="DiV-v5-BQT" firstAttribute="top" secondItem="ace-ET-NVf" secondAttribute="bottom" constant="10" id="NIv-Tt-12f"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cBd-ys-VOm" secondAttribute="trailing" constant="20" id="QeY-os-HrN"/>
-                <constraint firstItem="aXQ-nW-LvH" firstAttribute="leading" secondItem="DiV-v5-BQT" secondAttribute="trailing" constant="10" id="R3I-fw-g8R"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AGM-jh-5Zv" secondAttribute="trailing" constant="20" id="VVB-NA-JNn"/>
                 <constraint firstItem="xuz-p9-TV6" firstAttribute="top" secondItem="Thm-xC-Nct" secondAttribute="bottom" constant="5" id="W1O-CB-oJB"/>
-                <constraint firstItem="cBd-ys-VOm" firstAttribute="top" secondItem="5EQ-jo-RNe" secondAttribute="bottom" constant="50" id="Xni-Eg-XYD"/>
+                <constraint firstItem="cBd-ys-VOm" firstAttribute="top" secondItem="5EQ-jo-RNe" secondAttribute="bottom" constant="30" id="Xni-Eg-XYD"/>
+                <constraint firstItem="KsG-Uc-mve" firstAttribute="centerX" secondItem="DiV-v5-BQT" secondAttribute="centerX" id="YBV-wT-ib3"/>
                 <constraint firstItem="cBd-ys-VOm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="YNE-QT-mHH"/>
                 <constraint firstItem="ace-ET-NVf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bEr-qy-dSc"/>
-                <constraint firstItem="AGM-jh-5Zv" firstAttribute="top" secondItem="cBd-ys-VOm" secondAttribute="bottom" constant="16" id="nbo-ar-09q"/>
-                <constraint firstItem="Thm-xC-Nct" firstAttribute="top" secondItem="KsG-Uc-mve" secondAttribute="bottom" constant="20" id="pjg-wd-WCC"/>
+                <constraint firstItem="AGM-jh-5Zv" firstAttribute="top" secondItem="cBd-ys-VOm" secondAttribute="bottom" constant="10" id="nbo-ar-09q"/>
+                <constraint firstItem="Thm-xC-Nct" firstAttribute="top" secondItem="aXQ-nW-LvH" secondAttribute="bottom" constant="9" id="r8s-nM-qna"/>
                 <constraint firstItem="5EQ-jo-RNe" firstAttribute="top" secondItem="xuz-p9-TV6" secondAttribute="bottom" constant="30" id="roP-JB-Hbd"/>
                 <constraint firstItem="5EQ-jo-RNe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="sMI-Nm-8nA"/>
                 <constraint firstItem="AGM-jh-5Zv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="tKQ-Ed-C40"/>
-                <constraint firstItem="DiV-v5-BQT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="v9U-Ov-1Al"/>
+                <constraint firstItem="aXQ-nW-LvH" firstAttribute="top" secondItem="KsG-Uc-mve" secondAttribute="bottom" constant="8" id="uAr-Gp-Y7O"/>
                 <constraint firstItem="ace-ET-NVf" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="zRC-UE-1DF"/>
             </constraints>
             <point key="canvasLocation" x="4.615384615384615" y="20.616113744075829"/>

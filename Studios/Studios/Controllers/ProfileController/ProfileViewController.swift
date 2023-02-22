@@ -14,14 +14,17 @@ import FirebaseStorage
 class ProfileViewController: UIViewController {
     @IBOutlet weak var profileAvatarImage: UIImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
+    @IBOutlet weak var profilePhoneNumberLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    private var topMenu = UIMenu()
     private var user: FirebaseUser?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupVC()
         setupUser()
+        setupButtonMenu()
     }
     
     override func viewWillLayoutSubviews() {
@@ -40,6 +43,33 @@ class ProfileViewController: UIViewController {
         profileAvatarImage.layer.cornerRadius = profileAvatarImage.frame.width / 2
     }
     
+    private func setupButtonMenu() {
+        let presentEditPrifileVcAction = UIAction(
+            title: "Редактировать профиль",
+            image: UIImage(systemName: "person")) { _ in
+                self.presetnEditProfileVc()
+            }
+        
+        let logoutAction = UIAction(
+            title: "Выход",
+            image: UIImage(systemName: "door.left.hand.open"),
+            attributes: .destructive) { _ in
+                self.presentPopupForLogoutAction()
+            }
+        
+        let submenu = UIMenu(
+            options: .displayInline,
+            children: [logoutAction]
+        )
+        
+        topMenu = UIMenu(
+            title: "Настройки",
+            children: [
+                presentEditPrifileVcAction,
+                submenu
+            ])
+    }
+    
     private func setupUser() {
         getUserInfo()
         FirebaseProvider().downloadData { image in
@@ -54,13 +84,51 @@ class ProfileViewController: UIViewController {
             guard let self else { return }
             self.user = user
             self.profileNameLabel.text = "\(user.userName) \(user.userSurname)"
+            self.profilePhoneNumberLabel.text = user.userPhone
             self.setupUser()
             self.spinner.stopAnimating()
         } failure: {
         }
     }
     
-    @IBAction func changeProfileInfoButtonDidTap(_ sender: Any) {
+    private func presentPopupForLogoutAction() {
+        let popupConfigure = PopUpConfiguration(
+            confirmButtonTitle: "Отмена",
+            dismissButtonTitle: "Ок",
+            title: "Выход",
+            titleColor: .black,
+            titleFont: .systemFont(ofSize: 17, weight: .bold),
+            description: "Выйти из аккаунта?",
+            descriptionColor: .black,
+            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
+            image: UIImage(systemName: "exclamationmark.circle"),
+            style: .confirmation,
+            buttonFonts: .boldSystemFont(ofSize: 15),
+            imageTintColor: .systemYellow,
+            backgroundColor: .white,
+            buttonBackgroundColor: .lightGray,
+            confirmButtonTintColor: .white,
+            dismissButtonTintColor: .red
+        )
+        
+        PopupManager().showPopup(controller: self, configure: popupConfigure, discard:  {
+            self.logOut()
+        })
+    }
+    
+    private func logOut() {
+        let ud = UserDefaults.standard
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            Environment.scenDelegate?.setLoginIsInitial()
+            ud.set(nil, forKey: "uid")
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+    }
+    
+    private func presetnEditProfileVc() {
         guard let user else { return }
         let profileEditVC = ProfileEditViewController(nibName: String(describing: ProfileEditViewController.self), bundle: nil)
         profileEditVC.set(user, profileImage: profileAvatarImage.image!)
@@ -74,6 +142,12 @@ class ProfileViewController: UIViewController {
         profileEditVC.modalPresentationStyle = .overCurrentContext
         present(profileEditVC, animated: true)
     }
+    
+    @IBAction func settingsButtonDidTap(_ sender: UIButton) {
+        sender.showsMenuAsPrimaryAction = true
+        sender.menu = topMenu
+    }
 }
+
 
 

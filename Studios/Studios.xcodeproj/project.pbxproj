@@ -326,7 +326,7 @@
 			path = PopUpTypes;
 			sourceTree = "<group>";
 		};
-		B949AFE5295433E400025011 /* Extensions */ = {
+		B949AFE5295433E400025011 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				B94008CF299BB28400172E01 /* FirebaseExtensions */,
@@ -339,7 +339,7 @@
 				B962ABA1299514B20053F1AB /* StringOpt+Extension.swift */,
 				B90871E2299824F500247729 /* UIViewController+Extension.swift */,
 			);
-			path = Extensions;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		B94D86852997BCF80033F2B4 /* ProfileController */ = {
@@ -767,7 +767,7 @@
 				B9DD013E297CDBB1007C266D /* Alerts */,
 				B9DD013C297CDB01007C266D /* API's */,
 				B951EBF82975513E0076EB67 /* View */,
-				B949AFE5295433E400025011 /* Extensions */,
+				B949AFE5295433E400025011 /* Helpers */,
 				B972AB852951C5EC0025683F /* TabBarController */,
 				B9F08DAE29479CDE0059614C /* Protocols */,
 				B9FABB6C291BD46500232D9C /* Manager */,
