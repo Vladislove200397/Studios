@@ -35,7 +35,12 @@ class ProfileEditViewController: UIViewController {
     }
     
     private func setBackgroundGradient() {
-        let topColor = UIColor(hue: 0.71, saturation: 0.72, brightness: 0.25, alpha: 1.0).cgColor
+        let topColor = UIColor(
+            hue: 0.71,
+            saturation: 0.72,
+            brightness: 0.25,
+            alpha: 1.0).cgColor
+        
         self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
     }
     
@@ -64,18 +69,6 @@ class ProfileEditViewController: UIViewController {
         picker.allowsEditing = false
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
-    }
-    
-    private func logOut() {
-        let ud = UserDefaults.standard
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            Environment.scenDelegate?.setLoginIsInitial()
-            ud.set(nil, forKey: "uid")
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
     }
     
     func saveChangedInfo(complition: @escaping (() ->Void)) {
@@ -134,28 +127,7 @@ class ProfileEditViewController: UIViewController {
     }
     
     @IBAction func logoutButtonDidTap(_ sender: Any) {
-        let popupConfigure = PopUpConfiguration(
-            confirmButtonTitle: "Отмена",
-            dismissButtonTitle: "Ок",
-            title: "Выход",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
-            description: "Выйти из аккаунта?",
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
-            image: UIImage(systemName: "exclamationmark.circle"),
-            style: .confirmation,
-            buttonFonts: .boldSystemFont(ofSize: 15),
-            imageTintColor: .systemYellow,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray,
-            confirmButtonTintColor: .white,
-            dismissButtonTintColor: .red
-        )
-        
-        PopupManager().showPopup(controller: self, configure: popupConfigure, discard:  {
-            self.logOut()
-        })
+
     }
     
     @IBAction func saveChangesButtonDidTap(_ sender: Any) {
@@ -168,7 +140,10 @@ class ProfileEditViewController: UIViewController {
 
 extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        if let image = info[
+            UIImagePickerController
+            .InfoKey
+            .originalImage] as? UIImage {
             let cropper = CropperViewController(originalImage: image)
             cropper.delegate = self
             picker.dismiss(animated: true) {
@@ -182,7 +157,10 @@ extension ProfileEditViewController: CropperViewControllerDelegate {
     func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
         cropper.dismiss(animated: true, completion: nil)
         if let state = state,
-           let image = cropper.originalImage.cropped(withCropperState: state) {
+           let image =
+            cropper
+            .originalImage
+            .cropped(withCropperState: state) {
             self.profileImage.image = image
         }
     }
