@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol PushButtonDelegate: AnyObject {
-    func pushButton(studioID: String)
-}
-
 protocol FlexibleViewDelegate: AnyObject {
     func viewDidOpen(type: FlexibleViewTypes)
 }
@@ -27,6 +23,11 @@ protocol SwipeCalendarDelegate: AnyObject {
     func didSwipeCalendar()
 }
 
-protocol SideMenuViewControllerDelegate: AnyObject {
-    func selectedCell(_ row: Int)
+protocol ChangeProfilePhotoDelegate: AnyObject {
+    func changePhoto()
+}
+
+protocol ChangeProfileSaveOrDismissChangesDelegate: AnyObject {
+    func saveChanges(user: FirebaseUser)
+    func dismissChanges()
 }

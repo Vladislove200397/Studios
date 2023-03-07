@@ -34,7 +34,7 @@ class CalendarCell: UICollectionViewCell {
         }
     }
     
-    func set(dateToShow: String, selectedDate: String, index: Int, today: Bool, pastSelectedCell: Bool, type: CalendarCellType, bookingDay: Bool? = nil) {
+    func set(dateToShow: String, selectedDate: String, index: Int, today: Bool, pastSelectedCell: Bool, bookingDay: Bool? = nil) {
         self.selectedDate = selectedDate
         self.dateToShow = dateToShow
         self.today = today

@@ -32,6 +32,7 @@ class StudioInfoController: UIViewController {
     private var selctedIndex = 0
     private var reviews: ReviewModel?
     private var user = Auth.auth().currentUser
+    private var likeBlock: VoidBlock?
     
     var likeFromFIR = Bool()
     
@@ -87,7 +88,7 @@ class StudioInfoController: UIViewController {
     
     private func sheetPresent() {
         let mediumHieghtDetent = (self.collectionView.frame.height / 2)+self.segmentedControl.frame.height+self.controllerView.frame.height
-        let smallHeightDetent = self.contentView.frame.height-15
+        let smallHeightDetent = self.contentView.frame.height - 15
         
         if let presentationController = presentationController as? UISheetPresentationController {
             presentationController.prefersGrabberVisible = true
@@ -107,9 +108,11 @@ class StudioInfoController: UIViewController {
             ]}
     }
     
-    func set(studio: GMSPlace?) {
+    func set(studio: GMSPlace?, likeFromFir: Bool, updateBlock: VoidBlock? = nil) {
         guard let studio else { return }
         self.studio = studio
+        self.likeFromFIR = likeFromFir
+        self.likeBlock = updateBlock
     }
     
     private func setupData() {
@@ -187,14 +190,7 @@ class StudioInfoController: UIViewController {
             self.setupLikeButton()
         }
     }
-    
-    //    private func postLike(referenceType: FirebaseReferenses) {
-    //        let ref = referenceType.references
-    //        let sendLike = ["like": likeFromFIR ? false : true ] as [String : Any]
-    //        ref.setValue(sendLike)
-    //
-    //    }
-    
+
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
         guard sender.selectedSegmentIndex < 2 else { return }
         self.selctedIndex = sender.selectedSegmentIndex
@@ -220,12 +216,14 @@ class StudioInfoController: UIViewController {
         if likeFromFIR {
             FirebaseProvider().removeStudioFromLiked(referenceType: .removeLikedStudio(userID: userID, studioID: studioID)) {
                 print("Удалено")
+                
             }
-
+            self.likeBlock?()
         } else {
             FirebaseProvider().postLikedStudio(studio: studio, referenceType: .postLike(userID: userID, studioID: studioID)) {
                 print("успешно")
             }
+            self.likeBlock?()
         }
     }
 }

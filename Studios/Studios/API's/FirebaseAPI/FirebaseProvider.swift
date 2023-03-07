@@ -21,9 +21,8 @@ public class FirebaseProvider {
         return timeOfStartDay
     }
     
-    func postBookingModel(bookingModel: FirebaseBookingModel, referenceType: FirebaseReferenses, success: @escaping () -> Void, failure: @escaping () -> Void) {
+    func postBookingModel(bookingModel: FirebaseBookingModel, referenceType: FirebaseReferenses, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
         
-        //get the uniqID path for save data to booking list
         let bookingID = Int(NSDate.timeIntervalSinceReferenceDate)
         
         guard let userID = bookingModel.userID,
@@ -53,7 +52,7 @@ public class FirebaseProvider {
         ref.child("\(bookingID)").setValue(booking) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
-                failure()
+                failure(error)
                 print(error.localizedDescription)
             } else {
                 success()
@@ -201,7 +200,7 @@ public class FirebaseProvider {
         }
     }
     
-    func updateStudioBooking(_ bookingModel: FirebaseBookingModel, _ referenceType: FirebaseReferenses, success: @escaping (() -> Void), failure: @escaping (() -> Void)) {
+    func updateStudioBooking(_ bookingModel: FirebaseBookingModel, _ referenceType: FirebaseReferenses, success: @escaping (() -> Void), failure: @escaping (Error) -> Void) {
         
         guard let userID = bookingModel.userID,
               let userName = bookingModel.userName,
@@ -230,7 +229,7 @@ public class FirebaseProvider {
         ref.child("\(bookingModel.bookingID!)").setValue(booking) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
-                failure()
+                failure(error)
                 print(error.localizedDescription)
             } else {
                 success()
@@ -279,7 +278,7 @@ public class FirebaseProvider {
         }
     }
     
-    func saveUser(referenceType: FirebaseReferenses,_ displayName: String,_ surname: String,_ phoneNumber: String) {
+    func saveUser(referenceType: FirebaseReferenses,_ displayName: String,_ surname: String,_ phoneNumber: String, succes: (() -> Void)? = nil) {
         let ref = referenceType.references
         
         let user = ["display_name": displayName,
@@ -346,7 +345,7 @@ public class FirebaseProvider {
         }
     }
     
-    func saveAuthuserInfo(photoURL: URL, displaName: String, complition: @escaping (() -> Void)) {
+    func saveAuthuserInfo(photoURL: URL, displaName: String, complition: @escaping () -> Void) {
         guard let user = Auth.auth().currentUser else { return }
         
         let changeRequest = user.createProfileChangeRequest()
@@ -359,6 +358,20 @@ public class FirebaseProvider {
                 print(error.localizedDescription)
             } else {
                 complition()
+            }
+        }
+    }
+    
+    static func removeBooking(bookingModel: FirebaseBookingModel, referenceType: FirebaseReferenses, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        
+        let ref = referenceType.references
+        guard let bookingID = bookingModel.bookingID else { return }
+        ref.child("\(bookingID)").removeValue { error, _ in
+            if let error {
+                print(error.localizedDescription)
+                failure(error)
+            } else {
+                success()
             }
         }
     }

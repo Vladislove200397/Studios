@@ -12,9 +12,9 @@
             <connections>
                 <outlet property="alertLabel" destination="8Jw-WR-65S" id="P42-Ng-Aaz"/>
                 <outlet property="alertView" destination="bMW-zs-quW" id="HAu-61-f1i"/>
+                <outlet property="bookingHistoryCollectionView" destination="1ot-A7-IZr" id="Fcv-NN-G5I"/>
                 <outlet property="calendar" destination="eUO-ps-uK3" id="EFu-ZE-rSL"/>
                 <outlet property="spinner" destination="btq-kJ-VCi" id="kjm-Cb-YOM"/>
-                <outlet property="tableView" destination="jm2-y2-qSv" id="0AT-sO-e4B"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,13 +23,6 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jm2-y2-qSv">
-                    <rect key="frame" x="0.0" y="208" width="390" height="602"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </tableView>
-                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="btq-kJ-VCi">
-                    <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
-                </activityIndicatorView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUO-ps-uK3" customClass="HorizontalCalendar" customModule="Studios" customModuleProvider="target">
                     <rect key="frame" x="16" y="101" width="358" height="107"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -71,23 +64,36 @@
                         <constraint firstItem="SB5-Km-1jS" firstAttribute="top" secondItem="lPV-sU-Lul" secondAttribute="top" constant="55" id="NPU-vv-q2J"/>
                     </constraints>
                 </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="1ot-A7-IZr">
+                    <rect key="frame" x="0.0" y="208" width="390" height="636"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KE8-TI-awd">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="50" height="16"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="btq-kJ-VCi">
+                    <rect key="frame" x="176.66666666666666" y="403.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="1ot-A7-IZr" secondAttribute="bottom" id="47J-AU-f3T"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bMW-zs-quW" secondAttribute="bottom" id="5AX-FM-7HZ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jm2-y2-qSv" secondAttribute="trailing" id="5pU-qc-MD2"/>
-                <constraint firstItem="jm2-y2-qSv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8dW-K3-RzC"/>
+                <constraint firstItem="1ot-A7-IZr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BS5-QE-tW8"/>
                 <constraint firstItem="bMW-zs-quW" firstAttribute="top" secondItem="eUO-ps-uK3" secondAttribute="bottom" id="PW9-Kg-A4G"/>
                 <constraint firstItem="lPV-sU-Lul" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="SeG-xi-upx"/>
-                <constraint firstItem="jm2-y2-qSv" firstAttribute="top" secondItem="eUO-ps-uK3" secondAttribute="bottom" id="TBP-bK-6ZD"/>
                 <constraint firstItem="lPV-sU-Lul" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="YFp-i9-aey"/>
+                <constraint firstItem="1ot-A7-IZr" firstAttribute="top" secondItem="eUO-ps-uK3" secondAttribute="bottom" id="dYn-9a-Gaj"/>
                 <constraint firstItem="eUO-ps-uK3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dlI-Tu-bJu"/>
                 <constraint firstItem="lPV-sU-Lul" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fSI-0P-9Gb"/>
                 <constraint firstItem="btq-kJ-VCi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hen-7E-mR2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1ot-A7-IZr" secondAttribute="trailing" id="kAo-Yb-KQR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eUO-ps-uK3" secondAttribute="trailing" constant="16" id="mNm-3i-ST6"/>
                 <constraint firstItem="bMW-zs-quW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="o8u-Cs-Xq7"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="jm2-y2-qSv" secondAttribute="bottom" id="pdG-lR-x9t"/>
                 <constraint firstItem="eUO-ps-uK3" firstAttribute="top" secondItem="lPV-sU-Lul" secondAttribute="bottom" constant="16" id="rAW-Ta-xl4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bMW-zs-quW" secondAttribute="trailing" id="sgf-WQ-sk2"/>
                 <constraint firstItem="btq-kJ-VCi" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="ypT-tT-IQ2"/>
