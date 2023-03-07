@@ -83,8 +83,7 @@ class MapController: UIViewController {
         getLike(studio: studio) { like in
             let infoVC = StudioInfoController(nibName: String(describing: StudioInfoController.self), bundle: nil)
             
-            infoVC.likeFromFIR = like
-            infoVC.set(studio: studio)
+            infoVC.set(studio: studio, likeFromFir: like)
             infoVC.isModalInPresentation = true
             self.present(infoVC, animated: true)
             self.spinner.stopAnimating()
@@ -168,12 +167,12 @@ extension MapController {
     }
     //MARK: Detect first launch
     private func detectFirstLaunch() {
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        if launchedBefore  {
-        } else {
-            addingPlaces()
-            places = RealmManager<SSPlace>().read()
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
+        UserDefaultsManager.detectFirstLaunch { launchBefore in
+            if !launchBefore {
+                self.addingPlaces()
+                self.places = RealmManager<SSPlace>().read()
+                UserDefaultsManager.userDefaultsManager.set(true, forKey: "launchedBefore")
+            }
         }
     }
 }

@@ -25,26 +25,25 @@ class BookingConfirmController: UIViewController {
     private var bookingModel = FirebaseBookingModel()
     private var bookingType: SelectionType = .singleSelection
     private var controllerType: BookingStudioControllerType = .booking
+    private var updateBlock: FirebaseBookingModelBlock?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupVC()
-        userEmailTF.delegate = self
-        userPhoneNumberTF.delegate = self
-        commentTF.delegate = self
-        userNameTF.delegate = self
         setupTextFields()
+        hideKeyboardWhenTappedAround()
     }
     
     deinit {
         print("DEINIT CONFIRMATION CONTROLLER")
     }
     
-    func set(bookingModel: FirebaseBookingModel, bookingType: SelectionType, controllerType: BookingStudioControllerType) {
+    func set(bookingModel: FirebaseBookingModel, bookingType: SelectionType, controllerType: BookingStudioControllerType, updateBlock: FirebaseBookingModelBlock? = nil) {
         self.bookingModel = bookingModel
         self.bookingType = bookingType
         self.title = "Запись"
         self.controllerType = controllerType
+        self.updateBlock = updateBlock
     }
     
     private func setupVC() {
@@ -69,6 +68,11 @@ class BookingConfirmController: UIViewController {
     }
     
     private func setupTextFields() {
+        userEmailTF.delegate = self
+        userPhoneNumberTF.delegate = self
+        commentTF.delegate = self
+        userNameTF.delegate = self
+        
         userPhoneNumberTF.setupTextField()
         userNameTF.setupTextField()
         userEmailTF.setupTextField()
@@ -115,55 +119,93 @@ class BookingConfirmController: UIViewController {
         isValidTextField()
     }
     
-    private func postBookingStudio(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String) {
-        FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postUserBookingRef(userID: userID)) {[weak self] in
-            guard let self else { return }
-            print("ЗАБРОНИРОВАНО")
-            self.spinner.stopAnimating()
-        } failure: {[weak self] in
-            guard let self else { return }
-            self.spinner.stopAnimating()
-            print("ERROR")
+    private func postBookingStudioRequest(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String, complition: @escaping RequestBlock, failure: @escaping RequestBlock) {
+        var error: Error?
+        let group = DispatchGroup()
+        let concurrentCurrency = DispatchQueue(
+            label: "concurrentCurrency-postBooking",
+            attributes: .concurrent
+        )
+        
+        let postStudioBookingModelWorkItem = DispatchWorkItem {
+            FirebaseProvider().postBookingModel(
+                bookingModel: bookingModel,
+                referenceType: .postUserBookingRef(userID: userID)
+            ) {
+                print("ЗАБРОНИРОВАНО")
+                group.leave()
+            } failure: { requestError in
+                error = requestError
+            }
         }
         
-        FirebaseProvider().postBookingModel(bookingModel: bookingModel, referenceType: .postStudioBookingRef(studioID: studioID)) {[weak self] in
-            guard let self else { return }
-            Alerts().showAlert(controller: self, title: "Успешно", message: self.message(bookingModel.bookingTime!)) {
-                self.spinner.stopAnimating()
-                self.dismiss(animated: true)
-            }
-        } failure: {[weak self] in
-            guard let self else { return }
-            Alerts().showAlert(controller: self, title: "Упс.. ", message: "Произошла ошибка, попробуйте позже.") {
-                self.spinner.stopAnimating()
-                self.dismiss(animated: true)
+        let postUserBookingModel = DispatchWorkItem {
+            FirebaseProvider().postBookingModel(
+                bookingModel: bookingModel,
+                referenceType: .postStudioBookingRef(studioID: studioID)
+            ) {
+                group.leave()
+            } failure: { requestError in
+                error = requestError
             }
         }
+        
+        group.enter()
+        concurrentCurrency.async(execute: postStudioBookingModelWorkItem)
+        
+        group.enter()
+        concurrentCurrency.async(execute: postUserBookingModel)
+        
+        group.notify(queue: .main) {
+            [weak self] in
+                guard let self else { return }
+                guard error != nil else {
+                    self.spinner.stopAnimating()
+                    complition()
+                    return
+                }
+                failure()
+            }
     }
     
-    private func updateBookingStudio(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String) {
-        FirebaseProvider().updateStudioBooking(bookingModel, .postStudioBookingRef(studioID: studioID)) {[weak self] in
-            guard let self else { return }
-            self.spinner.stopAnimating()
-            Alerts().showAlert(controller: self, title: "Успешно", message: "Бронирование изменено на \(self.message(bookingModel.bookingTime!))") {
-                self.spinner.stopAnimating()
-                self.navigationController?.popToRootViewController(animated: true)
-            }
-        } failure: {[weak self] in
-            guard let self else { return }
-            Alerts().showAlert(controller: self, title: "Упс.. ", message: "Произошла ошибка, попробуйте позже.") {
-                self.spinner.stopAnimating()
+    private func updateBookingStudioRequest(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String, complition: @escaping RequestBlock, failure: @escaping RequestBlock) {
+        var error: Error?
+        let group = DispatchGroup()
+        let concurrentCurrency = DispatchQueue(
+            label: "concurrentCurrency-updateBooking",
+            attributes: .concurrent
+        )
+        
+        let updateStudioBookingWorkItem = DispatchWorkItem {
+            FirebaseProvider().updateStudioBooking(bookingModel, .postStudioBookingRef(studioID: studioID)) {
+                group.leave()
+            } failure: { requestError in
+                error = requestError
             }
         }
         
-        FirebaseProvider().updateStudioBooking(bookingModel, .postUserBookingRef(userID: userID)) {[weak self] in
+        let updateUserBookingWorkItem = DispatchWorkItem {
+            FirebaseProvider().updateStudioBooking(bookingModel, .postUserBookingRef(userID: userID)) {
+                group.leave()
+            } failure: { requestError in
+                error = requestError
+            }
+        }
+        
+        group.enter()
+        concurrentCurrency.async(execute: updateStudioBookingWorkItem)
+        
+        group.enter()
+        concurrentCurrency.async(execute: updateUserBookingWorkItem)
+        
+        group.notify(queue: .main) {[weak self] in
             guard let self else { return }
-            print("SUCCED")
-            self.spinner.stopAnimating()
-        } failure: {[weak self] in
-            guard let self else { return }
-            print("ZALUPA")
-            self.spinner.stopAnimating()
+            guard error != nil else {
+                self.spinner.stopAnimating()
+                complition()
+                return
+            }
+            failure()
         }
     }
     
@@ -174,7 +216,7 @@ class BookingConfirmController: UIViewController {
               let comment = commentTF.text,
               let studioID = bookingModel.studioID,
               let userID = bookingModel.userID,
-              let _ = bookingModel.bookingTime else { return }
+              let bookingTime = bookingModel.bookingTime else { return }
         
         let bookingModel = self.bookingModel
         bookingModel.userPhone = userPhone
@@ -182,23 +224,96 @@ class BookingConfirmController: UIViewController {
         bookingModel.userName = name
         bookingModel.userEmail = userEmail
         
+        var popUpConfiguration = PopUpConfiguration(
+            confirmButtonTitle: "Ok",
+            titleColor: .black,
+            titleFont: .systemFont(ofSize: 17, weight: .bold),
+            descriptionColor: .black,
+            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
+            style: .error,
+            buttonFonts: .boldSystemFont(ofSize: 13),
+            imageTintColor: .red,
+            backgroundColor: .white,
+            buttonBackgroundColor: .lightGray.withAlphaComponent(0.8)
+        )
+        
         self.spinner.startAnimating()
         
         switch controllerType {
             case .booking:
-                postBookingStudio(bookingModel, userID, studioID)
+                postBookingStudioRequest(
+                    bookingModel,
+                    userID,
+                    studioID) {[weak self] in
+                        guard let self else { return }
+                        
+                        popUpConfiguration.image = UIImage(systemName: "checkmark.circle")
+                        popUpConfiguration.imageTintColor = .systemGreen
+                        popUpConfiguration.title = "Успешно"
+                        popUpConfiguration.description = "Забронировано на дату \(self.message(bookingTime))"
+                        
+                        PopupManager().showPopup(
+                            controller: self,
+                            configure: popUpConfiguration) {
+                                self.updateBlock?(bookingModel)
+                                self.navigationController?.popToRootViewController(animated: true)
+                            } discard: {
+                            }
+                    } failure: { [weak self] in
+                        guard let self else { return }
+                        
+                        popUpConfiguration.image = UIImage(systemName: "nosign")
+                        popUpConfiguration.imageTintColor = .red
+                        popUpConfiguration.title = "Oшибка"
+                        popUpConfiguration.description = "Что-то пошло не так, попробуйте позже"
+                        
+                        PopupManager().showPopup(
+                            controller: self,
+                            configure: popUpConfiguration) {
+                                self.navigationController?.popToRootViewController(animated: true)
+                            } discard: {
+                            }
+                    }
             case .editBooking:
-                updateBookingStudio(bookingModel, userID, studioID)
+                updateBookingStudioRequest(
+                    bookingModel,
+                    userID,
+                    studioID) {[weak self] in
+                        guard let self else { return }
+                        
+                        popUpConfiguration.image = UIImage(systemName: "checkmark.circle")
+                        popUpConfiguration.imageTintColor = .systemGreen
+                        popUpConfiguration.title = "Успешно"
+                        popUpConfiguration.description = "Бронирование изменено на дату \(self.message(bookingTime))"
+                        
+                        PopupManager().showPopup(
+                            controller: self,
+                            configure: popUpConfiguration) {
+                                self.updateBlock?(bookingModel)
+                                self.navigationController?.popToRootViewController(animated: true)
+                            } discard: {
+                            }
+                    } failure: {
+                        [weak self] in
+                        guard let self else { return }
+                        
+                        popUpConfiguration.image = UIImage(systemName: "nosign")
+                        popUpConfiguration.imageTintColor = .red
+                        popUpConfiguration.title = "Oшибка"
+                        popUpConfiguration.description = "Что-то пошло не так, попробуйте позже"
+                        
+                        PopupManager().showPopup(
+                            controller: self,
+                            configure: popUpConfiguration) {
+                                self.navigationController?.popToRootViewController(animated: true)
+                            } discard: {
+                            }
+                    }
         }
     }
 }
 
 extension BookingConfirmController: UITextFieldDelegate {
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

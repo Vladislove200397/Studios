@@ -26,7 +26,7 @@ class BookingStudioController: UIViewController {
     private var timeStampDateFromCalendar = Int()
     private var dateFromCalendar: Date?
     private var compareBookingTimeStamp = Int()
-    private var compareBookingTImeStampArray = [Int]()
+    private var compareBookingTimeStampArray = [Int]()
     private var selectionType: SelectionType = .singleSelection
     private var previusSelectedIndexPathSection = 0
     private var previusSelectedIndexPathRow = 0
@@ -34,6 +34,7 @@ class BookingStudioController: UIViewController {
     private var afterResetCells = false
     private var controllerType: BookingStudioControllerType = .booking
     private var bookingModelEdit = FirebaseBookingModel()
+    private var updateBlock: FirebaseBookingModelBlock?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,11 +72,12 @@ class BookingStudioController: UIViewController {
         self.collectionView.register(sectionHeaderNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.id)
     }
     
-    func setData(studio: GMSPlace, controllerType: BookingStudioControllerType, bookingModel: FirebaseBookingModel? = nil) {
+    func setData(studio: GMSPlace, controllerType: BookingStudioControllerType, bookingModel: FirebaseBookingModel? = nil, updateBlock: FirebaseBookingModelBlock? = nil) {
         self.studio = studio
         self.controllerType = controllerType
         guard let bookingModel else { return }
         self.bookingModelEdit = bookingModel
+        self.updateBlock = updateBlock
     }
     
     private func getCurrentDateTimeStamp() -> Int {
@@ -146,7 +148,7 @@ class BookingStudioController: UIViewController {
     
     private func isEnabledButton() {
 
-        if self.compareBookingTImeStampArray.count != 0, self.timeStampDateFromCalendar != 0 {
+        if self.compareBookingTimeStampArray.count != 0, self.timeStampDateFromCalendar != 0 {
             self.nextVCButton.isEnabled = true
             self.nextVCButton.setTitle("Далее", for: .normal)
         } else {
@@ -161,39 +163,50 @@ class BookingStudioController: UIViewController {
               let studioName = self.studio?.name
         else { return }
         
-        let confirmationBookingVC = BookingConfirmController(nibName: String(describing: BookingConfirmController.self), bundle: nil)
+        let confirmationBookingVC = BookingConfirmController(
+            nibName: String(describing: BookingConfirmController.self),
+            bundle: nil
+        )
         
         switch controllerType {
             case .booking:
-                let bookingModel = FirebaseBookingModel(bookingTime: self.compareBookingTImeStampArray,
-                                                        userName: user.displayName,
-                                                        userEmail: user.email,
-                                                        userID: user.uid,
-                                                        studioID: studioID,
-                                                        studioName: studioName)
+                let bookingModel = FirebaseBookingModel(
+                    bookingTime: self.compareBookingTimeStampArray,
+                    userName: user.displayName,
+                    userEmail: user.email,
+                    userID: user.uid,
+                    studioID: studioID,
+                    studioName: studioName
+                )
                 
-                confirmationBookingVC.set(bookingModel: bookingModel, bookingType: self.selectionType, controllerType: .booking)
+                confirmationBookingVC.set(
+                    bookingModel: bookingModel,
+                    bookingType: self.selectionType,
+                    controllerType: .booking
+                )
                 navigationController?.pushViewController(confirmationBookingVC, animated: true)
                 
             case .editBooking:
-                let editBookingModel = FirebaseBookingModel(bookingTime: self.compareBookingTImeStampArray,
-                                                        bookingID: bookingModelEdit.bookingID,
-                                                        userName: user.displayName,
-                                                        userEmail: user.email,
-                                                        userPhone: bookingModelEdit.userPhone,
-                                                        userID: user.uid,
-                                                        studioID: studioID,
-                                                        studioName: studioName,
-                                                        comment: bookingModelEdit.comment)
+                let editBookingModel = FirebaseBookingModel(
+                    bookingTime: self.compareBookingTimeStampArray,
+                    bookingID: bookingModelEdit.bookingID,
+                    userName: user.displayName,
+                    userEmail: user.email,
+                    userPhone: bookingModelEdit.userPhone,
+                    userID: user.uid,
+                    studioID: studioID,
+                    studioName: studioName,
+                    comment: bookingModelEdit.comment
+                )
                 
                 
-                confirmationBookingVC.set(bookingModel: editBookingModel, bookingType: self.selectionType, controllerType: .editBooking)
+                confirmationBookingVC.set(bookingModel: editBookingModel, bookingType: self.selectionType, controllerType: .editBooking, updateBlock: updateBlock)
                 navigationController?.pushViewController(confirmationBookingVC, animated: true)
         }
     }
     
     private func allowSelectNextCell(bookingTime: Int) {
-        self.compareBookingTImeStampArray.append(bookingTime)
+        compareBookingTimeStampArray.append(bookingTime)
         isEnabledButton()
         tapCounter += 1
         afterResetCells = false
@@ -201,14 +214,13 @@ class BookingStudioController: UIViewController {
     
     private func resetCollectionView() {
         self.collectionView.reloadData()
-        self.compareBookingTImeStampArray.removeAll()
-        self.previusSelectedIndexPathRow = 0
-        self.previusSelectedIndexPathSection = 0
-        self.tapCounter = 0
+        compareBookingTimeStampArray.removeAll()
+        previusSelectedIndexPathRow = 0
+        previusSelectedIndexPathSection = 0
+        tapCounter = 0
         afterResetCells = true
     }
 
-    
     @IBAction func selectionTypeButtonDidTap(_ sender: UIButton) {
         switch self.selectionType {
             case .singleSelection:
@@ -274,12 +286,13 @@ extension BookingStudioController: UICollectionViewDataSource {
             let redCircleEnabled = calendar.sevenDates[indexPath.row] == calendar.currentDate
             let selectedCell = calendar.sevenDates[indexPath.row] == calendar.dateFromCell
             
-            calendarCell.set(dateToShow: calendar.selectedDate,
-                             selectedDate: calendar.sevenDates[indexPath.row],
-                             index: indexPath.row,
-                             today: redCircleEnabled,
-                             pastSelectedCell: selectedCell,
-                             type: .booking)
+            calendarCell.set(
+                dateToShow: calendar.selectedDate,
+                selectedDate: calendar.sevenDates[indexPath.row],
+                index: indexPath.row,
+                today: redCircleEnabled,
+                pastSelectedCell: selectedCell
+            )
             
             return calendarCell
         }
@@ -331,13 +344,15 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
         if collectionView == self.collectionView {
             guard let cell = collectionView.cellForItem(at: indexPath) as? HoursCell else { return }
             
-            guard cell.bookingTime != 0 else { resetCollectionView()
-                return  }
+            guard cell.bookingTime != 0 else {
+                resetCollectionView()
+                return
+            }
             
             switch self.selectionType {
                 case .singleSelection:
-                    self.compareBookingTImeStampArray.removeAll()
-                    self.compareBookingTImeStampArray.append(cell.bookingTime)
+                    self.compareBookingTimeStampArray.removeAll()
+                    self.compareBookingTimeStampArray.append(cell.bookingTime)
                     isEnabledButton()
                     
                 case .multipleSelection:
@@ -366,10 +381,10 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
             calendar.dateDelegate?.setDate(date: cell.selectedDate)
             calendar.dateFromCell = cell.selectedDate
             calendar.collectionView.reloadData()
-            compareBookingTImeStampArray.removeAll()
-            self.previusSelectedIndexPathRow = 0
-            self.previusSelectedIndexPathSection = 0
-            self.tapCounter = 0
+            compareBookingTimeStampArray.removeAll()
+            previusSelectedIndexPathRow = 0
+            previusSelectedIndexPathSection = 0
+            tapCounter = 0
             isEnabledButton()
         }
     }
@@ -380,10 +395,10 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
                 case .multipleSelection:
                     if indexPath.row == indexPath.row, indexPath.section == indexPath.section {
                         collectionView.reloadData()
-                        self.compareBookingTImeStampArray.removeAll()
-                        self.previusSelectedIndexPathRow = 0
-                        self.previusSelectedIndexPathSection = 0
-                        self.tapCounter = 0
+                        compareBookingTimeStampArray.removeAll()
+                        previusSelectedIndexPathRow = 0
+                        previusSelectedIndexPathSection = 0
+                        tapCounter = 0
                     }
                 case .singleSelection:
                     break
@@ -397,12 +412,12 @@ extension BookingStudioController: SetDateFromViewDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let compareDate = dateFormatter.date(from: date)!
-        self.dateFromCalendar = compareDate
-        self.timeStampDateFromCalendar = Int(compareDate.timeIntervalSince1970)
-        self.getWorkHours()
-        self.readData()
-        self.nextVCButton.isEnabled = false
-        self.nextVCButton.setTitle("Выберите время", for: .normal)
+        dateFromCalendar = compareDate
+        timeStampDateFromCalendar = Int(compareDate.timeIntervalSince1970)
+        getWorkHours()
+        readData()
+        nextVCButton.isEnabled = false
+        nextVCButton.setTitle("Выберите время", for: .normal)
     }
 }
 

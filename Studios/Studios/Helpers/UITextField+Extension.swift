@@ -27,6 +27,18 @@ extension UITextField {
         self.attributedPlaceholder = NSAttributedString(string: self.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
     }
     
+    func setLeftPaddingPoints(_ spacing: CGFloat){
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.size.height))
+            self.leftView = paddingView
+            self.leftViewMode = .always
+        }
+    
+    func setRightPaddingPoints(_ spacing: CGFloat) {
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: spacing, height: self.frame.size.height))
+            self.rightView = paddingView
+            self.rightViewMode = .always
+        }
+    
     //Validate UITextField
     func validateRegEx(type: ValidationType) {
         var timer: Timer?

@@ -11,12 +11,14 @@ import FirebaseAuth
 import FirebaseCore
 
 class BookingHistoryController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var calendar: HorizontalCalendar!
     @IBOutlet weak var alertView: UIView!
     @IBOutlet weak var alertLabel: UILabel!
+    @IBOutlet weak var bookingHistoryCollectionView: UICollectionView!
     
+    private var contextMenuSelectedIndexPath = IndexPath()
+    private var bookingHistoryActionMenu = UIMenu()
     private var user = Auth.auth().currentUser
     private var bookingArray: [FirebaseBookingModel] = []
     private var bookingDays: [Int]? = []
@@ -26,18 +28,13 @@ class BookingHistoryController: UIViewController {
         super.viewDidLoad()
         getBookings()
         registerCell()
-        tableView.dataSource = self
-        tableView.delegate = self
-        calendar.collectionView.dataSource = self
-        calendar.collectionView.delegate = self
-        calendar.set(delegate: self, swipeDelegate: self)
         setupVC()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getBookings()
-        tableView.reloadData()
+        bookingHistoryCollectionView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -46,20 +43,86 @@ class BookingHistoryController: UIViewController {
     }
     
     private func setBackgroundGradient() {
-        let topColor = UIColor(hue: 0.58, saturation: 0.72, brightness: 0.25, alpha: 1.0).cgColor // #40174f
+        let topColor = UIColor(
+            hue: 0.58,
+            saturation: 0.72,
+            brightness: 0.25,
+            alpha: 1.0
+        ).cgColor // #40174f
         self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
-        
     }
     
     private func setupVC() {
+        setupBookingHistoryCellMenu()
         navigationController?.setNavigationBarHidden(true, animated: true)
         alertView.isHidden = false
-        tableView.isHidden = true
+        bookingHistoryCollectionView.isHidden = true
+        bookingHistoryCollectionView.dataSource = self
+        bookingHistoryCollectionView.delegate = self
+        calendar.collectionView.dataSource = self
+        calendar.collectionView.delegate = self
+        calendar.set(delegate: self, swipeDelegate: self)
+    }
+    
+    private func setupBookingHistoryCellMenu() {
+        let changeBookingAction = UIAction(
+            title: "Изменить время бронирвоания",
+            image: UIImage(systemName: "clock.arrow.2.circlepath")
+        ) {[weak self] _ in
+            guard let self else { return }
+            self.showVcToСhangeBooking { bookingModel in
+                if self.presentingBookingArray[self.contextMenuSelectedIndexPath.row].bookingDay == bookingModel.bookingDay {
+                    self.bookingHistoryCollectionView.performBatchUpdates {
+                        self.presentingBookingArray.remove(at: self.contextMenuSelectedIndexPath.row)
+                        self.presentingBookingArray.insert(bookingModel, at: self.contextMenuSelectedIndexPath.row)
+                        self.bookingHistoryCollectionView.reloadItems(at: self.bookingHistoryCollectionView.indexPathsForVisibleItems)
+                    } completion: { _ in
+                        self.getBookings()
+                    }
+        
+                } else {
+                    self.bookingHistoryCollectionView.performBatchUpdates {
+                        self.presentingBookingArray.remove(at: self.contextMenuSelectedIndexPath.row)
+                        self.bookingHistoryCollectionView.reloadItems(at: self.bookingHistoryCollectionView.indexPathsForVisibleItems)
+                    } completion: { _ in
+                        self.getBookings()
+                    }
+                }
+                self.showEmptyArrayView()
+            }
+        }
+        
+        let deleteBookign = UIAction(
+            title: "Отменить бронирование",
+            image: UIImage(systemName: "clock.badge.xmark"),
+            attributes: .destructive
+        ) {[weak self] _ in
+            guard let self else { return }
+            self.removeBooking {
+                self.bookingHistoryCollectionView.performBatchUpdates {
+                    self.presentingBookingArray.remove(at: self.contextMenuSelectedIndexPath.row)
+                    self.bookingHistoryCollectionView.deleteItems(at: [self.contextMenuSelectedIndexPath])
+                } completion: { _ in
+                    self.getBookings()
+                    self.showEmptyArrayView()
+                }
+            } failure: {
+                print("OSHIBKA")
+            }
+        }
+        
+        bookingHistoryActionMenu = UIMenu(
+            title: "",
+            children: [changeBookingAction, deleteBookign]
+        )
     }
     
     private func registerCell() {
-        let nib = UINib(nibName: BookingCell.id, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: BookingCell.id)
+        let nib = UINib(
+            nibName: BookingCell.id,
+            bundle: nil
+        )
+        bookingHistoryCollectionView.register(nib, forCellWithReuseIdentifier: BookingCell.id)
     }
     
     private func getBookings() {
@@ -68,47 +131,95 @@ class BookingHistoryController: UIViewController {
         FirebaseProvider().getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) { booking in
             self.bookingArray = booking
             self.spinner.stopAnimating()
-            self.tableView.reloadData()
+            self.bookingHistoryCollectionView.reloadData()
             self.calendar.collectionView.reloadData()
         }
     }
     
+    private func removeBooking(complition: @escaping (() -> Void), failure: (() -> Void)?) {
+        var error: Error?
+        let group = DispatchGroup()
+        let concurrentQueue = DispatchQueue(
+            label: "removeBooking-concurrentQueue",
+            attributes: .concurrent
+        )
+        let selectedContextMenuElement = contextMenuSelectedIndexPath.row
+        let bookingModel = presentingBookingArray[selectedContextMenuElement]
+        
+        guard let studioID = bookingModel.studioID,
+              let userID = user?.uid else { return }
+        
+        let removeStudioBookingWorkItem = DispatchWorkItem {
+            FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeStudioBookingRef(studioID: studioID)) {
+                print("UDALENO")
+                group.leave()
+            } failure: { requestError in
+                error = requestError
+                failure?()
+                group.leave()
+            }
+        }
+        
+        let removeUserBookingWorkItem = DispatchWorkItem {
+            FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeUserBookingRef(userID: userID)) {
+                print("UDALENO")
+                group.leave()
+            } failure: { requestError in
+                error = requestError
+                failure?()
+                group.leave()
+            }
+        }
+        
+        group.enter()
+        concurrentQueue.async(execute: removeStudioBookingWorkItem)
+        
+        group.enter()
+        concurrentQueue.async(execute: removeUserBookingWorkItem)
+        
+        group.notify(queue: .main) {
+            guard error != nil else {
+                complition()
+                return
+            }
+            failure?()
+        }
+    }
+    
     private func showBookingToSelectedDate(_ date: String) {
-        let filtredFirebaseBookingArr = self.bookingArray.filter({$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
-        self.presentingBookingArray = filtredFirebaseBookingArr
-        self.tableView.reloadData()
-        if filtredFirebaseBookingArr.isEmpty {
-            tableView.isHidden = true
+        let filtredFirebaseBookingArr = self.bookingArray
+            .filter({$0.bookingDay?.formatData(formatType: .ddMMyyyy) == date})
+        
+        presentingBookingArray = filtredFirebaseBookingArr
+        bookingHistoryCollectionView.reloadData()
+        showEmptyArrayView()
+    }
+    
+    private func showEmptyArrayView() {
+        if presentingBookingArray.isEmpty {
+            bookingHistoryCollectionView.isHidden = true
             alertView.isHidden = false
             alertLabel.text = "На эту дату нет бронирований."
         } else {
-            tableView.isHidden = false
+            bookingHistoryCollectionView.isHidden = false
             alertView.isHidden = true
         }
     }
-}
     
-    //MARK: TableViewDataSource
-extension BookingHistoryController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presentingBookingArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BookingCell.id, for: indexPath)
-        (cell as? BookingCell)?.set(booking: presentingBookingArray[indexPath.row])
-        return cell
-    }
-}
-
-//MARK: TableViewDelegate
-extension BookingHistoryController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? BookingCell else { return }
+    private func showVcToСhangeBooking(updateBlock: @escaping FirebaseBookingModelBlock) {
         let bookingVC = BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
-        guard let studio = Service.shared.studios.first(where: {$0.placeID == cell.bookingModel.studioID}) else { return }
         
-        bookingVC.setData(studio: studio, controllerType: .editBooking, bookingModel: cell.bookingModel)
+        let firstIndex = contextMenuSelectedIndexPath.row
+        let studioID = presentingBookingArray[firstIndex].studioID
+        let bookingModel = presentingBookingArray[firstIndex]
+        guard let studio = Service.shared.studios.first(where: {$0.placeID == studioID}) else { return }
+        bookingVC.setData(
+            studio: studio,
+            controllerType: .editBooking,
+            bookingModel: bookingModel
+        ) { bookingModel in
+            updateBlock(bookingModel)
+        }
         navigationController?.pushViewController(bookingVC, animated: true)
     }
 }
@@ -116,49 +227,107 @@ extension BookingHistoryController: UITableViewDelegate {
 //MARK: CollectionViewDataSource
 extension BookingHistoryController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        if collectionView == calendar.collectionView {
+            return 1
+        } else {
+            return 1
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.id, for: indexPath)
-        guard let calendarCell = cell as? CalendarCell else { return cell }
-        let redCircleEnabled = calendar.sevenDates[indexPath.row] == calendar.currentDate
-        let selectedCell = calendar.sevenDates[indexPath.row] == calendar.dateFromCell
-        let circleOfContainsBooking = bookingArray.contains(where: {$0.bookingDay?.formatData(formatType: .ddMMyyyy) == calendar.sevenDates[indexPath.row]})
-        print(circleOfContainsBooking)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        if collectionView == calendar.collectionView {
+            return 7
+        } else {
+            return presentingBookingArray.count
+        }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        if collectionView == calendar.collectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.id, for: indexPath)
+            guard let calendarCell = cell as? CalendarCell else { return cell }
+            let redCircleEnabled = calendar.sevenDates[indexPath.row] == calendar.currentDate
+            let selectedCell = calendar.sevenDates[indexPath.row] == calendar.dateFromCell
+            let circleOfContainsBooking = bookingArray.contains(where: {$0.bookingDay?.formatData(formatType: .ddMMyyyy) == calendar.sevenDates[indexPath.row]})
+            print(circleOfContainsBooking)
+            
+            calendarCell.set(
+                dateToShow: calendar.selectedDate,
+                selectedDate: calendar.sevenDates[indexPath.row],
+                index: indexPath.row,
+                today: redCircleEnabled,
+                pastSelectedCell: selectedCell,
+                bookingDay: circleOfContainsBooking
+            )
+            
+            return calendarCell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookingCell.id, for: indexPath)
+            guard let historyCell = cell as? BookingCell else { return cell}
         
-        calendarCell.set(dateToShow: calendar.selectedDate,
-                         selectedDate: calendar.sevenDates[indexPath.row],
-                         index: indexPath.row,
-                         today: redCircleEnabled,
-                         pastSelectedCell: selectedCell,
-                         type: .history,
-                         bookingDay: circleOfContainsBooking)
-        
-        return calendarCell
+            historyCell.set(booking: presentingBookingArray[indexPath.row])
+            
+            return historyCell
+        }
     }
 }
 
 //MARK: CollectionViewDelegateFlowLayout
 extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let leading = 16.0
-        let cellCount = 7.0
-        let width = calendar.collectionView.frame.width / cellCount - leading
-        let height = calendar.collectionView.frame.height
-        return CGSize(width: width, height: height)
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if collectionView == bookingHistoryCollectionView {
+            contextMenuSelectedIndexPath = indexPath
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+                self.bookingHistoryActionMenu
+            }
+        } else {
+            return nil
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        if collectionView == calendar.collectionView {
+            let leading = 16.0
+            let cellCount = 7.0
+            let width = calendar.collectionView.frame.width / cellCount - leading
+            let height = calendar.collectionView.frame.height
+            return CGSize(width: width, height: height)
+        } else {
+            let inset = 20.0
+            let width = collectionView.frame.width - inset
+            return CGSize(width: width, height: 85)
+        }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 16
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarCell else { return }
-        showBookingToSelectedDate(cell.selectedDate)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        if collectionView == calendar.collectionView {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarCell else { return }
+            calendar.dateFromCell = cell.selectedDate
+            calendar.collectionView.reloadData()
+            showBookingToSelectedDate(cell.selectedDate)
+        }
     }
 }
 
@@ -170,5 +339,6 @@ extension BookingHistoryController: SetDateFromViewDelegate {
 
 extension BookingHistoryController: SwipeCalendarDelegate {
     func didSwipeCalendar() {
+        
     }
 }

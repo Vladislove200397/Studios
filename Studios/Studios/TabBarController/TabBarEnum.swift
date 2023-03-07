@@ -31,8 +31,9 @@ enum TabItem: String, CaseIterable {
             case .test:
                 let vc = ProfileViewController(nibName: String(describing: ProfileViewController.self), bundle: nil)
                 return self.wrappedInNavigationController(with: vc)
-            case . test1:
-                return UIViewController()
+            case .test1:
+                let vc = Test2ViewController(nibName: String(describing: Test2ViewController.self), bundle: nil)
+                return self.wrappedInNavigationController(with: vc)
         }
     }
     

@@ -53,4 +53,17 @@ extension UIView {
         self.addSubview(customBlurEffectView)
         self.addSubview(dimmedDraw)
     }
+    
+    func addCellGradientBackground(topColor: CGColor, bottomColor: CGColor) {
+        let colorTop =  topColor
+        let colorBottom = bottomColor
+        
+        let gradientLayer = CAGradientLayer()
+        clipsToBounds = true
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.locations = [0.0, 0.5]
+        gradientLayer.frame = self.bounds
+        
+        self.layer.insertSublayer(gradientLayer, at:0)
+    }
 }

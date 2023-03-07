@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-typealias VoidBlock = (() -> Void)
+
 protocol PopUpControllerDelegate: AnyObject {
     func dismissAction()
     func confirmAction()
