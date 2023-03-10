@@ -104,6 +104,63 @@ class RegistrationUserViewController: KeyboardHideViewController {
     @objc override func keyboardWillHide(_ notification: NSNotification) {
         keyboardWillBeHidden(notification: notification)
     }
+    
+    private func saveUser() {
+        guard let userName = nameTF.text,
+              let userEmail = emailTF.text,
+              let userPhoneNumber = phoneNumberTF.text,
+              let userPassword = passwordTF.text,
+              let userSurname = surnameTF.text else { return }
+        
+        let group = DispatchGroup()
+        let concurrentQueue = DispatchQueue(
+            label: "registrationUser-concurrentQueue",
+            attributes: .concurrent
+        )
+        var error: Error?
+        var userId = String()
+        
+        let createUserWorkItem = DispatchWorkItem {
+            FirebaseProvider().createUser(
+                viewController: self,
+                email: userEmail,
+                password: userPassword,
+                displayName: userName) { uid in
+                    userId = uid
+                    group.leave()
+            } failure: { requestError in
+                error = requestError
+                group.leave()
+            }
+        }
+        
+        let saveUserWorkItem = DispatchWorkItem {
+            FirebaseProvider().saveUser(
+                referenceType: .addUserInfo(userID: userId),
+                displayName: userName,
+                surname: userSurname,
+                phoneNumber: userPhoneNumber) {
+                    group.leave()
+                } failure: { requestError in
+                    error = requestError
+                    group.leave()
+                }
+
+        }
+        
+        group.enter()
+        concurrentQueue.async(execute: createUserWorkItem)
+        group.notify(queue: .main) {[weak self] in
+            guard let self else { return }
+            guard error != nil else {
+                group.enter()
+                concurrentQueue.async(execute: saveUserWorkItem)
+                self.presentPopup(email: self.emailTF.text!)
+                return
+            }
+            self.presentErrorPopup()
+        }
+    }
 
     private func keyboardWasShown(notification: NSNotification){
         //Need to calculate keyboard exact size due to Apple suggestions
@@ -144,22 +201,14 @@ class RegistrationUserViewController: KeyboardHideViewController {
         let popupConfigure = PopUpConfiguration(
             confirmButtonTitle: "Ок",
             title: "Успешная регистрация",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
             description: "На почтовый ящик \(email) отправлено письмо для подтверждения регистрации.",
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
             image: UIImage(systemName: "checkmark.circle"),
             style: .error,
-            buttonFonts: .boldSystemFont(ofSize: 15),
-            imageTintColor: .systemGreen,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray,
-            confirmButtonTintColor: .white
+            imageTintColor: .systemGreen
         )
         
-        PopupManager().showPopup(
-            controller: self,
+        PopUpController.show(
+            on: self,
             configure: popupConfigure) {
             self.navigationController?.popToRootViewController(animated: true)
         } discard: {
@@ -170,21 +219,13 @@ class RegistrationUserViewController: KeyboardHideViewController {
         let popupConfigure = PopUpConfiguration(
             confirmButtonTitle: "Ок",
             title: "Ошибка",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
             description: "Пользователь с таким email уже существует.",
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
             image: UIImage(systemName: "nosign"),
             style: .error,
-            buttonFonts: .boldSystemFont(ofSize: 15),
-            imageTintColor: .red,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray,
-            confirmButtonTintColor: .white
+            imageTintColor: .red
         )
         
-        PopupManager().showPopup(controller: self, configure: popupConfigure) {
+        PopUpController.show(on: self, configure: popupConfigure) {
             self.emailTF.text = nil
         } discard: {
         }
@@ -224,29 +265,7 @@ class RegistrationUserViewController: KeyboardHideViewController {
     }
     
     @IBAction func registrationButtonDidTap(_ sender: Any) {
-        guard !nameTF.text.isEmptyOrNil,
-              !emailTF.text.isEmptyOrNil,
-              !phoneNumberTF.text.isEmptyOrNil,
-              !passwordTF.text.isEmptyOrNil,
-              !surnameTF.text.isEmptyOrNil else { return }
-        
-        FirebaseProvider().createUser(viewController: self,
-                                      email: emailTF.text!,
-                                      password: passwordTF.text!,
-                                      displayName: nameTF.text!) { [weak self] uid in
-            guard let self else { return }
-            
-            FirebaseProvider().saveUser(
-                referenceType: .addUserInfo(userID: uid),
-                self.nameTF.text!,
-                self.surnameTF.text!,
-                self.phoneNumberTF.text!
-            )
-            self.presentPopup(email: self.emailTF.text!)
-        } failure: {[weak self] in
-            guard let self else { return }
-            self.presentErrorPopup()
-        }
+       saveUser()
     }
 }
 

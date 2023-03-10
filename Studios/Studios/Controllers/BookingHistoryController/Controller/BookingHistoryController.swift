@@ -151,22 +151,18 @@ class BookingHistoryController: UIViewController {
         
         let removeStudioBookingWorkItem = DispatchWorkItem {
             FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeStudioBookingRef(studioID: studioID)) {
-                print("UDALENO")
                 group.leave()
             } failure: { requestError in
                 error = requestError
-                failure?()
                 group.leave()
             }
         }
         
         let removeUserBookingWorkItem = DispatchWorkItem {
             FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeUserBookingRef(userID: userID)) {
-                print("UDALENO")
                 group.leave()
             } failure: { requestError in
                 error = requestError
-                failure?()
                 group.leave()
             }
         }
@@ -226,14 +222,6 @@ class BookingHistoryController: UIViewController {
 
 //MARK: CollectionViewDataSource
 extension BookingHistoryController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == calendar.collectionView {
-            return 1
-        } else {
-            return 1
-        }
-    }
-    
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -290,8 +278,7 @@ extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
             return nil
         }
     }
-    
-    
+        
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,

@@ -42,7 +42,10 @@ class ProfileEditViewController: UIViewController {
             brightness: 0.25,
             alpha: 1.0).cgColor
         
-        self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
+        self.view.setGradientBackground(
+            topColor: topColor,
+            bottomColor: UIColor.black.cgColor
+        )
     }
     
     private func setupVC() {
@@ -79,6 +82,7 @@ class ProfileEditViewController: UIViewController {
         let phoneNumber: [ProfileEditCellTypes] = [.editPhoneNumber]
         let saveChanges: [ProfileEditCellTypes] = [.saveChanges]
         let dismissChanges: [ProfileEditCellTypes] = [.dismiss]
+        
         section.append(nameAndSurnameSection)
         section.append(phoneNumber)
         section.append(saveChanges)
@@ -89,8 +93,9 @@ class ProfileEditViewController: UIViewController {
     func saveChangedInfo(complition: @escaping (() ->Void)) {
         let group = DispatchGroup()
         let concurrentQueue = DispatchQueue(label: "uploadData-concurrentQueue", attributes: .concurrent)
-
+        var error: Error?
         var photoURL: URL?
+        
         guard let userName = user?.userName,
               let userSurname = user?.userSurname,
               let userPhoneNumber = user?.userPhone,
@@ -98,31 +103,61 @@ class ProfileEditViewController: UIViewController {
               let profileImageValue else { return }
         
         let photoUploadWorkItem = DispatchWorkItem {
-            FirebaseProvider().uploadPhoto(userID: user.uid, photo: profileImageValue) { url in
-                photoURL = url
-                group.leave()
-            }
-        }
- 
-        let saveAuthuserInfoWorkItem = DispatchWorkItem {
-            FirebaseProvider().saveAuthuserInfo(photoURL: photoURL!, displaName: userName) {
-                group.leave()
-            }
+            FirebaseProvider().uploadPhoto(
+                userID: user.uid,
+                photo: profileImageValue) { url in
+                    photoURL = url
+                    group.leave()
+                } failure: { requestError in
+                    error = requestError
+                    group.leave()
+                }
         }
         
         let saveUserWorkItem = DispatchWorkItem {
-            FirebaseProvider().saveUser(referenceType: .addUserInfo(userID: user.uid), userName, userSurname, userPhoneNumber) {
+            FirebaseProvider().saveUser(
+                referenceType: .addUserInfo(userID: user.uid),
+                displayName: userName,
+                surname: userSurname,
+                phoneNumber: userPhoneNumber) {
+                    group.leave()
+                } failure: { requestError in
+                    error = requestError
+                    group.leave()
+                }
+        }
+        
+        let saveAuthuserInfoWorkItem = DispatchWorkItem {
+            guard let photoURL else {
                 group.leave()
+                return
             }
+            FirebaseProvider().saveAuthuserInfo(
+                photoURL: photoURL,
+                displaName: userName) {
+                    group.leave()
+                } failure: { requestError in
+                    error = requestError
+                    group.leave()
+                }
         }
         
         group.enter()
         concurrentQueue.async(execute: photoUploadWorkItem)
-        group.notify(queue: .main) {
-            complition()
+        guard error != nil else {
             group.enter()
             concurrentQueue.async(execute: saveUserWorkItem)
-            concurrentQueue.async(execute: saveAuthuserInfoWorkItem)
+            return
+        }
+        
+        group.notify(queue: .main) {
+            guard error != nil,
+                    photoURL == nil else {
+                group.enter()
+                concurrentQueue.async(execute: saveAuthuserInfoWorkItem)
+                complition()
+                return
+            }
         }
     }
     
@@ -132,23 +167,14 @@ class ProfileEditViewController: UIViewController {
             dismissButtonTitle: "Выбрать из фото",
             cancelButtonTitle: "Отмена",
             title: "Выберите источник фото",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
             description: "Снимите новое фото или выберите из сохраненных.",
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
             image: UIImage(systemName: "questionmark.circle"),
             style: .threeButtons,
-            buttonFonts: .boldSystemFont(ofSize: 15),
             imageTintColor: .tintColor,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray,
-            confirmButtonTintColor: .white,
-            dismissButtonTintColor: .white,
             cancelButtonTintColor: .red
         )
         
-        PopupManager().showPopup(controller: self, configure: popupConfigure) {
+        PopUpController.show(on: self, configure: popupConfigure) {
             self.presentPicker(.camera)
         } discard: {
             self.presentPicker(.photoLibrary)
@@ -157,7 +183,10 @@ class ProfileEditViewController: UIViewController {
 }
 
 extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         if let image = info[
             UIImagePickerController
             .InfoKey
@@ -193,19 +222,28 @@ extension ProfileEditViewController: UITextFieldDelegate {
 
 extension ProfileEditViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        tableViewDataSource.count
+        return tableViewDataSource.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableViewDataSource[section].count
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
+        return tableViewDataSource[section].count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cellType = tableViewDataSource[indexPath.section][indexPath.row]
         
         switch cellType {
             case .profile:
-                let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.id, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: ProfileCell.id,
+                    for: indexPath
+                )
                 guard let user else { return cell}
                 
                 (cell as? ProfileCell)?.set(
@@ -220,32 +258,33 @@ extension ProfileEditViewController: UITableViewDataSource {
                 return cell
                 
             default:
-                let cell = tableView.dequeueReusableCell(withIdentifier: ProfileEditCell.id, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: ProfileEditCell.id,
+                    for: indexPath
+                )
                 guard let user else { return cell}
                 (cell as? ProfileEditCell)?.set(
                     user: user,
                     type: cellType,
                     delegate: self
                 )
-                
                 return cell
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(
+        _ tableView: UITableView,
+        viewForFooterInSection section: Int
+    ) -> UIView? {
         switch section {
             case 1:
                 let footerView = ProfileEditHeaderView(
-                    labelText: "Укажите имя и, если хотите добавьте фотографию для Вашего профиля.",
-                    labelFont: .systemFont(ofSize: 11, weight: .thin),
-                    labelTextColor: .lightGray
+                    labelText: "Укажите имя и, если хотите добавьте фотографию для Вашего профиля."
                 )
                 return footerView
             case 2:
                 let footerView = ProfileEditHeaderView(
-                    labelText: "Можете изменить номер телефона.",
-                    labelFont: .systemFont(ofSize: 11, weight: .thin),
-                    labelTextColor: .lightGray
+                    labelText: "Можете изменить номер телефона."
                 )
                 return footerView
             default:
@@ -256,7 +295,10 @@ extension ProfileEditViewController: UITableViewDataSource {
 
 
 extension ProfileEditViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didDeselectRowAt indexPath: IndexPath
+    ) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

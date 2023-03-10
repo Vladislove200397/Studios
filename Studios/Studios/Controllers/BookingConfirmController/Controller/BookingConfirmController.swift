@@ -158,14 +158,14 @@ class BookingConfirmController: UIViewController {
         
         group.notify(queue: .main) {
             [weak self] in
-                guard let self else { return }
-                guard error != nil else {
-                    self.spinner.stopAnimating()
-                    complition()
-                    return
-                }
-                failure()
+            guard let self else { return }
+            guard let error else {
+                self.spinner.stopAnimating()
+                complition()
+                return
             }
+            failure()
+        }
     }
     
     private func updateBookingStudioRequest(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String, complition: @escaping RequestBlock, failure: @escaping RequestBlock) {
@@ -226,15 +226,8 @@ class BookingConfirmController: UIViewController {
         
         var popUpConfiguration = PopUpConfiguration(
             confirmButtonTitle: "Ok",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
             style: .error,
-            buttonFonts: .boldSystemFont(ofSize: 13),
-            imageTintColor: .red,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray.withAlphaComponent(0.8)
+            imageTintColor: .red
         )
         
         self.spinner.startAnimating()
@@ -252,11 +245,11 @@ class BookingConfirmController: UIViewController {
                         popUpConfiguration.title = "Успешно"
                         popUpConfiguration.description = "Забронировано на дату \(self.message(bookingTime))"
                         
-                        PopupManager().showPopup(
-                            controller: self,
+                        PopUpController.show(
+                            on: self,
                             configure: popUpConfiguration) {
                                 self.updateBlock?(bookingModel)
-                                self.navigationController?.popToRootViewController(animated: true)
+                                self.dismiss(animated: true)
                             } discard: {
                             }
                     } failure: { [weak self] in
@@ -267,10 +260,10 @@ class BookingConfirmController: UIViewController {
                         popUpConfiguration.title = "Oшибка"
                         popUpConfiguration.description = "Что-то пошло не так, попробуйте позже"
                         
-                        PopupManager().showPopup(
-                            controller: self,
+                        PopUpController.show(
+                            on: self,
                             configure: popUpConfiguration) {
-                                self.navigationController?.popToRootViewController(animated: true)
+                                self.dismiss(animated: true)
                             } discard: {
                             }
                     }
@@ -286,8 +279,8 @@ class BookingConfirmController: UIViewController {
                         popUpConfiguration.title = "Успешно"
                         popUpConfiguration.description = "Бронирование изменено на дату \(self.message(bookingTime))"
                         
-                        PopupManager().showPopup(
-                            controller: self,
+                        PopUpController.show(
+                            on: self,
                             configure: popUpConfiguration) {
                                 self.updateBlock?(bookingModel)
                                 self.navigationController?.popToRootViewController(animated: true)
@@ -302,8 +295,8 @@ class BookingConfirmController: UIViewController {
                         popUpConfiguration.title = "Oшибка"
                         popUpConfiguration.description = "Что-то пошло не так, попробуйте позже"
                         
-                        PopupManager().showPopup(
-                            controller: self,
+                        PopUpController.show(
+                            on: self,
                             configure: popUpConfiguration) {
                                 self.navigationController?.popToRootViewController(animated: true)
                             } discard: {

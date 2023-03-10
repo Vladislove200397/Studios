@@ -12,22 +12,19 @@ class ProfileEditHeaderView: UITableViewHeaderFooterView {
     private let id = String(describing: ProfileEditHeaderView.self)
     
     private var labelText: String?
-    private var labelFont: UIFont?
-    private var labelTextColor: UIColor?
+    
     private lazy var headerFooterLabel: UILabel = {
         let label = UILabel()
         label.text = labelText
-        label.font = labelFont
+        label.font = .systemFont(ofSize: 11, weight: .thin)
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.textColor = labelTextColor
+        label.textColor = .lightGray
         return label
     }()
     
-    init(labelText: String, labelFont: UIFont, labelTextColor: UIColor){
+    init(labelText: String){
         self.labelText = labelText
-        self.labelFont = labelFont
-        self.labelTextColor = labelTextColor
         super.init(reuseIdentifier: id)
         setupLayout()
         makeConstraints()

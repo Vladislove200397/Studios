@@ -237,7 +237,7 @@ public class FirebaseProvider {
         }
     }
     
-    func createUser(viewController: UIViewController, email: String, password: String, displayName: String, success: @escaping ((String) -> Void), failure: @escaping (() -> Void)) {
+    func createUser(viewController: UIViewController, email: String, password: String, displayName: String, success: @escaping ((String) -> Void), failure: @escaping ErrorBlock) {
         Auth.auth().createUser(withEmail: email, password: password) { user, error in
             if let user  {
                 let uid = user.user.uid
@@ -245,7 +245,7 @@ public class FirebaseProvider {
                 changeRequest.displayName = displayName
                 changeRequest.commitChanges(completion: { error in
                     if let error {
-                        failure()
+                        failure(error)
                         print(error.localizedDescription)
                     } else {
                         print("Успешно дабвлено имя пользователя")
@@ -254,7 +254,7 @@ public class FirebaseProvider {
                 Auth.auth().currentUser?.sendEmailVerification()
                 success(uid)
             } else if let error {
-                failure()
+                failure(error)
                 print(error.localizedDescription)
             }
         }
@@ -278,7 +278,7 @@ public class FirebaseProvider {
         }
     }
     
-    func saveUser(referenceType: FirebaseReferenses,_ displayName: String,_ surname: String,_ phoneNumber: String, succes: (() -> Void)? = nil) {
+    func saveUser(referenceType: FirebaseReferenses,displayName: String,surname: String, phoneNumber: String, succes: @escaping RequestBlock, failure: @escaping ErrorBlock) {
         let ref = referenceType.references
         
         let user = ["display_name": displayName,
@@ -289,8 +289,9 @@ public class FirebaseProvider {
         ref.setValue(user) {
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
-                print(error.localizedDescription)
+                failure(error)
             } else {
+                succes()
                 print("succesfully added userInfo to FIRA")
             }
         }
@@ -315,7 +316,7 @@ public class FirebaseProvider {
         }
     }
     
-    func uploadPhoto(userID: String, photo: UIImage, complition: @escaping(URL) -> Void) {
+    func uploadPhoto(userID: String, photo: UIImage, complition: @escaping(URL) -> Void, failure: @escaping ErrorBlock) {
         let ref = Storage.storage().reference().child("12").child(userID)
         
         guard let imageData = photo.jpegData(compressionQuality: 0.4) else { return }
@@ -327,38 +328,49 @@ public class FirebaseProvider {
             }
             if metadata != nil {
                 ref.downloadURL { url, error in
-                    guard let url = url else { return }
-                    complition(url)
+                    if let error {
+                        failure(error)
+                    } else if let url {
+                        complition(url)
+                    }
                 }
             }
         }
     }
     
     func downloadData(complition: @escaping (UIImage) -> Void) {
-        guard let url = Auth.auth().currentUser?.photoURL else { return }
+        guard let url = Auth.auth().currentUser?.photoURL else {
+            complition(UIImage(systemName: "person")!)
+            return
+        }
         let ref = Storage.storage().reference(forURL: url.absoluteString)
         let megabyte = Int64(1 * 1024 * 1024)
         ref.getData(maxSize: megabyte) { imageData, error in
-            guard let imageData else { return }
-            let image = UIImage(data: imageData)
-            complition((image ?? UIImage(systemName: "person"))!)
+            if let error {
+                print(error.localizedDescription)
+                complition(UIImage(systemName: "person")!)
+            } else {
+                guard let imageData,
+                      let image = UIImage(data: imageData) else { return }
+                complition(image)
+            }
         }
     }
     
-    func saveAuthuserInfo(photoURL: URL, displaName: String, complition: @escaping () -> Void) {
+    func saveAuthuserInfo(photoURL: URL, displaName: String, complition: @escaping RequestBlock, failure: @escaping ErrorBlock) {
         guard let user = Auth.auth().currentUser else { return }
         
         let changeRequest = user.createProfileChangeRequest()
         
         changeRequest.displayName = displaName
         changeRequest.photoURL = photoURL
-        
         changeRequest.commitChanges { error in
-            if let error {
-                print(error.localizedDescription)
-            } else {
+            guard let error else {
                 complition()
+                return
             }
+            failure(error)
+            print(error.localizedDescription)
         }
     }
     
