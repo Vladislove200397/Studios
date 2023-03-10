@@ -62,7 +62,6 @@ class ProfileViewController: UIViewController {
 
     private func setupUser() {
         getUserInfo()
-
     }
     
     private func setupTableViewSections() {
@@ -88,6 +87,7 @@ class ProfileViewController: UIViewController {
             self.spinner.stopAnimating()
             self.tableView.reloadData()
         } failure: {
+            
         }
     }
     
@@ -96,22 +96,14 @@ class ProfileViewController: UIViewController {
             confirmButtonTitle: "Отмена",
             dismissButtonTitle: "Ок",
             title: "Выход",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
             description: "Выйти из аккаунта?",
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
             image: UIImage(systemName: "exclamationmark.circle"),
             style: .confirmation,
-            buttonFonts: .boldSystemFont(ofSize: 15),
             imageTintColor: .systemYellow,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray,
-            confirmButtonTintColor: .white,
             dismissButtonTintColor: .red
         )
         
-        PopupManager().showPopup(controller: self, configure: popupConfigure, discard:  {
+        PopUpController.show(on: self, configure: popupConfigure, discard:  {
             self.logOut()
         })
     }
@@ -219,8 +211,14 @@ extension ProfileViewController: UITableViewDelegate {
         let type = tableViewDataSource[indexPath.section][indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if type == .profileSettings {
-            presentProfileEditController(type)
+
+        switch type {
+            case .profileSettings:
+                presentProfileEditController(type)
+            case .exit:
+                presentPopupForLogoutAction()
+            default:
+                return
         }
     }
     

@@ -121,21 +121,15 @@ class LoginViewController: KeyboardHideViewController {
         var configure = PopUpConfiguration(
             confirmButtonTitle: "Ok",
             title: "Ошибка",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
             image: UIImage(systemName: "nosign"),
             style: .error,
-            buttonFonts: .boldSystemFont(ofSize: 13),
-            imageTintColor: .red,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray.withAlphaComponent(0.8)
+            imageTintColor: .red
         )
+        
         guard !loginTF.text.isEmptyOrNil,
               !passwordTF.text.isEmptyOrNil else {
             configure.description = "Введите логин и пароль"
-            PopupManager().showPopup(controller: self, configure: configure)
+            PopUpController.show(on: self, configure: configure)
             return
         }
         
@@ -150,7 +144,7 @@ class LoginViewController: KeyboardHideViewController {
             guard let self else { return }
             self.spinner.stopAnimating()
             configure.description = error
-            PopupManager().showPopup(controller: self, configure: configure, discard:  {
+            PopUpController.show(on: self, configure: configure, discard:  {
                 self.passwordTF.text = nil
             })
             
@@ -160,7 +154,7 @@ class LoginViewController: KeyboardHideViewController {
             configure.description = error
             configure.confirmButtonTitle = "Отправить письмо еще раз"
             self.spinner.stopAnimating()
-            PopupManager().showPopup(controller: self, configure: configure) {
+            PopUpController.show(on: self, configure: configure) {
                 Auth.auth().currentUser?.sendEmailVerification()
                 self.passwordTF.text = nil
                 self.logOut()

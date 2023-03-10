@@ -85,24 +85,14 @@ class ResetPasswordViewController: KeyboardHideViewController {
         var popUpConfigure = PopUpConfiguration(
             confirmButtonTitle: "Ok",
             title: "Ошибка",
-            titleColor: .black,
-            titleFont: .systemFont(ofSize: 17, weight: .bold),
-            descriptionColor: .black,
-            descriptionFont: .systemFont(ofSize: 15, weight: .thin),
             image: UIImage(systemName: "nosign"),
             style: .error,
-            buttonFonts: .boldSystemFont(ofSize: 13),
-            imageTintColor: .red,
-            backgroundColor: .white,
-            buttonBackgroundColor: .lightGray.withAlphaComponent(0.8)
+            imageTintColor: .red
         )
         
         guard !emailTF.text.isEmptyOrNil else {
             popUpConfigure.description = "Введите Email"
-            PopupManager().showPopup(
-            controller: self,
-            configure: popUpConfigure
-        )
+            PopUpController.show(on: self, configure: popUpConfigure)
             return
         }
         
@@ -113,8 +103,8 @@ class ResetPasswordViewController: KeyboardHideViewController {
                 let message = error.castToFirebaseError()
                 popUpConfigure.description = message
                 
-                PopupManager().showPopup(
-                    controller: self,
+                PopUpController.show(
+                    on: self,
                     configure: popUpConfigure
                 )
                 self.spinner.stopAnimating()
@@ -124,8 +114,8 @@ class ResetPasswordViewController: KeyboardHideViewController {
                 popUpConfigure.imageTintColor = .tintColor
                 popUpConfigure.description = "На почтовый ящик \(self.emailTF.text!) отправлено письмо с инструкцией по сбросу пароля"
                 
-                PopupManager().showPopup(
-                    controller: self,
+                PopUpController.show(
+                    on: self,
                     configure: popUpConfigure
                     )
                 self.spinner.stopAnimating()

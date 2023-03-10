@@ -16,22 +16,22 @@ struct PopUpConfiguration {
     var cancelButtonTitle = "Cancel"
     
     var title = "Test"
-    var titleColor: UIColor = .white
-    var titleFont: UIFont = UIFont.boldSystemFont(ofSize: 18)
+    var titleColor: UIColor = .black
+    var titleFont: UIFont = UIFont.systemFont(ofSize: 17, weight: .bold)
     
     var description = "Test"
-    var descriptionColor: UIColor = .white
-    var descriptionFont: UIFont = UIFont.boldSystemFont(ofSize: 18)
+    var descriptionColor: UIColor = .black
+    var descriptionFont: UIFont = UIFont.systemFont(ofSize: 15, weight: .thin)
     
     var image: UIImage?
     var style: PopUpTypes = .info
     
-    var buttonFonts: UIFont = UIFont.boldSystemFont(ofSize: 18)
+    var buttonFonts: UIFont = UIFont.boldSystemFont(ofSize: 15)
     
     var imageTintColor: UIColor = .lightGray
     
     var backgroundColor: UIColor = .white
-    var buttonBackgroundColor: UIColor = .blue
+    var buttonBackgroundColor: UIColor = .lightGray.withAlphaComponent(0.8)
     var confirmButtonTintColor: UIColor = .white
     var dismissButtonTintColor: UIColor = .white
     var cancelButtonTintColor: UIColor = .white

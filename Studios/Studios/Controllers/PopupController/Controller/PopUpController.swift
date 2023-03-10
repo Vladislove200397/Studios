@@ -225,11 +225,11 @@ class PopUpController: UIViewController {
         }
         
         confirmationButton.snp.makeConstraints { make in
-            make.height.equalTo(35)
+            make.height.equalTo(45)
         }
         
         cancelButton.snp.makeConstraints { make in
-            make.height.equalTo(35)
+            make.height.equalTo(45)
         }
     }
     
@@ -249,5 +249,19 @@ class PopUpController: UIViewController {
     
     @objc private func cancelAction() {
         self.dismiss(animated: true)
+    }
+    
+    class func show(
+        on controller: UIViewController,
+        configure: PopUpConfiguration,
+        complition: VoidBlock? = nil,
+        discard: VoidBlock? = nil
+    ) {
+        let pop = PopUpController(
+            confirmHandler: complition,
+            dismissHandler: discard,
+            config: configure
+        )
+        controller.present(pop, animated: true)
     }
 }

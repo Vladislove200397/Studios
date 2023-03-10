@@ -11,3 +11,4 @@ typealias VoidBlock = (() -> Void)
 typealias RequestBlock = () -> Void
 typealias FirebaseBookingModelBlock = (FirebaseBookingModel) -> Void
 typealias BoolBlock = (Bool) -> Void
+typealias ErrorBlock = (Error) -> Void
