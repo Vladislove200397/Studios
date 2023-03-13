@@ -15,6 +15,8 @@ class InfoViewController: UIViewController {
     @IBOutlet var syackImageArray: [UIImageView]!
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var flexibleView: FlexView!
+    
     
     var studio: GMSPlace?
     
@@ -22,6 +24,7 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         setupStack()
         studioIsOpen(studio: studio)
+        flexibleView.set(delegate: self, type: .date)
     }
 
     func setVc(studio: GMSPlace) {
@@ -100,6 +103,16 @@ class InfoViewController: UIViewController {
             default:
                 break
         }
+    }
+}
+
+extension InfoViewController: FlexibleViewDelegate {
+    func viewDidOpen(type: FlexibleViewTypes) {
+//        flexViews.forEach { flexibleView in
+//            if flexibleView.type != type {
+//                flexibleView.collapse()
+//            }
+//        }
     }
 }
 

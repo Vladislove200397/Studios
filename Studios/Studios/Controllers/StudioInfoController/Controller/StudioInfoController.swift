@@ -23,7 +23,6 @@ class StudioInfoController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var controllerView: UIView!
     @IBOutlet weak var openStatusLabel: UILabel!
-    @IBOutlet weak var openHoursLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
@@ -33,6 +32,7 @@ class StudioInfoController: UIViewController {
     private var reviews: ReviewModel?
     private var user = Auth.auth().currentUser
     private var likeBlock: VoidBlock?
+    private var photoArr: [UIImage] = []
     
     var likeFromFIR = Bool()
     
@@ -48,6 +48,8 @@ class StudioInfoController: UIViewController {
         insertController()
         setUpViews()
         setupLikeButton()
+        loadImages()
+//        fetchOpenStatus(studio: studio)
     }
     
     deinit {
@@ -127,53 +129,48 @@ class StudioInfoController: UIViewController {
         ratingLabel.text = "\(rating)"
         ratinView.rating = Double(rating)
         typeLabel.text = "(\(totalUserRating))"
-        studioIsOpen(studio: studio)
+        fetchOpenStatus(studio: studio)
     }
     
     private func setUpViews() {
         self.contentView.dropShadow(color: .gray, offSet: CGSize(width: -1, height: 1))
     }
     
-    private func studioIsOpen(studio: GMSPlace?) {
-        guard let studio else { return }
+    private func fetchOpenStatus(studio: GMSPlace?) {
+        guard let studio,
+              let openingHours = studio.openingHours,
+              let _ = studio.utcOffsetMinutes,
+              let numberOfDay = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: .now),
+              let weekdayText = openingHours.weekdayText else { return }
         
-        let isOpen = studio.isOpen(at: Date.now)
-        guard let openingHoursArr = studio.openingHours?.periods else { return }
-        let calendarDay = Calendar.current.dateComponents( [.weekday], from: Date.now)
-        var closeHour: UInt?
-        var closeMinute: UInt?
-        var openHour: UInt?
-        var openMinute: UInt?
+        let weekdayTextString: String = weekdayText[numberOfDay-1]
+        let numbers = weekdayTextString.components(separatedBy: ["–", " "])
+        let isOpenNow = studio.isOpen()
+//        let futureTime = Date.now
+//        let isOpenAtTime = studio.isOpen(at: futureTime)
         
-        openingHoursArr.enumerated().forEach { (index, value) in
-            if index+1 == calendarDay.weekday {
-                closeHour = value.closeEvent?.time.hour
-                closeMinute = value.closeEvent?.time.minute
-                openHour = value.openEvent.time.hour
-                openMinute = value.openEvent.time.minute
-            }
-        }
-        
-        guard let closeHour,
-              let closeMinute,
-              let openHour,
-              let openMinute else { return }
-        
-        switch isOpen {
+        switch isOpenNow {
             case .unknown:
                 openStatusLabel.text = "Неизвестно"
             case .open:
-                openStatusLabel.text = "Открыто"
-                openHoursLabel.text = " • Закроется в \(closeHour):0\(closeMinute)"
-                openStatusLabel.textColor = UIColor(hue: 0.38, saturation: 0.72, brightness: 0.72, alpha: 1.0) // #34b859
+                let openColor = UIColor(hue: 0.38, saturation: 0.72, brightness: 0.72, alpha: 1.0)
+                let string = "Открыто • Закроется в \(numbers[2])"
+                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+                attributedString.setColor(color: openColor, forText: "Открыто")
+                openStatusLabel.attributedText = attributedString
+                
             case .closed:
-                openStatusLabel.text = "Закрыто"
-                openHoursLabel.text = " • Откроется в \(openHour):0\(openMinute)"
-                openStatusLabel.textColor = UIColor(hue: 0.01, saturation: 0.64, brightness: 0.75, alpha: 1.0) // #bf4f45
+                let closedColor = UIColor(hue: 0.01, saturation: 0.64, brightness: 0.75, alpha: 1.0)
+                let string = "Закрыто • Откроется в \(numbers[2])"
+                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+                attributedString.setColor(color: closedColor, forText: "Закрыто")
+                openStatusLabel.attributedText = attributedString
+
             default:
                 break
         }
     }
+    
     private func setupLikeButton() {
         let heartFill = UIImage(systemName: "heart.fill")
         let heart = UIImage(systemName: "heart")!
@@ -190,6 +187,25 @@ class StudioInfoController: UIViewController {
             self.setupLikeButton()
         }
     }
+    
+    private func loadImages() {
+        let placesClient = GMSPlacesClient()
+        guard let photosMetadata = studio?.photos else { return }
+        
+        photosMetadata.forEach { photoMetadata in
+            placesClient.loadPlacePhoto(photoMetadata) { photo, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                } else {
+                    self.photoArr.append(photo!)
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+
 
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
         guard sender.selectedSegmentIndex < 2 else { return }
@@ -228,17 +244,30 @@ class StudioInfoController: UIViewController {
     }
 }
 
-
 extension StudioInfoController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (studio?.photos!.count)!
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+//        guard let photos = studio?.photos?.count else { return 0}
+        return photoArr.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath)
         guard let photoCell = cell as? PhotoCell else { return cell }
-
         photoCell.set(indexPath.row, studio)
+        photoCell.stdioImage.image = photoArr[indexPath.row]
         return photoCell
+    }
+}
+
+extension NSMutableAttributedString {
+    func setColor(color: UIColor, forText stringValue: String) {
+       let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
+        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
     }
 }

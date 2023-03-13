@@ -14,23 +14,17 @@ class FlexView: UIView {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var toggleButton: UIButton!
     @IBOutlet weak var lineView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView!
     
-//    weak var dateDelegate: PushButtonDelegate?
     weak var delegate: FlexibleViewDelegate?
-    private var hoursArr: [Int] = []
-    private var timesArray: [Int] = []
     private var timeStampFromDatePicker = 0
     private var currentTimeStamp = 0
-    private var bookingTime = 0
     private(set) var type = FlexibleViewTypes.date
     private(set) var isOpen = false {
         didSet {
             animation()
         }
     }
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -48,63 +42,46 @@ class FlexView: UIView {
         self.contentView.frame = self.bounds
         containerView.isHidden = !self.isOpen
         contentView.layer.cornerRadius = 10
-        collectionView.dataSource = self
-        register()
     }
     
-//    func set(delegate: FlexibleViewDelegate?, type: FlexibleViewTypes, dateDelegate: PushButtonDelegate, hoursArray: [Int], timesArray: [Int]) {
-//        self.delegate = delegate
-//        self.type = type
-//        self.addView()
-//        self.setupButton()
-//        titleLabel.text = type.rawValue
-//        self.dateDelegate = dateDelegate
-//        self.hoursArr = hoursArray
-//        self.timesArray = timesArray
+    func set(delegate: FlexibleViewDelegate?, type: FlexibleViewTypes) {
+        self.delegate = delegate
+        self.type = type
+        self.setupButton()
+        makeConstraints()
+        titleLabel.text = type.rawValue
+    }
+    
+    private func makeConstraints() {
+        let picker = type.viewDatePicker
+        containerView.addSubview(picker)
+    titleLabel.text = type.rawValue
+        picker.translatesAutoresizingMaskIntoConstraints = false
+
+        let top = NSLayoutConstraint(item: picker, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .top, multiplier: 1, constant: 0)
+        let bottom = NSLayoutConstraint(item: picker, attribute: .bottom, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
+        let heigh = NSLayoutConstraint(item: picker, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 216)
+        let center = NSLayoutConstraint(item: picker, attribute: .centerX, relatedBy: .equal, toItem: containerView, attribute: .centerX, multiplier: 1, constant: 0)
+        
+        NSLayoutConstraint.activate([center, top, bottom, heigh])
+    }
+    
+//    private func addView() {
+//        switch type {
+//            case .date:
+//                let picker = type.viewDatePicker
+//                containerView.addSubview(picker)
+//                picker.addTarget(self, action: #selector(dateDidChange(sender: )), for: .allEvents)
+//                picker.minimumDate = Date.now
+//                makeConstraints(view: picker)
+//            case .time:
+//                let picker = type.viewDatePicker
+//                containerView.addSubview(picker)
+//                picker.addTarget(self, action: #selector(dateDidChange(sender: )), for: .allEvents)
+//                picker.minimumDate = Date.now
+//                makeConstraints(view: picker)
+//        }
 //    }
-    
-    func setTimes(_ timesArray: [Int]) {
-        self.timesArray = timesArray
-    }
-    
-    private func register() {
-        let nib = UINib(nibName: HoursCell.id, bundle: nil)
-        collectionView.register(nib, forCellWithReuseIdentifier: HoursCell.id)
-    }
-    
-    private func makeConstraints(view: UIView, superView: UIView) {
-        view.snp.makeConstraints { make in
-            make.top.equalTo(superView).offset(0)
-            make.bottom.equalTo(superView).offset(0)
-            make.height.equalTo(view.frame.height)
-            make.center.equalToSuperview()
-        }
-    }
-    
-    private func addView() {
-        switch type {
-            case .date:
-                collectionView.isHidden = true
-                let picker = type.viewDatePicker
-                containerView.addSubview(picker)
-                picker.addTarget(self, action: #selector(dateDidChange(sender: )), for: .allEvents)
-                picker.minimumDate = Date.now
-                picker.translatesAutoresizingMaskIntoConstraints = false
-                makeConstraints(view: picker, superView: containerView)
-                
-            case .startTime:
-                let picker = collectionView!
-
-                self.containerView.addSubview(picker)
-                picker.translatesAutoresizingMaskIntoConstraints = false
-
-                makeConstraints(view: picker, superView: containerView)
-                
-            case .endTime:
-                break
-                
-        }
-    }
     
     private func getStartTodayTime() {
         let todayStartOfDay = Calendar.current.startOfDay(for: Date.now)
@@ -122,7 +99,6 @@ class FlexView: UIView {
       print(todayStartOfDay)
       timeStampFromDatePicker = Int(todayStartOfDay.timeIntervalSince1970)
 //      dateDelegate?.datePickerDidChange(datePickerTimeStamp: sender.date)
-      self.collectionView.reloadData()
     }
     
     private func setupButton() {
@@ -146,29 +122,5 @@ class FlexView: UIView {
         if isOpen {
             isOpen = false
         }
-    }
-}
-
-extension FlexView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        hoursArr.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HoursCell.id, for: indexPath)
-        guard let hoursCell = cell as? HoursCell else { return cell }
-        
-        let compareTime = (hoursArr[indexPath.row]*3600) + timeStampFromDatePicker
-        
-        let isEnabled = timesArray.first(where: {$0 == compareTime}) == compareTime
-        print(compareTime)
-        
-        
-//        hoursCell.set(bookingTime: compareTime,
-//                      buttonLabel: "\(hoursArr[indexPath.row])",
-//                      delegate: dateDelegate, indexPath: 0,
-//                      buttonEnabled: !isEnabled,
-//                      buttonHidden: false)
-        return hoursCell
     }
 }
