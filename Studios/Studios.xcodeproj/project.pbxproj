@@ -17,6 +17,9 @@
 		B90D39002922B23000F77AF8 /* StudioInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B90D38FE2922B23000F77AF8 /* StudioInfoController.xib */; };
 		B92329BD29AFF30400E5005A /* ProfileEditHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92329BC29AFF30400E5005A /* ProfileEditHeaderView.swift */; };
 		B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */; };
+		B929E00C29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B929E00A29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift */; };
+		B929E00D29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B929E00B29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib */; };
+		B929E00F29BBAB8B002FEF99 /* FullSizeCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B929E00E29BBAB8B002FEF99 /* FullSizeCalendar.swift */; };
 		B94008CB299A5EED00172E01 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94008C9299A5EED00172E01 /* ResetPasswordViewController.swift */; };
 		B94008CC299A5EED00172E01 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94008CA299A5EED00172E01 /* ResetPasswordViewController.xib */; };
 		B94008CE299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */; };
@@ -125,6 +128,9 @@
 		B90D38FE2922B23000F77AF8 /* StudioInfoController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudioInfoController.xib; sourceTree = "<group>"; };
 		B92329BC29AFF30400E5005A /* ProfileEditHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditHeaderView.swift; sourceTree = "<group>"; };
 		B9245A77298BC31C000C5823 /* CalendarCellTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCellTypeEnum.swift; sourceTree = "<group>"; };
+		B929E00A29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPhotographyViewController.swift; sourceTree = "<group>"; };
+		B929E00B29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyPhotographyViewController.xib; sourceTree = "<group>"; };
+		B929E00E29BBAB8B002FEF99 /* FullSizeCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSizeCalendar.swift; sourceTree = "<group>"; };
 		B94008C9299A5EED00172E01 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		B94008CA299A5EED00172E01 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
 		B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrosCode+FirebaseExtension.swift"; sourceTree = "<group>"; };
@@ -301,6 +307,23 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		B929E00929BBAB13002FEF99 /* PrivacyPhotography */ = {
+			isa = PBXGroup;
+			children = (
+				B929E00A29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift */,
+				B929E00B29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib */,
+			);
+			path = PrivacyPhotography;
+			sourceTree = "<group>";
+		};
+		B929E01029BBAB8F002FEF99 /* FullSizeCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				B929E00E29BBAB8B002FEF99 /* FullSizeCalendar.swift */,
+			);
+			path = FullSizeCalendar;
+			sourceTree = "<group>";
+		};
 		B94008C8299A5ED700172E01 /* ResetPasswordController */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +426,7 @@
 		B951EBF82975513E0076EB67 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B929E01029BBAB8F002FEF99 /* FullSizeCalendar */,
 				B946ED0E299C4F0F00C82F5C /* UIVisualEffect */,
 				B951EBF92975514E0076EB67 /* HorizontalCalendar */,
 				B9FA0425295E441B0097DF24 /* FlexibleView */,
@@ -917,6 +941,7 @@
 		B9FABB63291BBFEE00232D9C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B929E00929BBAB13002FEF99 /* PrivacyPhotography */,
 				B946ED0C299C4ED100C82F5C /* PopupController */,
 				B94008C8299A5ED700172E01 /* ResetPasswordController */,
 				B94D86852997BCF80033F2B4 /* ProfileController */,
@@ -1021,6 +1046,7 @@
 				B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */,
 				B9FABB16291A5E3700232D9C /* LaunchScreen.storyboard in Resources */,
 				B965FFAB29B3E3A100B74E74 /* BookingCell.xib in Resources */,
+				B929E00D29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib in Resources */,
 				B9ED2E9929AFB4D10055B7C3 /* ProfileEditCell.xib in Resources */,
 				B90D39002922B23000F77AF8 /* StudioInfoController.xib in Resources */,
 				B9442C972977E97A00CEDEA6 /* BookingConfirmController.xib in Resources */,
@@ -1129,6 +1155,7 @@
 				B9ED2E6429AABCF10055B7C3 /* DefaultProfileCell.swift in Sources */,
 				B9F08DB029479CF30059614C /* Environment.swift in Sources */,
 				B99E0D89295E689D00E4204B /* FlexView.swift in Sources */,
+				B929E00F29BBAB8B002FEF99 /* FullSizeCalendar.swift in Sources */,
 				B9916B902976B57E00C0A0CF /* SectionHeader.swift in Sources */,
 				B9FABB0C291A5E3500232D9C /* SceneDelegate.swift in Sources */,
 				B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */,
@@ -1139,6 +1166,7 @@
 				B946ED17299C4F0F00C82F5C /* PaddingLabel.swift in Sources */,
 				B972CBF4297E97E500FBFCFD /* SelectionTypeEnum.swift in Sources */,
 				B9E0F1CA2987B1680087A48A /* LikedStudiosViewController.swift in Sources */,
+				B929E00C29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift in Sources */,
 				B9ED2E5A29AAB0660055B7C3 /* TableViewCellTypes.swift in Sources */,
 				B9FA042D295E47190097DF24 /* Delegates.swift in Sources */,
 				B9DD012F297C8E84007C266D /* ValidationType.swift in Sources */,
