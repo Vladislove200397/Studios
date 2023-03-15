@@ -53,17 +53,17 @@ class FlexView: UIView {
     }
     
     private func makeConstraints() {
-        let picker = type.viewDatePicker
-        containerView.addSubview(picker)
+//        let picker = type.viewDatePicker
+//        containerView.addSubview(picker)
     titleLabel.text = type.rawValue
-        picker.translatesAutoresizingMaskIntoConstraints = false
+        //picker.translatesAutoresizingMaskIntoConstraints = false
 
-        let top = NSLayoutConstraint(item: picker, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .top, multiplier: 1, constant: 0)
-        let bottom = NSLayoutConstraint(item: picker, attribute: .bottom, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
-        let heigh = NSLayoutConstraint(item: picker, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 216)
-        let center = NSLayoutConstraint(item: picker, attribute: .centerX, relatedBy: .equal, toItem: containerView, attribute: .centerX, multiplier: 1, constant: 0)
-        
-        NSLayoutConstraint.activate([center, top, bottom, heigh])
+//        let top = NSLayoutConstraint(item: picker, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .top, multiplier: 1, constant: 0)
+//        let bottom = NSLayoutConstraint(item: picker, attribute: .bottom, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
+//        let heigh = NSLayoutConstraint(item: picker, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 216)
+//        let center = NSLayoutConstraint(item: picker, attribute: .centerX, relatedBy: .equal, toItem: containerView, attribute: .centerX, multiplier: 1, constant: 0)
+//
+//        NSLayoutConstraint.activate([center, top, bottom, heigh])
     }
     
 //    private func addView() {

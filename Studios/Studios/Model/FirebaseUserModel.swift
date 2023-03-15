@@ -18,4 +18,10 @@ class FirebaseUser {
         self.userSurname = userSurname
         self.userPhone = userPhone
     }
+    
+    init(dict: [String: Any]) throws {
+        self.userName = dict["display_name"] as! String
+        self.userPhone = dict["phone_number"] as! String
+        self.userSurname = dict["surname"] as! String
+    }
 }

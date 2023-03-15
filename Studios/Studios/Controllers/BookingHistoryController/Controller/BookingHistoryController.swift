@@ -143,6 +143,7 @@ class BookingHistoryController: UIViewController {
             label: "removeBooking-concurrentQueue",
             attributes: .concurrent
         )
+        
         let selectedContextMenuElement = contextMenuSelectedIndexPath.row
         let bookingModel = presentingBookingArray[selectedContextMenuElement]
         
@@ -151,7 +152,6 @@ class BookingHistoryController: UIViewController {
         
         let removeStudioBookingWorkItem = DispatchWorkItem {
             FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeStudioBookingRef(studioID: studioID)) {
-                print("UDALENO")
                 group.leave()
             } failure: { requestError in
                 error = requestError
@@ -162,7 +162,6 @@ class BookingHistoryController: UIViewController {
         
         let removeUserBookingWorkItem = DispatchWorkItem {
             FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeUserBookingRef(userID: userID)) {
-                print("UDALENO")
                 group.leave()
             } failure: { requestError in
                 error = requestError

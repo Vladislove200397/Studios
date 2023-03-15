@@ -11,6 +11,7 @@ import Cosmos
 import FirebaseCore
 import FirebaseDatabase
 import FirebaseAuth
+import SnapKit
 
 class StudioInfoController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
@@ -25,6 +26,10 @@ class StudioInfoController: UIViewController {
     @IBOutlet weak var openStatusLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var scrollContainerView: UIView!
+    @IBOutlet weak var controllerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewHeghtConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     private var studio: GMSPlace?
     private var controllers = [UIViewController]()
@@ -33,6 +38,7 @@ class StudioInfoController: UIViewController {
     private var user = Auth.auth().currentUser
     private var likeBlock: VoidBlock?
     private var photoArr: [UIImage] = []
+    
     
     var likeFromFIR = Bool()
     
@@ -46,7 +52,6 @@ class StudioInfoController: UIViewController {
         setupData()
         configureControllers()
         insertController()
-        setUpViews()
         setupLikeButton()
         loadImages()
 //        fetchOpenStatus(studio: studio)
@@ -70,7 +75,32 @@ class StudioInfoController: UIViewController {
     private func configureControllers() {
         let infoVcNib = String(describing: InfoViewController.self)
         let infoVc = InfoViewController(nibName: infoVcNib, bundle: nil)
-        infoVc.setVc(studio: studio!)
+       print(self.scrollContainerView.frame.height)
+        print(self.controllerView.frame.height)
+        print(self.collectionView.frame.height)
+        infoVc.setVc(studio: studio!) {
+//
+//            let scrollViewHeght = self.scrollContainerView.frame.height + infoVc.flexibleView.containerView.frame.height
+//            let height = self.controllerView.frame.height + infoVc.flexibleView.containerView.frame.height
+////
+//            self.controllerView.snp.remakeConstraints { make in
+//                make.height.greaterThanOrEqualTo(height).priority(.medium)
+//            }
+//
+//            self.scrollContainerView.snp.remakeConstraints { make in
+//                make.height.greaterThanOrEqualTo(self.scrollView.frameLayoutGuide.layoutFrame.height).offset(scrollViewHeght).priority(.)
+//            }
+//
+//            self.collectionView.snp.updateConstraints { make in
+//                make.height.equalTo(265)
+//            }
+//
+//            self.view.layoutIfNeeded()
+//            print(self.scrollContainerView.frame.height)
+//             print(self.controllerView.frame.height)
+//             print(self.collectionView.frame.height)
+        }
+                     
         controllers.append(infoVc)
         
         let reviewVCNib = String(describing: ReviewTableController.self)
@@ -93,6 +123,8 @@ class StudioInfoController: UIViewController {
         let smallHeightDetent = self.contentView.frame.height - 15
         
         if let presentationController = presentationController as? UISheetPresentationController {
+           
+            presentationController.delegate = self
             presentationController.prefersGrabberVisible = true
             presentationController.largestUndimmedDetentIdentifier = .medium
             presentationController.selectedDetentIdentifier = .medium
@@ -269,5 +301,15 @@ extension NSMutableAttributedString {
     func setColor(color: UIColor, forText stringValue: String) {
        let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
         self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
+    }
+}
+
+extension StudioInfoController: UISheetPresentationControllerDelegate {
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        if sheetPresentationController.selectedDetentIdentifier != .medium, sheetPresentationController.selectedDetentIdentifier != .large {
+            segmentedControl.isHidden = true
+        } else {
+            segmentedControl.isHidden = false
+        }
     }
 }

@@ -25,7 +25,7 @@ class ProfileCell: UITableViewCell {
         super.awakeFromNib()
         profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
         changePhotoButton.isHidden = true
-        
+        selectionStyle = .none
     }
 
     func set(user: FirebaseUser, controllerType: ProfileControllerType, delegate: ChangeProfilePhotoDelegate? = nil, cellPhoto: UIImage? = nil) {

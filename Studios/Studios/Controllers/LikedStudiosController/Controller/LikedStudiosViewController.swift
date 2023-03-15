@@ -101,9 +101,10 @@ class LikedStudiosViewController: UIViewController {
     
     private func presentLikedStudioDidTapOnCell(indexPath: IndexPath) {
         let selectedStudio = likedStudios[indexPath.row]
-        guard let studio = Service.shared.studios.first(where: {$0.placeID == selectedStudio.studioID}) else { return }
+        guard let studio = Service.shared.studios.first(where: {$0.placeID == selectedStudio.studioID}),
+              let studioID = selectedStudio.studioID else { return }
         
-        getLike(studioID: selectedStudio.studioID) {[weak self] like in
+        getLike(studioID: studioID) {[weak self] like in
             guard let self else { return }
             
             let studioInfoVC = StudioInfoController(nibName: String(describing: StudioInfoController.self), bundle: nil)
