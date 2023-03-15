@@ -143,6 +143,7 @@ class BookingHistoryController: UIViewController {
             label: "removeBooking-concurrentQueue",
             attributes: .concurrent
         )
+        
         let selectedContextMenuElement = contextMenuSelectedIndexPath.row
         let bookingModel = presentingBookingArray[selectedContextMenuElement]
         

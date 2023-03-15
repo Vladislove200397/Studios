@@ -42,17 +42,17 @@ class LikedStudioCell: UICollectionViewCell {
     }
     
     private func setupCell() {
-        guard let likedStudio else { return }
-        let rating = String(format: "%.01f", likedStudio.studioRating)
-        cellStudioNameLabel.text = likedStudio.studioName
+        guard let studioRating = likedStudio?.studioRating else { return }
+        let rating = String(format: "%.01f", studioRating)
+        cellStudioNameLabel.text = likedStudio?.studioName
         cellStudioRatingLabel.text = rating
         setupRatingStarView()
         self.addShadow(corner: 10, color: cellColor, radius: 15, offset: CGSize(width: 0, height: 5), opacity: 0.3)
     }
     
     private func setupRatingStarView() {
-        guard let likedStudio else { return }
-        starRatingView.rating = Double(likedStudio.studioRating)
+        guard let rating = likedStudio?.studioRating else { return }
+        starRatingView.rating = Double(rating)
         starRatingView.settings.fillMode = .precise
         starRatingView.settings.updateOnTouch = false
 

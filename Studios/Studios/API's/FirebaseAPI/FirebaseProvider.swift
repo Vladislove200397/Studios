@@ -90,18 +90,10 @@ public class FirebaseProvider {
         ref.observe(DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount > 0 {
                 for booking in snapshot.children.allObjects as! [DataSnapshot] {
-                    guard let bookingObject = booking.value as? [String: Any] else { return }
-                    let time = bookingObject["booking_time"] as! [Int]
-                    let studioName = bookingObject ["studio_name"] as! String
-                    let bookingID = bookingObject ["booking_id"] as! Int
-                    let studioID = bookingObject["studio_id"] as! String
-                    let bookingDay = bookingObject["booking_day"] as! Int
-                    let comment = bookingObject["comment"] as! String
-                    let userPhone = bookingObject["user_phone"] as! String
-                    
-                    let firebaseBooking = FirebaseBookingModel(bookingTime: time, bookingID: bookingID, userPhone: userPhone, studioID: studioID, studioName: studioName, comment: comment, bookingDay: bookingDay)
-                    
-                    bookingArr.append(firebaseBooking)
+                    guard let bookingObject = booking.value as? [String: Any],
+                          let bookingModel = try? FirebaseBookingModel(dict: bookingObject) else { return }
+
+                    bookingArr.append(bookingModel)
                 }
             }
             success(bookingArr)
@@ -159,13 +151,10 @@ public class FirebaseProvider {
         ref.observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 for likedStudios in snapshot.children.allObjects as! [DataSnapshot] {
-                    guard let likedObject = likedStudios.value as? [String: Any] else { return }
-                    let studioID = likedObject["studio_id"] as! String
-                    let studioName = likedObject["studio_name"] as! String
-                    let studioRating = likedObject["studio_rating"] as! Float
-                    
-                    let likedStudio = FirebaseLikedStudioModel(studioID: studioID, studioName: studioName, studioRating: studioRating)
-                    
+                    guard let likedObject = likedStudios.value as? [String: Any],
+                          let likedStudio = try? FirebaseLikedStudioModel(dict: likedObject)
+                    else { return }
+                   
                     likedStudiosArr.append(likedStudio)
                 }
             }
@@ -280,11 +269,11 @@ public class FirebaseProvider {
     
     func saveUser(referenceType: FirebaseReferenses,displayName: String,surname: String, phoneNumber: String, succes: @escaping RequestBlock, failure: @escaping ErrorBlock) {
         let ref = referenceType.references
-        
+
         let user = ["display_name": displayName,
-                    "surname": surname,
-                    "phone_number": phoneNumber,
-        ] as [String : Any]
+                   "surname": surname,
+                   "phone_number": phoneNumber,
+        ] as? [String: Any]
         
         ref.setValue(user) {
             (error:Error?, ref:DatabaseReference) in
@@ -302,11 +291,9 @@ public class FirebaseProvider {
         
         ref.observe(DataEventType.value) { (snapshot) in
             if snapshot.childrenCount > 0 {
-                guard let userObject = snapshot.childSnapshot(forPath: "\(userID)").value as? [String: Any] else { return }
-                let userDisplaName = userObject["display_name"] as! String
-                let userPhoneNumber = userObject["phone_number"] as! String
-                let userSurname = userObject["surname"] as! String
-                let user = FirebaseUser(userName: userDisplaName, userSurname: userSurname, userPhone: userPhoneNumber)
+                guard let userObject = snapshot.childSnapshot(forPath: "\(userID)").value as? [String: Any],
+                        let user = try? FirebaseUser(dict: userObject)
+                else { return }
                 success(user)
             }
             ref.removeAllObservers()

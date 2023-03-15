@@ -54,4 +54,15 @@ class FirebaseBookingModel {
         self.studioID = studioID
         self.bookingDay = bookingDay
     }
+    
+    init(dict: [String: Any]) throws{
+        self.bookingTime = dict["booking_time"] as? [Int]
+        self.studioName = dict["studio_name"] as? String
+        self.bookingID = dict["booking_id"] as? Int
+        self.studioID = dict["studio_id"] as? String
+        self.bookingDay = dict["booking_day"] as? Int
+        self.comment = dict["comment"] as? String
+        self.userPhone = dict["user_phone"] as? String
+    }
+  
 }

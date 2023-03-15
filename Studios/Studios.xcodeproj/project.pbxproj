@@ -20,6 +20,8 @@
 		B929E00C29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B929E00A29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift */; };
 		B929E00D29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B929E00B29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib */; };
 		B929E00F29BBAB8B002FEF99 /* FullSizeCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B929E00E29BBAB8B002FEF99 /* FullSizeCalendar.swift */; };
+		B929E01429BF39CD002FEF99 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B929E01229BF39CD002FEF99 /* TableViewCell.swift */; };
+		B929E01529BF39CD002FEF99 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B929E01329BF39CD002FEF99 /* TableViewCell.xib */; };
 		B94008CB299A5EED00172E01 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94008C9299A5EED00172E01 /* ResetPasswordViewController.swift */; };
 		B94008CC299A5EED00172E01 /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B94008CA299A5EED00172E01 /* ResetPasswordViewController.xib */; };
 		B94008CE299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */; };
@@ -131,6 +133,8 @@
 		B929E00A29BBAB42002FEF99 /* PrivacyPhotographyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPhotographyViewController.swift; sourceTree = "<group>"; };
 		B929E00B29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyPhotographyViewController.xib; sourceTree = "<group>"; };
 		B929E00E29BBAB8B002FEF99 /* FullSizeCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSizeCalendar.swift; sourceTree = "<group>"; };
+		B929E01229BF39CD002FEF99 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		B929E01329BF39CD002FEF99 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		B94008C9299A5EED00172E01 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		B94008CA299A5EED00172E01 /* ResetPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResetPasswordViewController.xib; sourceTree = "<group>"; };
 		B94008CD299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthErrosCode+FirebaseExtension.swift"; sourceTree = "<group>"; };
@@ -322,6 +326,15 @@
 				B929E00E29BBAB8B002FEF99 /* FullSizeCalendar.swift */,
 			);
 			path = FullSizeCalendar;
+			sourceTree = "<group>";
+		};
+		B929E01129BF39B8002FEF99 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B929E01229BF39CD002FEF99 /* TableViewCell.swift */,
+				B929E01329BF39CD002FEF99 /* TableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		B94008C8299A5ED700172E01 /* ResetPasswordController */ = {
@@ -649,6 +662,7 @@
 		B9DD0136297CA90B007C266D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B929E01129BF39B8002FEF99 /* Cell */,
 				B9A36FC3292CF4ED009825F9 /* InfoViewController.swift */,
 				B9A36FC4292CF4ED009825F9 /* InfoViewController.xib */,
 			);
@@ -1041,6 +1055,7 @@
 				B9F08DAA29478CF20059614C /* BookingStudioController.xib in Resources */,
 				B9E0F1CB2987B1680087A48A /* LikedStudiosViewController.xib in Resources */,
 				B90871E829982F7F00247729 /* ProfileEditViewController.xib in Resources */,
+				B929E01529BF39CD002FEF99 /* TableViewCell.xib in Resources */,
 				B9C3C24D29B20B1600A0E0BB /* LikedStudioCell.xib in Resources */,
 				B90871E12998175900247729 /* RegistrationUserViewController.xib in Resources */,
 				B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */,
@@ -1192,6 +1207,7 @@
 				B962ABA2299514B20053F1AB /* StringOpt+Extension.swift in Sources */,
 				B96EA88C29A176D8000B138E /* ImagePicker.swift in Sources */,
 				B9ED2E9D29AFB8AB0055B7C3 /* ProfileEditCellTypes.swift in Sources */,
+				B929E01429BF39CD002FEF99 /* TableViewCell.swift in Sources */,
 				B9245A78298BC31C000C5823 /* CalendarCellTypeEnum.swift in Sources */,
 				B94008CE299BB23700172E01 /* AuthErrosCode+FirebaseExtension.swift in Sources */,
 				B9FA0420295E2FD50097DF24 /* DateFormatter+Extension.swift in Sources */,
