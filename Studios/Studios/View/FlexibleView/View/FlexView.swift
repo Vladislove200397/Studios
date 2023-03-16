@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class FlexView: UIView {
+final class FlexView: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
@@ -16,8 +16,6 @@ class FlexView: UIView {
     @IBOutlet weak var lineView: UIView!
     
     weak var delegate: FlexibleViewDelegate?
-    private var timeStampFromDatePicker = 0
-    private var currentTimeStamp = 0
     private(set) var type = FlexibleViewTypes.date
     private(set) var isOpen = false {
         didSet {
@@ -44,61 +42,40 @@ class FlexView: UIView {
         contentView.layer.cornerRadius = 10
     }
     
-    func set(delegate: FlexibleViewDelegate?, type: FlexibleViewTypes) {
+    func set(
+        delegate: FlexibleViewDelegate?,
+        type: FlexibleViewTypes,
+        weekdayText: [String]
+    ) {
         self.delegate = delegate
         self.type = type
         self.setupButton()
-        makeConstraints()
-        titleLabel.text = type.rawValue
+        addWeekdaytext(weekdayText)
     }
     
-    private func makeConstraints() {
-//        let picker = type.viewDatePicker
-//        containerView.addSubview(picker)
-    titleLabel.text = type.rawValue
-        //picker.translatesAutoresizingMaskIntoConstraints = false
-
-//        let top = NSLayoutConstraint(item: picker, attribute: .top, relatedBy: .equal, toItem: containerView, attribute: .top, multiplier: 1, constant: 0)
-//        let bottom = NSLayoutConstraint(item: picker, attribute: .bottom, relatedBy: .equal, toItem: containerView, attribute: .bottom, multiplier: 1, constant: 0)
-//        let heigh = NSLayoutConstraint(item: picker, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 216)
-//        let center = NSLayoutConstraint(item: picker, attribute: .centerX, relatedBy: .equal, toItem: containerView, attribute: .centerX, multiplier: 1, constant: 0)
-//
-//        NSLayoutConstraint.activate([center, top, bottom, heigh])
-    }
-    
-//    private func addView() {
-//        switch type {
-//            case .date:
-//                let picker = type.viewDatePicker
-//                containerView.addSubview(picker)
-//                picker.addTarget(self, action: #selector(dateDidChange(sender: )), for: .allEvents)
-//                picker.minimumDate = Date.now
-//                makeConstraints(view: picker)
-//            case .time:
-//                let picker = type.viewDatePicker
-//                containerView.addSubview(picker)
-//                picker.addTarget(self, action: #selector(dateDidChange(sender: )), for: .allEvents)
-//                picker.minimumDate = Date.now
-//                makeConstraints(view: picker)
-//        }
-//    }
-    
-    private func getStartTodayTime() {
-        let todayStartOfDay = Calendar.current.startOfDay(for: Date.now)
-        timeStampFromDatePicker = Int(todayStartOfDay.timeIntervalSince1970)
-
+    private func addWeekdaytext(_ from: [String]) {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 10
+        
+        containerView.addSubview(stack)
+        
+        from.forEach { text in
+            let label = UILabel()
+            label.font = .systemFont(ofSize: 14, weight: .medium)
+            label.text = text.firstUppercased
+            stack.addArrangedSubview(label)
+        }
+        
+        stack.snp.makeConstraints { make in
+            let insets = UIEdgeInsets(top: 10, left: 35, bottom: 0, right: 35)
+            make.top.left.bottom.top.equalToSuperview().inset(insets)
+        }
     }
     
     @IBAction func openButtonDidTap(_ sender: Any) {
         isOpen.toggle()
         animation()
-    }
-    
-  @objc private func dateDidChange(sender: UIDatePicker) {
-      let todayStartOfDay = Calendar.current.startOfDay(for: sender.date)
-      print(todayStartOfDay)
-      timeStampFromDatePicker = Int(todayStartOfDay.timeIntervalSince1970)
-//      dateDelegate?.datePickerDidChange(datePickerTimeStamp: sender.date)
     }
     
     private func setupButton() {

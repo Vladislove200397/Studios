@@ -12,7 +12,6 @@
             <connections>
                 <outlet property="addressLabel" destination="83J-QD-cyw" id="3QI-ek-CsP"/>
                 <outlet property="collectionView" destination="Tk8-dP-67x" id="cHN-gP-29P"/>
-                <outlet property="collectionViewHeghtConstraint" destination="53p-QV-dUq" id="HSE-g1-uN2"/>
                 <outlet property="contentView" destination="VsA-AR-M6D" id="i30-mi-eit"/>
                 <outlet property="controllerView" destination="fb0-2Y-vhO" id="ASl-jk-lWr"/>
                 <outlet property="likeButton" destination="lZe-So-Eb7" id="nRh-3P-ixU"/>
@@ -206,7 +205,7 @@
                         <constraint firstItem="UyJ-b1-BYD" firstAttribute="top" secondItem="Pg0-OX-4Fv" secondAttribute="top" id="EaP-Su-ds1"/>
                         <constraint firstItem="UyJ-b1-BYD" firstAttribute="width" secondItem="pl5-JI-eUO" secondAttribute="width" id="OL5-Vi-PUt"/>
                         <constraint firstItem="UyJ-b1-BYD" firstAttribute="leading" secondItem="Pg0-OX-4Fv" secondAttribute="leading" id="sa7-FL-VQu"/>
-                        <constraint firstItem="UyJ-b1-BYD" firstAttribute="bottom" secondItem="Pg0-OX-4Fv" secondAttribute="bottom" constant="81" id="u5v-2G-9Pf"/>
+                        <constraint firstItem="UyJ-b1-BYD" firstAttribute="bottom" secondItem="Pg0-OX-4Fv" secondAttribute="bottom" id="u5v-2G-9Pf"/>
                         <constraint firstItem="UyJ-b1-BYD" firstAttribute="trailing" secondItem="Pg0-OX-4Fv" secondAttribute="trailing" id="vQS-HW-CMd"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="Pg0-OX-4Fv"/>
@@ -229,6 +228,11 @@
             <point key="canvasLocation" x="-77.599999999999994" y="676.10837438423653"/>
         </view>
     </objects>
+    <designables>
+        <designable name="81t-Kt-LCL">
+            <size key="intrinsicContentSize" width="85" height="13"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

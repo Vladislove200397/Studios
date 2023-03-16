@@ -21,9 +21,11 @@ class ImagePicker: NSObject {
     private weak var controller: UIImagePickerController?
     weak var delegate: ImagePickerDelegate? = nil
 
-    func dismiss() { controller?.dismiss(animated: true, completion: nil) }
+    func dismiss() {
+        controller?.dismiss(animated: true, completion: nil)
+    }
+    
     func present(parent viewController: UIViewController, sourceType: UIImagePickerController.SourceType) {
-        
         DispatchQueue.main.async {
             let controller = UIImagePickerController()
             controller.delegate = self
@@ -34,11 +36,12 @@ class ImagePicker: NSObject {
     }
 }
 
-// MARK: Get access to camera or photo library
-
 extension ImagePicker {
 
-    private func showAlert(targetName: String, completion: ((Bool) -> Void)?) {
+    private func showAlert(
+        targetName: String,
+        completion: ((Bool) -> Void)?
+    ) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let alertVC = UIAlertController(title: "Access to the \(targetName)",

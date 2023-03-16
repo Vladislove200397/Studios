@@ -9,7 +9,13 @@ import UIKit
 
 
 extension UICollectionViewCell {
-    func addShadow(corner: CGFloat = 10, color: UIColor = .black, radius: CGFloat = 15, offset: CGSize = CGSize(width: 0, height: 0), opacity: Float = 0.2) {
+    
+    func addShadow(
+        corner: CGFloat = 10,
+        color: UIColor = .black,
+        radius: CGFloat = 15,
+        offset: CGSize = CGSize(width: 0, height: 0),
+        opacity: Float = 0.2) {
         layer.cornerRadius = corner
         layer.borderWidth = 0.0
         layer.shadowColor = color.cgColor

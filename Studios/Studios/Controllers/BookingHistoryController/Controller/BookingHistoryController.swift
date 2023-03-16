@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
 
-class BookingHistoryController: UIViewController {
+final class BookingHistoryController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var calendar: HorizontalCalendar!
     @IBOutlet weak var alertView: UIView!
@@ -49,7 +49,10 @@ class BookingHistoryController: UIViewController {
             brightness: 0.25,
             alpha: 1.0
         ).cgColor // #40174f
-        self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
+        self.view.setGradientBackground(
+            topColor: topColor,
+            bottomColor: UIColor.black.cgColor
+        )
     }
     
     private func setupVC() {
@@ -128,7 +131,8 @@ class BookingHistoryController: UIViewController {
     private func getBookings() {
         guard let user else { return }
         self.spinner.startAnimating()
-        FirebaseProvider().getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) { booking in
+        FirebaseStudioManager.getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) {[weak self] booking in
+            guard let self else { return }
             self.bookingArray = booking
             self.spinner.stopAnimating()
             self.bookingHistoryCollectionView.reloadData()
@@ -136,7 +140,10 @@ class BookingHistoryController: UIViewController {
         }
     }
     
-    private func removeBooking(complition: @escaping (() -> Void), failure: (() -> Void)?) {
+    private func removeBooking(
+        complition: @escaping VoidBlock,
+        failure: VoidBlock?
+    ) {
         var error: Error?
         let group = DispatchGroup()
         let concurrentQueue = DispatchQueue(
@@ -151,7 +158,10 @@ class BookingHistoryController: UIViewController {
               let userID = user?.uid else { return }
         
         let removeStudioBookingWorkItem = DispatchWorkItem {
-            FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeStudioBookingRef(studioID: studioID)) {
+            FirebaseStudioManager.removeBooking(
+                bookingModel: bookingModel,
+                referenceType: .removeStudioBookingRef(studioID: studioID)
+            ) {
                 group.leave()
             } failure: { requestError in
                 error = requestError
@@ -160,7 +170,10 @@ class BookingHistoryController: UIViewController {
         }
         
         let removeUserBookingWorkItem = DispatchWorkItem {
-            FirebaseProvider.removeBooking(bookingModel: bookingModel, referenceType: .removeUserBookingRef(userID: userID)) {
+            FirebaseStudioManager.removeBooking(
+                bookingModel: bookingModel,
+                referenceType: .removeUserBookingRef(userID: userID)
+            ) {
                 group.leave()
             } failure: { requestError in
                 error = requestError
@@ -203,7 +216,7 @@ class BookingHistoryController: UIViewController {
         }
     }
     
-    private func showVcToСhangeBooking(updateBlock: @escaping FirebaseBookingModelBlock) {
+    private func showVcToСhangeBooking(updateBlock: @escaping FirebaseBookingBlock) {
         let bookingVC = BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
         
         let firstIndex = contextMenuSelectedIndexPath.row
@@ -272,8 +285,8 @@ extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         if collectionView == bookingHistoryCollectionView {
             contextMenuSelectedIndexPath = indexPath
-            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-                self.bookingHistoryActionMenu
+            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {[weak self] _ in
+                self?.bookingHistoryActionMenu
             }
         } else {
             return nil
@@ -326,7 +339,5 @@ extension BookingHistoryController: SetDateFromViewDelegate {
 }
 
 extension BookingHistoryController: SwipeCalendarDelegate {
-    func didSwipeCalendar() {
-        
-    }
+    func didSwipeCalendar() {}
 }

@@ -8,7 +8,7 @@
 import Foundation
 import ObjectMapper
 
-class ReviewModel: Mappable {
+final class ReviewModel: Mappable {
     var reviews = [StudioReviewModel]()
     
     required init?(map: ObjectMapper.Map) {
@@ -20,7 +20,7 @@ class ReviewModel: Mappable {
     }
 }
 
-class StudioReviewModel: Mappable {
+final class StudioReviewModel: Mappable {
     var authorName: String = ""
     var rating: Double = 0.0
     var time: Double = 0.0

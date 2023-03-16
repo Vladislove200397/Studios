@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fvm-A9-ZCJ">
-                    <rect key="frame" x="0.0" y="47" width="390" height="763"/>
+                    <rect key="frame" x="0.0" y="47" width="390" height="733"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
@@ -30,7 +30,7 @@
                 <constraint firstItem="Fvm-A9-ZCJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="GvE-JJ-Um1"/>
                 <constraint firstItem="Fvm-A9-ZCJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="KKU-sp-Xr9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Fvm-A9-ZCJ" secondAttribute="trailing" id="S1E-r6-FOP"/>
-                <constraint firstItem="Fvm-A9-ZCJ" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="SXR-DK-kwk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Fvm-A9-ZCJ" secondAttribute="bottom" constant="30" id="Y5x-aU-b9e"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="67.692307692307693" y="20.616113744075829"/>

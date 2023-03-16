@@ -7,13 +7,17 @@
 
 import Foundation
 import RealmSwift
-
+//Скорее всего будет удален, а все ID студий перенесены в Firebase
 class SSPlace: Object {
     @objc dynamic var coordinatesLat: Double = 0.0
     @objc dynamic var coordinatesLng: Double = 0.0
     @objc dynamic var placeID: String = ""
 
-    convenience init(placeID: String, coordinatesLat: Double, coordinatesLng: Double) {
+    convenience init(
+        placeID: String,
+        coordinatesLat: Double,
+        coordinatesLng: Double
+    ) {
         self.init()
         self.placeID = placeID
         self.coordinatesLat = coordinatesLat

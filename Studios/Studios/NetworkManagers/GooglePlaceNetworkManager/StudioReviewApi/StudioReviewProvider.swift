@@ -10,9 +10,13 @@ import Moya
 import Moya_ObjectMapper
 
 final class StudioReviewProvider {
-    private let provider = MoyaProvider<StudioAPI>(plugins: [NetworkLoggerPlugin()])
+    private static let provider = MoyaProvider<StudioAPI>(plugins: [NetworkLoggerPlugin()])
     
-    func getReview(placeID: String, succed:  ((ReviewModel) -> Void)?, failure: (() -> Void)? = nil) {
+    static func getReview(
+        placeID: String,
+        succed:  ((ReviewModel) -> Void)?,
+        failure: (() -> Void)? = nil
+    ) {
         provider.request(.getReviews(placeID: placeID)) { result in
             switch result {
                 case .success(let response):

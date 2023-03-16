@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileEditHeaderView: UITableViewHeaderFooterView {
+final class ProfileEditHeaderView: UITableViewHeaderFooterView {
     private let id = String(describing: ProfileEditHeaderView.self)
     
     private var labelText: String?

@@ -14,13 +14,13 @@ enum StudioAPI {
 
 extension StudioAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "https://maps.googleapis.com/maps/api/place/details/json")!
+        return URL(string: "https://maps.googleapis.com/maps/api/")!
     }
     
     var path: String {
         switch self {
             case .getReviews:
-                return ""
+                return "place/details/json"
         }
     }
     
@@ -41,7 +41,7 @@ extension StudioAPI: TargetType {
             case .getReviews(let placeID):
                 params["place_id"] = placeID
                 params["fields"] = "reviews"
-                params["key"] = "AIzaSyD53rn-Id72muepu5RZX05EMh3dTm028IE"
+                params["key"] = Constants.GMSPLACESAPIKEY
                 params["language"] = "ru_RU"
         }
         return params

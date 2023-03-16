@@ -12,14 +12,22 @@ import FirebaseAuth
 import FirebaseCore
 import FirebaseDatabase
 
-class MapController: UIViewController {
+final class MapController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     lazy var mapView: GMSMapView = {
         var view = GMSMapView()
-        let camera = GMSCameraPosition(latitude: 53.899986473284805, longitude: 27.55533492413279, zoom: 10.5)
+        let camera = GMSCameraPosition(
+            latitude: 53.899986473284805,
+            longitude: 27.55533492413279,
+            zoom: 10.5
+        )
         let mapID = GMSMapID(identifier: "6fc961a7a5cfbbfa")
-        view = GMSMapView(frame: self.view.frame, mapID: mapID, camera: camera)
+        view = GMSMapView(
+            frame: self.view.frame,
+            mapID: mapID,
+            camera: camera
+        )
         return view
     }()
     
@@ -59,8 +67,10 @@ class MapController: UIViewController {
         places.enumerated().forEach { (name, place) in
             let marker =
             GMSMarker(position: CLLocationCoordinate2D(
-                    latitude: place.coordinatesLat,
-                    longitude: place.coordinatesLng))
+                latitude: place.coordinatesLat,
+                longitude: place.coordinatesLng
+                )
+            )
             
             marker.userData = place
             marker.map = mapView
@@ -68,10 +78,18 @@ class MapController: UIViewController {
         }
     }
     
-    private func getLike(studio: GMSPlace, succed: @escaping (Bool) -> Void) {
+    private func getLike(
+        studio: GMSPlace,
+        succed: @escaping BoolBlock
+    ) {
         guard let studioID = studio.placeID,
               let userID = user?.uid else { return }
-        FirebaseProvider().getLike(referenceType: .getLike(userID: userID, studioID: studioID)) { like in
+        FirebaseUserManager.getLike(
+            referenceType: .getLike(
+                userID: userID,
+                studioID: studioID
+            )
+        ) { like in
             succed(like)
         }
     }
@@ -81,8 +99,11 @@ class MapController: UIViewController {
     private func presentSheetInfoController(studio: GMSPlace) {
         self.spinner.startAnimating()
         getLike(studio: studio) { like in
-            let infoVC = StudioInfoController(nibName: String(describing: StudioInfoController.self), bundle: nil)
-            
+            let infoVC = StudioInfoController(
+                nibName: String(describing: StudioInfoController.self),
+                bundle: nil
+            )
+
             infoVC.set(studio: studio, likeFromFir: like)
             infoVC.isModalInPresentation = true
             self.present(infoVC, animated: true)
@@ -95,7 +116,10 @@ class MapController: UIViewController {
 //MARK: GMSMapViewDelegate
 extension MapController: GMSMapViewDelegate {
     
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+    func mapView(
+        _ mapView: GMSMapView,
+        didTapAt coordinate: CLLocationCoordinate2D
+    ) {
         dismiss(animated: true)
     }
     
@@ -155,7 +179,7 @@ extension MapController {
     }
     //MARK: Get Info From PlaceID
     private func getStudios(placeID: String) {
-        GetStudiosAPI().getInfoFromPlaceId(placeID: placeID) {
+        GetStudiosAPI.getInfoFromPlaceId(placeID: placeID) {
             self.studios = Service.shared.studios
         }
     }

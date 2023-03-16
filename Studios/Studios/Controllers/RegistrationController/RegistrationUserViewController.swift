@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
 
-class RegistrationUserViewController: KeyboardHideViewController {
+final class RegistrationUserViewController: KeyboardHideViewController {
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var surnameTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
@@ -46,7 +46,8 @@ class RegistrationUserViewController: KeyboardHideViewController {
             hue: 0.26,
             saturation: 0.83,
             brightness: 0.19,
-            alpha: 1.0).cgColor // #73db26
+            alpha: 1.0
+        ).cgColor // #73db26
         
         self.view.setGradientBackground(
             topColor: topColor,
@@ -121,8 +122,7 @@ class RegistrationUserViewController: KeyboardHideViewController {
         var userId = String()
         
         let createUserWorkItem = DispatchWorkItem {
-            FirebaseProvider().createUser(
-                viewController: self,
+            FirebaseAuthManager.createUser(
                 email: userEmail,
                 password: userPassword,
                 displayName: userName) { uid in
@@ -135,7 +135,7 @@ class RegistrationUserViewController: KeyboardHideViewController {
         }
         
         let saveUserWorkItem = DispatchWorkItem {
-            FirebaseProvider().saveUser(
+            FirebaseAuthManager.saveUser(
                 referenceType: .addUserInfo(userID: userId),
                 displayName: userName,
                 surname: userSurname,
@@ -209,10 +209,11 @@ class RegistrationUserViewController: KeyboardHideViewController {
         
         PopUpController.show(
             on: self,
-            configure: popupConfigure) {
-            self.navigationController?.popToRootViewController(animated: true)
-        } discard: {
-        }
+            configure: popupConfigure) {[weak self] in
+                guard let self else { return }
+                self.navigationController?.popToRootViewController(animated: true)
+            } discard: {
+            }
     }
     
     private func presentErrorPopup() {
@@ -225,7 +226,11 @@ class RegistrationUserViewController: KeyboardHideViewController {
             imageTintColor: .red
         )
         
-        PopUpController.show(on: self, configure: popupConfigure) {
+        PopUpController.show(
+            on: self,
+            configure: popupConfigure
+        ) {[weak self] in
+            guard let self else { return }
             self.emailTF.text = nil
         } discard: {
         }

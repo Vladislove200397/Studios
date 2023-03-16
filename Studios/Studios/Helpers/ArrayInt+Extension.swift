@@ -8,7 +8,7 @@
 import Foundation
 
 extension Array<Int> {
-    ///Return true if count upper by 1
+    
     func checkArrCount() -> Bool {
         if self.count > 1 {
             return true

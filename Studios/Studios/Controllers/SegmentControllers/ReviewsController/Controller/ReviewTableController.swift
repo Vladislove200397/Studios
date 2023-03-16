@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReviewTableController: UIViewController {
+final class ReviewTableController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var studioReview: ReviewModel?
@@ -20,7 +20,9 @@ class ReviewTableController: UIViewController {
     }
 
     func set(placeID: String) {
-        StudioReviewProvider().getReview(placeID: placeID) { review in
+        StudioReviewProvider.getReview(
+            placeID: placeID
+        ) { review in
             self.studioReview = review
         }
     }
@@ -32,13 +34,18 @@ class ReviewTableController: UIViewController {
 }
 
 extension ReviewTableController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         guard let studioReview else { return 0}
-
         return studioReview.reviews.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReviewCell.id, for: indexPath)
         guard let reviewCell = cell as? ReviewCell else { return cell }
         reviewCell.set(reviewModel: studioReview?.reviews[indexPath.row])

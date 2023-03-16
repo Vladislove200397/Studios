@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
+//Скорее всего будет удалено
 enum FlexibleViewTypes: String, CaseIterable {
     case date = "Выберите дату"
     case time = "Time"

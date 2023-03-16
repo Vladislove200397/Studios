@@ -13,7 +13,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import SnapKit
 
-class StudioInfoController: UIViewController {
+final class StudioInfoController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
@@ -27,8 +27,6 @@ class StudioInfoController: UIViewController {
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var scrollContainerView: UIView!
-    @IBOutlet weak var controllerViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var collectionViewHeghtConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     
     private var studio: GMSPlace?
@@ -38,7 +36,7 @@ class StudioInfoController: UIViewController {
     private var user = Auth.auth().currentUser
     private var likeBlock: VoidBlock?
     private var photoArr: [UIImage] = []
-    
+    private var weekdaytext: [String] = []
     
     var likeFromFIR = Bool()
     
@@ -54,7 +52,6 @@ class StudioInfoController: UIViewController {
         insertController()
         setupLikeButton()
         loadImages()
-//        fetchOpenStatus(studio: studio)
     }
     
     deinit {
@@ -73,38 +70,23 @@ class StudioInfoController: UIViewController {
     }
     
     private func configureControllers() {
-        let infoVcNib = String(describing: InfoViewController.self)
-        let infoVc = InfoViewController(nibName: infoVcNib, bundle: nil)
+        let infoVc = InfoViewController(
+            nibName: String(describing: InfoViewController.self),
+            bundle: nil
+        )
        print(self.scrollContainerView.frame.height)
         print(self.controllerView.frame.height)
         print(self.collectionView.frame.height)
         infoVc.setVc(studio: studio!) {
-//
-//            let scrollViewHeght = self.scrollContainerView.frame.height + infoVc.flexibleView.containerView.frame.height
-//            let height = self.controllerView.frame.height + infoVc.flexibleView.containerView.frame.height
-////
-//            self.controllerView.snp.remakeConstraints { make in
-//                make.height.greaterThanOrEqualTo(height).priority(.medium)
-//            }
-//
-//            self.scrollContainerView.snp.remakeConstraints { make in
-//                make.height.greaterThanOrEqualTo(self.scrollView.frameLayoutGuide.layoutFrame.height).offset(scrollViewHeght).priority(.)
-//            }
-//
-//            self.collectionView.snp.updateConstraints { make in
-//                make.height.equalTo(265)
-//            }
-//
-//            self.view.layoutIfNeeded()
-//            print(self.scrollContainerView.frame.height)
-//             print(self.controllerView.frame.height)
-//             print(self.collectionView.frame.height)
+
         }
                      
         controllers.append(infoVc)
         
-        let reviewVCNib = String(describing: ReviewTableController.self)
-        let reviewVC = ReviewTableController(nibName: reviewVCNib, bundle: nil)
+        let reviewVC = ReviewTableController(
+            nibName: String(describing: ReviewTableController.self),
+            bundle: nil
+        )
         
         reviewVC.set(placeID: (studio?.placeID)!)
         controllers.append(reviewVC)
@@ -119,7 +101,7 @@ class StudioInfoController: UIViewController {
     }
     
     private func sheetPresent() {
-        let mediumHieghtDetent = (self.collectionView.frame.height / 2)+self.segmentedControl.frame.height+self.controllerView.frame.height
+        let mediumHieghtDetent = self.segmentedControl.frame.height+self.controllerView.frame.height
         let smallHeightDetent = self.contentView.frame.height - 15
         
         if let presentationController = presentationController as? UISheetPresentationController {
@@ -175,11 +157,10 @@ class StudioInfoController: UIViewController {
               let numberOfDay = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: .now),
               let weekdayText = openingHours.weekdayText else { return }
         
+        self.weekdaytext = weekdayText
         let weekdayTextString: String = weekdayText[numberOfDay-1]
         let numbers = weekdayTextString.components(separatedBy: ["–", " "])
         let isOpenNow = studio.isOpen()
-//        let futureTime = Date.now
-//        let isOpenAtTime = studio.isOpen(at: futureTime)
         
         switch isOpenNow {
             case .unknown:
@@ -188,6 +169,7 @@ class StudioInfoController: UIViewController {
                 let openColor = UIColor(hue: 0.38, saturation: 0.72, brightness: 0.72, alpha: 1.0)
                 let string = "Открыто • Закроется в \(numbers[2])"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+                
                 attributedString.setColor(color: openColor, forText: "Открыто")
                 openStatusLabel.attributedText = attributedString
                 
@@ -195,6 +177,7 @@ class StudioInfoController: UIViewController {
                 let closedColor = UIColor(hue: 0.01, saturation: 0.64, brightness: 0.75, alpha: 1.0)
                 let string = "Закрыто • Откроется в \(numbers[2])"
                 let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+                
                 attributedString.setColor(color: closedColor, forText: "Закрыто")
                 openStatusLabel.attributedText = attributedString
 
@@ -214,7 +197,12 @@ class StudioInfoController: UIViewController {
     private func getLike() {
         guard let studioID = studio?.placeID,
               let userID = user?.uid else { return }
-        FirebaseProvider().getLike(referenceType: .getLike(userID: userID, studioID: studioID)) { like in
+        FirebaseUserManager.getLike(
+            referenceType: .getLike(
+                userID: userID,
+                studioID: studioID
+            )
+        ) { like in
             self.likeFromFIR = like
             self.setupLikeButton()
         }
@@ -236,8 +224,6 @@ class StudioInfoController: UIViewController {
             }
         }
     }
-    
-
 
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
         guard sender.selectedSegmentIndex < 2 else { return }
@@ -247,8 +233,12 @@ class StudioInfoController: UIViewController {
     
     @IBAction func bookingButtonDidTap(_ sender: Any) {
         guard let studio else { return }
-        let bookingVC =  BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
-        let nav = UINavigationController(rootViewController:    bookingVC)
+        let bookingVC =  BookingStudioController(
+            nibName: String(describing: BookingStudioController.self),
+            bundle: nil
+        )
+        
+        let nav = UINavigationController(rootViewController: bookingVC)
         
         bookingVC.setData(studio: studio, controllerType: .booking)
         present(nav, animated: true)
@@ -258,17 +248,34 @@ class StudioInfoController: UIViewController {
         guard let studio = studio,
               let studioID = studio.placeID,
               let userID =  user?.uid else { return }
-        FirebaseProvider().setLikeValue(self.likeFromFIR, referenceType: .getLike(userID: userID, studioID: studioID)) {
+        FirebaseUserManager.setLikeValue(
+            self.likeFromFIR,
+            referenceType: .getLike(
+                userID: userID,
+                studioID: studioID
+            )
+        ) {
             self.getLike()
         }
         if likeFromFIR {
-            FirebaseProvider().removeStudioFromLiked(referenceType: .removeLikedStudio(userID: userID, studioID: studioID)) {
+            FirebaseUserManager.removeStudioFromLiked(
+                referenceType: .removeLikedStudio(
+                    userID: userID,
+                    studioID: studioID
+                )
+            ) {
                 print("Удалено")
-                
             }
             self.likeBlock?()
+            
         } else {
-            FirebaseProvider().postLikedStudio(studio: studio, referenceType: .postLike(userID: userID, studioID: studioID)) {
+            FirebaseUserManager.postLikedStudio(
+                studio: studio,
+                referenceType: .postLike(
+                    userID: userID,
+                    studioID: studioID
+                )
+            ) {
                 print("успешно")
             }
             self.likeBlock?()
@@ -281,7 +288,6 @@ extension StudioInfoController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-//        guard let photos = studio?.photos?.count else { return 0}
         return photoArr.count
     }
     
@@ -292,20 +298,15 @@ extension StudioInfoController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath)
         guard let photoCell = cell as? PhotoCell else { return cell }
         photoCell.set(indexPath.row, studio)
-        photoCell.stdioImage.image = photoArr[indexPath.row]
+        photoCell.studioImage.image = photoArr[indexPath.row]
         return photoCell
     }
 }
 
-extension NSMutableAttributedString {
-    func setColor(color: UIColor, forText stringValue: String) {
-       let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
-        self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
-    }
-}
-
 extension StudioInfoController: UISheetPresentationControllerDelegate {
-    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(
+        _ sheetPresentationController: UISheetPresentationController
+    ) {
         if sheetPresentationController.selectedDetentIdentifier != .medium, sheetPresentationController.selectedDetentIdentifier != .large {
             segmentedControl.isHidden = true
         } else {

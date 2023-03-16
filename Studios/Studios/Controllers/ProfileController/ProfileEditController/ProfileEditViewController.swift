@@ -13,7 +13,7 @@ import FirebaseStorage
 import FirebaseCore
 import FirebaseDatabase
 
-class ProfileEditViewController: UIViewController {
+final class ProfileEditViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var profileImageValue: UIImage?
@@ -103,7 +103,7 @@ class ProfileEditViewController: UIViewController {
               let profileImageValue else { return }
         
         let photoUploadWorkItem = DispatchWorkItem {
-            FirebaseProvider().uploadPhoto(
+            FirebaseStorageManager.uploadPhoto(
                 userID: user.uid,
                 photo: profileImageValue) { url in
                     photoURL = url
@@ -115,7 +115,7 @@ class ProfileEditViewController: UIViewController {
         }
         
         let saveUserWorkItem = DispatchWorkItem {
-            FirebaseProvider().saveUser(
+            FirebaseAuthManager.saveUser(
                 referenceType: .addUserInfo(userID: user.uid),
                 displayName: userName,
                 surname: userSurname,
@@ -132,7 +132,7 @@ class ProfileEditViewController: UIViewController {
                 group.leave()
                 return
             }
-            FirebaseProvider().saveAuthuserInfo(
+            FirebaseAuthManager.saveAuthuserInfo(
                 photoURL: photoURL,
                 displaName: userName) {
                     group.leave()
@@ -174,9 +174,15 @@ class ProfileEditViewController: UIViewController {
             cancelButtonTintColor: .red
         )
         
-        PopUpController.show(on: self, configure: popupConfigure) {
+        PopUpController.show(
+            on: self,
+            configure: popupConfigure
+        ) {[weak self] in
+            guard let self else { return }
             self.presentPicker(.camera)
-        } discard: {
+            
+        } discard: {[weak self] in
+            guard let self else { return }
             self.presentPicker(.photoLibrary)
         }
     }
@@ -204,10 +210,10 @@ extension ProfileEditViewController: CropperViewControllerDelegate {
     func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
         cropper.dismiss(animated: true, completion: nil)
         if let state = state,
-           let image =
-            cropper
+           let image = cropper
             .originalImage
             .cropped(withCropperState: state) {
+            
             self.profileImageValue = image
             tableView.reloadRows(at: profileInfoCellIndexPath, with: .fade)
         }
@@ -244,7 +250,7 @@ extension ProfileEditViewController: UITableViewDataSource {
                     withIdentifier: ProfileCell.id,
                     for: indexPath
                 )
-                guard let user else { return cell}
+                guard let user else { return cell }
                 
                 (cell as? ProfileCell)?.set(
                     user: user,
@@ -271,7 +277,7 @@ extension ProfileEditViewController: UITableViewDataSource {
                 return cell
         }
     }
-    
+
     func tableView(
         _ tableView: UITableView,
         viewForFooterInSection section: Int

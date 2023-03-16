@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FirebaseBookingModel {
+final class FirebaseBookingModel {
     var bookingTime: [Int]?
     var bookingID: Int?
     var userName: String?

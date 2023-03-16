@@ -31,3 +31,8 @@ protocol ChangeProfileSaveOrDismissChangesDelegate: AnyObject {
     func saveChanges(user: FirebaseUser)
     func dismissChanges()
 }
+
+protocol PopUpControllerDelegate: AnyObject {
+    func dismissAction()
+    func confirmAction()
+}

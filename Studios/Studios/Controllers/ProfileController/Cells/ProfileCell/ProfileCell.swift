@@ -53,7 +53,7 @@ class ProfileCell: UITableViewCell {
     private func setProfileImage() {
         switch controllerType {
             case .profile:
-                FirebaseProvider().downloadData { image in
+                FirebaseStorageManager.downloadData { image in
                     self.profileImageView.image = image
                 }
             case .editProfile:

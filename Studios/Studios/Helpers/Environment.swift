@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 struct Environment {
+    
     static var scenDelegate: SceneDelegate? {
         let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
         

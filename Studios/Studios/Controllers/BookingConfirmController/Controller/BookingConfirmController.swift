@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseCore
 import FirebaseStorage
 
-class BookingConfirmController: UIViewController {
+final class BookingConfirmController: UIViewController {
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userPhoneNumberTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
@@ -25,7 +25,7 @@ class BookingConfirmController: UIViewController {
     private var bookingModel = FirebaseBookingModel()
     private var bookingType: SelectionType = .singleSelection
     private var controllerType: BookingStudioControllerType = .booking
-    private var updateBlock: FirebaseBookingModelBlock?
+    private var updateBlock: FirebaseBookingBlock?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,12 @@ class BookingConfirmController: UIViewController {
         print("DEINIT CONFIRMATION CONTROLLER")
     }
     
-    func set(bookingModel: FirebaseBookingModel, bookingType: SelectionType, controllerType: BookingStudioControllerType, updateBlock: FirebaseBookingModelBlock? = nil) {
+    func set(
+        bookingModel: FirebaseBookingModel,
+        bookingType: SelectionType,
+        controllerType: BookingStudioControllerType,
+        updateBlock: FirebaseBookingBlock? = nil
+    ) {
         self.bookingModel = bookingModel
         self.bookingType = bookingType
         self.title = "Запись"
@@ -84,7 +89,11 @@ class BookingConfirmController: UIViewController {
     }
     
     private func isValidTextField() {
-        let results = [userNameTF.isValid(type: .name), userPhoneNumberTF.isValid(type:.phone), userEmailTF.isValid(type: .email)]
+        let results = [
+            userNameTF.isValid(type: .name),
+            userPhoneNumberTF.isValid(type:.phone),
+            userEmailTF.isValid(type: .email)
+        ]
         let positive = results.filter( {$0 }).count == results.count
         
         if positive {
@@ -119,7 +128,12 @@ class BookingConfirmController: UIViewController {
         isValidTextField()
     }
     
-    private func postBookingStudioRequest(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String, complition: @escaping RequestBlock, failure: @escaping RequestBlock) {
+    private func postBookingStudioRequest(
+        _ bookingModel: FirebaseBookingModel,
+        _ userID: String, _ studioID: String,
+        complition: @escaping RequestBlock,
+        failure: @escaping RequestBlock
+    ) {
         var error: Error?
         let group = DispatchGroup()
         let concurrentCurrency = DispatchQueue(
@@ -128,7 +142,7 @@ class BookingConfirmController: UIViewController {
         )
         
         let postStudioBookingModelWorkItem = DispatchWorkItem {
-            FirebaseProvider().postBookingModel(
+            FirebaseStudioManager.postBookingModel(
                 bookingModel: bookingModel,
                 referenceType: .postUserBookingRef(userID: userID)
             ) {
@@ -140,7 +154,7 @@ class BookingConfirmController: UIViewController {
         }
         
         let postUserBookingModel = DispatchWorkItem {
-            FirebaseProvider().postBookingModel(
+            FirebaseStudioManager.postBookingModel(
                 bookingModel: bookingModel,
                 referenceType: .postStudioBookingRef(studioID: studioID)
             ) {
@@ -159,7 +173,7 @@ class BookingConfirmController: UIViewController {
         group.notify(queue: .main) {
             [weak self] in
             guard let self else { return }
-            guard let error else {
+            guard error != nil else {
                 self.spinner.stopAnimating()
                 complition()
                 return
@@ -168,7 +182,13 @@ class BookingConfirmController: UIViewController {
         }
     }
     
-    private func updateBookingStudioRequest(_ bookingModel: FirebaseBookingModel, _ userID: String, _ studioID: String, complition: @escaping RequestBlock, failure: @escaping RequestBlock) {
+    private func updateBookingStudioRequest(
+        _ bookingModel: FirebaseBookingModel,
+        _ userID: String,
+        _ studioID: String,
+        complition: @escaping RequestBlock,
+        failure: @escaping RequestBlock
+    ) {
         var error: Error?
         let group = DispatchGroup()
         let concurrentCurrency = DispatchQueue(
@@ -177,7 +197,9 @@ class BookingConfirmController: UIViewController {
         )
         
         let updateStudioBookingWorkItem = DispatchWorkItem {
-            FirebaseProvider().updateStudioBooking(bookingModel, .postStudioBookingRef(studioID: studioID)) {
+            FirebaseStudioManager.updateStudioBooking(
+                bookingModel, .postStudioBookingRef(studioID: studioID)
+            ) {
                 group.leave()
             } failure: { requestError in
                 error = requestError
@@ -185,7 +207,9 @@ class BookingConfirmController: UIViewController {
         }
         
         let updateUserBookingWorkItem = DispatchWorkItem {
-            FirebaseProvider().updateStudioBooking(bookingModel, .postUserBookingRef(userID: userID)) {
+            FirebaseStudioManager.updateStudioBooking(
+                bookingModel, .postUserBookingRef(userID: userID)
+            ) {
                 group.leave()
             } failure: { requestError in
                 error = requestError

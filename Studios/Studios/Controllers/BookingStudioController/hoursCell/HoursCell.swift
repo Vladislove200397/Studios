@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HoursCell: UICollectionViewCell {
+final class HoursCell: UICollectionViewCell {
     static let id = String(describing: HoursCell.self)
     
     @IBOutlet weak var containerView: UIView!

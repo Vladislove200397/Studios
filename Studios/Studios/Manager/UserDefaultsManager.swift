@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserDefaultsManager {
+final class UserDefaultsManager {
     static let userDefaultsManager = UserDefaults.standard
     
     static func detectFirstLaunch(notLaunched: @escaping BoolBlock) {

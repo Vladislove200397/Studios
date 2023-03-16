@@ -12,7 +12,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import SnapKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var profileHeaderLabel: UILabel!
@@ -41,15 +41,27 @@ class ProfileViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         setupTableViewSections()
         navView.alpha = 0
-        navView.addBlurredBackground(style: .dark, alpha: 0.7, blurColor: .black.withAlphaComponent(0.7))
+        navView.addBlurredBackground(
+            style: .dark,
+            alpha: 0.7,
+            blurColor: .black.withAlphaComponent(0.7)
+        )
         navView.bringSubviewToFront(profileHeaderLabel)
         tableView.dataSource = self
         tableView.delegate = self
     }
     
     private func setBackgroundGradient() {
-        let topColor = UIColor(hue: 0.71, saturation: 0.72, brightness: 0.25, alpha: 1.0).cgColor
-        self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
+        let topColor = UIColor(
+            hue: 0.71,
+            saturation: 0.72,
+            brightness: 0.25,
+            alpha: 1.0
+        ).cgColor
+        self.view.setGradientBackground(
+            topColor: topColor,
+            bottomColor: UIColor.black.cgColor
+        )
     }
     
     private func registerCell() {
@@ -80,15 +92,19 @@ class ProfileViewController: UIViewController {
     private func getUserInfo() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         spinner.startAnimating()
-        FirebaseProvider().getUserInfo(referenceType: .getUserInfo(userID: userID), userID) {[weak self] user in
+        FirebaseAuthManager.getUserInfo(
+            referenceType: .getUserInfo,
+            userID
+        ) {[weak self] user in
             guard let self else { return }
             self.user = user
             self.setupUser()
             self.spinner.stopAnimating()
             self.tableView.reloadData()
         } failure: {
-            
+            print("ZALUPA")
         }
+
     }
     
     private func presentPopupForLogoutAction() {
@@ -103,9 +119,13 @@ class ProfileViewController: UIViewController {
             dismissButtonTintColor: .red
         )
         
-        PopUpController.show(on: self, configure: popupConfigure, discard:  {
-            self.logOut()
-        })
+        PopUpController.show(
+            on: self,
+            configure: popupConfigure,
+            discard:  {[weak self] in
+                guard let self else { return }
+                self.logOut()
+            })
     }
     
     private func logOut() {
@@ -160,7 +180,8 @@ class ProfileViewController: UIViewController {
               let user,
               let image = profileCellImageView.image else { return }
         vc.set(user, profileImage: image)
-        vc.updateBlock = { profileImage in
+        vc.updateBlock = {[weak self] profileImage in
+            guard let self else { return }
             self.profileCellImageView.image = profileImage
             self.setupUser()
         }
@@ -175,12 +196,17 @@ extension ProfileViewController: UITableViewDataSource {
         tableViewDataSource.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         tableViewDataSource[section].count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cellType = tableViewDataSource[indexPath.section][indexPath.row]
         switch cellType {
             case .profile:
@@ -205,18 +231,23 @@ extension ProfileViewController: UITableViewDataSource {
     }
 }
 
-
+//Не обработаны все кейсы
 extension ProfileViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         let type = tableViewDataSource[indexPath.section][indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         
-
         switch type {
             case .profileSettings:
                 presentProfileEditController(type)
             case .exit:
                 presentPopupForLogoutAction()
+            case .photography:
+                let photovc = PrivacyPhotographyViewController(nibName: String(describing: PrivacyPhotographyViewController.self), bundle: nil)
+                navigationController?.pushViewController(photovc, animated: true)
             default:
                 return
         }

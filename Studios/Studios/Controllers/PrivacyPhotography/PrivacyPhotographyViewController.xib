@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PrivacyPhotographyViewController" customModule="Studios" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="ioZ-D6-WXR" id="iBw-IX-fJM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,20 +19,20 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="Aid-yg-mxi">
-                    <rect key="frame" x="10" y="57" width="370" height="342"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </datePicker>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ioZ-D6-WXR">
+                    <rect key="frame" x="0.0" y="47" width="390" height="797"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Aid-yg-mxi" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="CIH-17-vRF"/>
-                <constraint firstAttribute="trailing" secondItem="Aid-yg-mxi" secondAttribute="trailing" constant="10" id="LDt-q5-LWj"/>
-                <constraint firstItem="Aid-yg-mxi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Nm5-MH-0uc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ioZ-D6-WXR" secondAttribute="trailing" id="AQM-nE-Bat"/>
+                <constraint firstItem="ioZ-D6-WXR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q5I-3Q-tFc"/>
+                <constraint firstItem="ioZ-D6-WXR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hOL-R0-Je0"/>
+                <constraint firstAttribute="bottom" secondItem="ioZ-D6-WXR" secondAttribute="bottom" id="skW-OC-c9X"/>
             </constraints>
-            <point key="canvasLocation" x="7" y="21"/>
+            <point key="canvasLocation" x="6.1538461538461533" y="20.616113744075829"/>
         </view>
     </objects>
     <resources>

@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseDatabase
 import FirebaseAuth
 
-class LikedStudiosViewController: UIViewController {
+final class LikedStudiosViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var navView: UIView!
@@ -41,7 +41,13 @@ class LikedStudiosViewController: UIViewController {
     }
     
     private func setBackgroundGradient() {
-        let topColor = UIColor(hue: 0.94, saturation: 0.77, brightness: 0.25, alpha: 1.0).cgColor // #851f42
+        let topColor = UIColor(
+            hue: 0.94,
+            saturation: 0.77,
+            brightness: 0.25,
+            alpha: 1.0
+        ).cgColor // #851f42
+        
         self.view.setGradientBackground(topColor: topColor, bottomColor: UIColor.black.cgColor)
     }
     
@@ -58,8 +64,12 @@ class LikedStudiosViewController: UIViewController {
     }
     
     private func getLikedStudios() {
+        guard let userID = user?.uid else { return }
         spinner.startAnimating()
-        FirebaseProvider().getLikedStudios(referenceType: .getLikedStudios(userID: user!.uid)) {[weak self] likedStudios in
+        
+        FirebaseUserManager.getLikedStudios(
+            referenceType: .getLikedStudios(userID: userID)
+        ) {[weak self] likedStudios in
             guard let self else { return }
             self.likedStudios = likedStudios
             self.collectionView.reloadData()
@@ -68,16 +78,28 @@ class LikedStudiosViewController: UIViewController {
         }
     }
     
-    private func getLike(studioID: String, succed: @escaping (Bool) -> Void) {
+    private func getLike(
+        studioID: String,
+        succed: @escaping BoolBlock
+    ) {
         guard let userID = user?.uid else { return }
-        FirebaseProvider().getLike(referenceType: .getLike(userID: userID, studioID: studioID)) { like in
+        FirebaseUserManager.getLike(
+            referenceType: .getLike(
+                userID: userID,
+                studioID: studioID
+            )
+        ) { like in
             succed(like)
         }
     }
     
     private func showAndHideBlurOnNavView() {
         if !didChangeTitle {
-            navView.addBlurredBackground(style: .dark, alpha: 0.7, blurColor: .black.withAlphaComponent(0.7))
+            navView.addBlurredBackground(
+                style: .dark,
+                alpha: 0.7,
+                blurColor: .black.withAlphaComponent(0.7)
+            )
             navView.bringSubviewToFront(navViewLabel)
         } else if didChangeTitle {
             navView.subviews.forEach { view in
@@ -130,11 +152,17 @@ class LikedStudiosViewController: UIViewController {
 }
 
 extension LikedStudiosViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         likedStudios.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikedStudioCell.id, for: indexPath)
         guard let likedStudioCell = cell as? LikedStudioCell else { return cell}
         likedStudioCell.set(likedStudio: likedStudios[indexPath.row])
@@ -156,13 +184,20 @@ extension LikedStudiosViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         let inset = 20.0
         let width = collectionView.frame.width - inset
         return CGSize(width: width, height: 85)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         collectionView.deselectItem(at: indexPath, animated: true)
         presentLikedStudioDidTapOnCell(indexPath: indexPath)
     }

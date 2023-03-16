@@ -11,7 +11,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
 
-class BookingStudioController: UIViewController {
+final class BookingStudioController: UIViewController {
     @IBOutlet weak var studioNameLabel: UILabel!
     @IBOutlet weak var calendar: HorizontalCalendar!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -34,7 +34,7 @@ class BookingStudioController: UIViewController {
     private var afterResetCells = false
     private var controllerType: BookingStudioControllerType = .booking
     private var bookingModelEdit = FirebaseBookingModel()
-    private var updateBlock: FirebaseBookingModelBlock?
+    private var updateBlock: FirebaseBookingBlock?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,10 +69,19 @@ class BookingStudioController: UIViewController {
         let sectionHeaderNib = UINib(nibName: SectionHeader.id, bundle: nil)
         
         self.collectionView.register(nib, forCellWithReuseIdentifier: HoursCell.id)
-        self.collectionView.register(sectionHeaderNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.id)
+        self.collectionView.register(
+            sectionHeaderNib,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SectionHeader.id
+        )
     }
     
-    func setData(studio: GMSPlace, controllerType: BookingStudioControllerType, bookingModel: FirebaseBookingModel? = nil, updateBlock: FirebaseBookingModelBlock? = nil) {
+    func setData(
+        studio: GMSPlace,
+        controllerType: BookingStudioControllerType,
+        bookingModel: FirebaseBookingModel? = nil,
+        updateBlock: FirebaseBookingBlock? = nil
+    ) {
         self.studio = studio
         self.controllerType = controllerType
         guard let bookingModel else { return }
@@ -138,7 +147,7 @@ class BookingStudioController: UIViewController {
     private func readData() {
         guard let studioID = self.studio?.placeID else { return }
         self.spinner.startAnimating()
-        FirebaseProvider().getBookingTimes(referenceType: .getBookingTimesForStudioRef(studioID: studioID)) {[weak self] times in
+        FirebaseStudioManager.getBookingTimes(referenceType: .getBookingTimesForStudioRef(studioID: studioID)) {[weak self] times in
             guard let self else { return }
             self.timesArray = times
             self.collectionView.reloadData()
@@ -184,6 +193,7 @@ class BookingStudioController: UIViewController {
                     bookingType: self.selectionType,
                     controllerType: .booking
                 )
+                
                 navigationController?.pushViewController(confirmationBookingVC, animated: true)
                 
             case .editBooking:
@@ -199,8 +209,13 @@ class BookingStudioController: UIViewController {
                     comment: bookingModelEdit.comment
                 )
                 
+                confirmationBookingVC.set(
+                    bookingModel: editBookingModel,
+                    bookingType: self.selectionType,
+                    controllerType: .editBooking,
+                    updateBlock: updateBlock
+                )
                 
-                confirmationBookingVC.set(bookingModel: editBookingModel, bookingType: self.selectionType, controllerType: .editBooking, updateBlock: updateBlock)
                 navigationController?.pushViewController(confirmationBookingVC, animated: true)
         }
     }
@@ -242,7 +257,9 @@ class BookingStudioController: UIViewController {
 }
 
 extension BookingStudioController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(
+        in collectionView: UICollectionView
+    ) -> Int {
         if collectionView == self.collectionView {
             return self.hoursArray.count
         } else {
@@ -251,7 +268,10 @@ extension BookingStudioController: UICollectionViewDataSource {
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         if collectionView == self.collectionView {
             return self.hoursArray[section].count
         } else {
@@ -259,7 +279,10 @@ extension BookingStudioController: UICollectionViewDataSource {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         if collectionView == self.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HoursCell.id, for: indexPath)
             collectionView.allowsSelection = true
@@ -300,7 +323,11 @@ extension BookingStudioController: UICollectionViewDataSource {
 }
 
 extension BookingStudioController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
         if collectionView == self.collectionView {
             let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeader.id, for: indexPath)
             
@@ -317,7 +344,11 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
         return UICollectionReusableView()
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         if collectionView == self.collectionView {
             let cellCount = 4.0
             let leading = 10.0
@@ -332,7 +363,11 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int
+    ) -> CGFloat {
         if collectionView == self.collectionView {
             return 0
         } else {
@@ -340,7 +375,10 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         if collectionView == self.collectionView {
             guard let cell = collectionView.cellForItem(at: indexPath) as? HoursCell else { return }
             
@@ -389,7 +427,10 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didDeselectItemAt indexPath: IndexPath
+    ) {
         if collectionView == self.collectionView {
             switch self.selectionType {
                 case .multipleSelection:

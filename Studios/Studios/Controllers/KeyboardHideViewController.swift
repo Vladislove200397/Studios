@@ -39,7 +39,20 @@ class KeyboardHideViewController: UIViewController {
     @objc func keyboardWillHide(_ notification: NSNotification) {}
     
     private func deregisterFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter
+            .default
+            .removeObserver(
+                self,
+                name: UIResponder.keyboardWillShowNotification,
+                object: nil
+            )
+        
+        NotificationCenter
+            .default
+            .removeObserver(
+                self,
+                name: UIResponder.keyboardWillHideNotification,
+                object: nil
+            )
     }
 }

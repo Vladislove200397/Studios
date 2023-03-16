@@ -7,7 +7,8 @@
 
 import UIKit
 import Cosmos
-class ReviewCell: UITableViewCell {
+
+final class ReviewCell: UITableViewCell {
     static let id = String(describing: ReviewCell.self)
     @IBOutlet weak var cellTextLabel: UILabel!
     
@@ -23,16 +24,21 @@ class ReviewCell: UITableViewCell {
         cellReviewRating.settings.updateOnTouch = false
         cellReviewRating.settings.fillMode = .precise
         
+        setupCell(reviewModel: reviewModel)
+    }
+    
+    private func setupCell(reviewModel: StudioReviewModel?) {
         guard let reviewModel else { return }
         cellTextLabel.text = reviewModel.text
         cellAuthorNameLabel.text = reviewModel.authorName
         cellReviewRating.rating = reviewModel.rating
+        
         let date = Date(timeIntervalSince1970: reviewModel.time)
         let format = DateFormatter()
         format.dateFormat = "d MMMM YYYY"
         format.locale = Locale(identifier: "ru_RU")
         let reviewDate = format.string(from: date)
-        cellReviewDateLabel.text = reviewDate
         
+        cellReviewDateLabel.text = reviewDate
     }
 }

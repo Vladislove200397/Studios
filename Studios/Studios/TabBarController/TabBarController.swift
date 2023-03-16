@@ -8,7 +8,7 @@
 import UIKit
 
 
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
     
     let dataSource = TabItem.allCases
     
@@ -29,7 +29,11 @@ class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = .lightGray
         
         viewControllers?.enumerated().forEach({ index, controller in
-            controller.tabBarItem = UITabBarItem(title: dataSource[index].rawValue, image: dataSource[index].iconImage, tag: dataSource[index].hashValue)
+            controller.tabBarItem = UITabBarItem(
+                title: dataSource[index].rawValue,
+                image: dataSource[index].iconImage,
+                tag: dataSource[index].hashValue
+            )
         })
     }
 }

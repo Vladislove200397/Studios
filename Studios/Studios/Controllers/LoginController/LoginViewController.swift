@@ -10,7 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseCore
 
-class LoginViewController: KeyboardHideViewController {
+final class LoginViewController: KeyboardHideViewController {
     @IBOutlet weak var loginTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -72,7 +72,11 @@ class LoginViewController: KeyboardHideViewController {
         )
     }
     
-    func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
+    func moveViewWithKeyboard(
+        notification: NSNotification,
+        viewBottomConstraint: NSLayoutConstraint,
+        keyboardWillShow: Bool
+    ) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
         let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
@@ -113,7 +117,11 @@ class LoginViewController: KeyboardHideViewController {
     }
     
     @IBAction func registrationButtonDidTap(_ sender: Any) {
-        let registrationVC = RegistrationUserViewController(nibName: String(describing: RegistrationUserViewController.self), bundle: nil)
+        let registrationVC = RegistrationUserViewController(
+            nibName: String(describing: RegistrationUserViewController.self),
+            bundle: nil
+        )
+        
         navigationController?.pushViewController(registrationVC, animated: true)
     }
     
@@ -135,7 +143,10 @@ class LoginViewController: KeyboardHideViewController {
         
         spinner.startAnimating()
 
-        FirebaseProvider().signInWithUser(email: loginTF.text!, password: passwordTF.text!) { [weak self] in
+        FirebaseAuthManager.signInWithUser(
+            email: loginTF.text!,
+            password: passwordTF.text!
+        ) { [weak self] in
             guard let self else { return }
             self.spinner.stopAnimating()
             Environment.scenDelegate?.setTabBarIsInitial()
@@ -144,7 +155,10 @@ class LoginViewController: KeyboardHideViewController {
             guard let self else { return }
             self.spinner.stopAnimating()
             configure.description = error
-            PopUpController.show(on: self, configure: configure, discard:  {
+            PopUpController.show(
+                on: self,
+                configure: configure,
+                discard:  {
                 self.passwordTF.text = nil
             })
             
@@ -154,7 +168,11 @@ class LoginViewController: KeyboardHideViewController {
             configure.description = error
             configure.confirmButtonTitle = "Отправить письмо еще раз"
             self.spinner.stopAnimating()
-            PopUpController.show(on: self, configure: configure) {
+            
+            PopUpController.show(
+                on: self,
+                configure: configure
+            ) {
                 Auth.auth().currentUser?.sendEmailVerification()
                 self.passwordTF.text = nil
                 self.logOut()
@@ -168,7 +186,10 @@ class LoginViewController: KeyboardHideViewController {
     }
     
     @IBAction func forgotPasswordButtonDidTap(_ sender: Any) {
-        let resetPasswordVC = ResetPasswordViewController(nibName: String(describing: ResetPasswordViewController.self), bundle: nil)
+        let resetPasswordVC = ResetPasswordViewController(
+            nibName: String(describing: ResetPasswordViewController.self),
+            bundle: nil
+        )
         
         navigationController?.pushViewController(resetPasswordVC, animated: true)
     }

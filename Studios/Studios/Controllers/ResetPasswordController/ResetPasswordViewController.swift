@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class ResetPasswordViewController: KeyboardHideViewController {
+final class ResetPasswordViewController: KeyboardHideViewController {
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var resetPasswordButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -57,7 +57,11 @@ class ResetPasswordViewController: KeyboardHideViewController {
         )
     }
     
-    func moveViewWithKeyboard(notification: NSNotification, viewBottomConstraint: NSLayoutConstraint, keyboardWillShow: Bool) {
+    func moveViewWithKeyboard
+    (notification: NSNotification,
+     viewBottomConstraint: NSLayoutConstraint,
+     keyboardWillShow: Bool
+    ) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
         let keyboardDuration = notification.userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as! Double
@@ -92,7 +96,10 @@ class ResetPasswordViewController: KeyboardHideViewController {
         
         guard !emailTF.text.isEmptyOrNil else {
             popUpConfigure.description = "Введите Email"
-            PopUpController.show(on: self, configure: popUpConfigure)
+            PopUpController.show(
+                on: self,
+                configure: popUpConfigure
+            )
             return
         }
         

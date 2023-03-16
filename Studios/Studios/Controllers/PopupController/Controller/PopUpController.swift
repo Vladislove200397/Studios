@@ -8,12 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol PopUpControllerDelegate: AnyObject {
-    func dismissAction()
-    func confirmAction()
-}
-
-class PopUpController: UIViewController {
+final class PopUpController: UIViewController {
     lazy var mainStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -46,7 +41,12 @@ class PopUpController: UIViewController {
     
     lazy var titleLabel: PaddingLabel = {
         let label = PaddingLabel()
-        label.insets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        label.insets = UIEdgeInsets(
+            top: 10,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
         label.numberOfLines = 0
         label.text = configuration.title
         label.textColor = configuration.titleColor
@@ -57,7 +57,12 @@ class PopUpController: UIViewController {
     
     lazy var descriptionLabel: UILabel = {
         let label = PaddingLabel()
-        label.insets = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        label.insets = UIEdgeInsets(
+            top: 0,
+            left: 0,
+            bottom: 10,
+            right: 0
+        )
         label.numberOfLines = 0
         label.text = configuration.description
         label.textColor = configuration.descriptionColor

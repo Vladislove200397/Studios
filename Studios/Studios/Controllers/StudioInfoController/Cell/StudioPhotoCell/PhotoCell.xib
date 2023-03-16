@@ -30,7 +30,7 @@
             </constraints>
             <size key="customSize" width="210" height="250"/>
             <connections>
-                <outlet property="stdioImage" destination="7Vt-Sq-Rs4" id="oJg-RQ-wJx"/>
+                <outlet property="studioImage" destination="7Vt-Sq-Rs4" id="FTZ-SR-5Qg"/>
             </connections>
             <point key="canvasLocation" x="149.23076923076923" y="9.9526066350710902"/>
         </collectionViewCell>

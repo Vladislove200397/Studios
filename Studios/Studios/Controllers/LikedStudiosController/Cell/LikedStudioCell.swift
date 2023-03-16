@@ -8,7 +8,7 @@
 import UIKit
 import Cosmos
 
-class LikedStudioCell: UICollectionViewCell {
+final class LikedStudioCell: UICollectionViewCell {
     static let id = String(describing: LikedStudioCell.self)
     
     @IBOutlet weak var cellStudioNameLabel: UILabel!
@@ -47,7 +47,16 @@ class LikedStudioCell: UICollectionViewCell {
         cellStudioNameLabel.text = likedStudio?.studioName
         cellStudioRatingLabel.text = rating
         setupRatingStarView()
-        self.addShadow(corner: 10, color: cellColor, radius: 15, offset: CGSize(width: 0, height: 5), opacity: 0.3)
+        self.addShadow(
+            corner: 10,
+            color: cellColor,
+            radius: 15,
+            offset: CGSize(
+                width: 0,
+                height: 5
+            ),
+            opacity: 0.3
+        )
     }
     
     private func setupRatingStarView() {

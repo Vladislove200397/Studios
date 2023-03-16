@@ -14,5 +14,4 @@ class Service {
     
     var studios = [GMSPlace]()
     var photos = [UIImage]()
-    var alert = Alerts()
 }

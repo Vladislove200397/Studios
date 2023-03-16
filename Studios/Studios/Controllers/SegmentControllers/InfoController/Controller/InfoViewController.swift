@@ -9,7 +9,7 @@ import UIKit
 import GooglePlaces
 import Cosmos
 
-class InfoViewController: UIViewController {
+final class InfoViewController: UIViewController {
     @IBOutlet var stackLabelArray: [UILabel]!
     @IBOutlet var syackImageArray: [UIImageView]!
     @IBOutlet weak var ratingView: CosmosView!
@@ -17,12 +17,16 @@ class InfoViewController: UIViewController {
     
     var studio: GMSPlace?
     private var flexViewHandler: VoidBlock?
-    
+    private var weekdayTextArray: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupStack()
         studioIsOpen(studio: studio)
-        flexibleView.set(delegate: self, type: .date)
+        flexibleView.set(
+            delegate: self,
+            type: .date,
+            weekdayText: weekdayTextArray
+        )
     }
     
     func setVc(studio: GMSPlace, flexViewHandler: VoidBlock?) {
@@ -73,42 +77,39 @@ class InfoViewController: UIViewController {
               let numberOfDay = Calendar.current.ordinality(of: .weekday, in: .weekOfYear, for: .now),
               let weekdayText = openingHours.weekdayText else { return }
         
+        weekdayTextArray = weekdayText
         let weekdayTextString: String = weekdayText[numberOfDay-1]
         let numbers = weekdayTextString.components(separatedBy: ["–", " "])
         let isOpenNow = studio.isOpen()
-        //        let futureTime = Date.now
-        //        let isOpenAtTime = studio.isOpen(at: futureTime)
-        
-//        switch isOpenNow {
-//            case .unknown:
-//                openStatusLabel.text = "Неизвестно"
-//            case .open:
-//                let openColor = UIColor(hue: 0.38, saturation: 0.72, brightness: 0.72, alpha: 1.0)
-//                let string = "Открыто • Закроется в \(numbers[2])"
-//                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
-//                attributedString.setColor(color: openColor, forText: "Открыто")
-//                openStatusLabel.attributedText = attributedString
-//
-//            case .closed:
-//                let closedColor = UIColor(hue: 0.01, saturation: 0.64, brightness: 0.75, alpha: 1.0)
-//                let string = "Закрыто • Откроется в \(numbers[2])"
-//                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
-//                attributedString.setColor(color: closedColor, forText: "Закрыто")
-//                openStatusLabel.attributedText = attributedString
-//
-//            default:
-//                break
-//        }
+
+        switch isOpenNow {
+            case .unknown:
+                flexibleView.titleLabel.text = "Неизвестно"
+            case .open:
+                let openColor = UIColor(hue: 0.38, saturation: 0.72, brightness: 0.72, alpha: 1.0)
+                let string = "Открыто • Закроется в \(numbers[2])"
+                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+                
+                attributedString.setColor(color: openColor, forText: "Открыто")
+                flexibleView.titleLabel.attributedText = attributedString
+
+            case .closed:
+                let closedColor = UIColor(hue: 0.01, saturation: 0.64, brightness: 0.75, alpha: 1.0)
+                let string = "Закрыто • Откроется в \(numbers[2])"
+                let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: string)
+                
+                attributedString.setColor(color: closedColor, forText: "Закрыто")
+                flexibleView.titleLabel.attributedText = attributedString
+
+            default:
+                break
+        }
     }
 }
 
     extension InfoViewController: FlexibleViewDelegate {
         func viewDidOpen(type: FlexibleViewTypes) {
-    //        flexViews.forEach { flexibleView in
-    //            if flexibleView.type != type {
-    //                flexibleView.collapse()
-    //            }
-    //        }
+            //Будет удалено
             flexViewHandler?()
         }
     }

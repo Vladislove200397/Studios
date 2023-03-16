@@ -8,6 +8,7 @@
 import Foundation
 
 extension Int {
+    
     enum FormatTypes: String {
         case EEEEMMMdYYYY = "EEEE, MMM d, yyyy"     //Wednesday, Sep 12, 2018
         case MMddyyyy = "MM/dd/yyyy"               //09/12/2018

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SectionHeader: UICollectionReusableView {
+final class SectionHeader: UICollectionReusableView {
     static let id = String(describing: SectionHeader.self)
     
     @IBOutlet weak var sectionLabel: UILabel!

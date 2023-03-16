@@ -145,7 +145,7 @@ class HorizontalCalendar: UIView {
     }
     
     
-    func getNextSevenDays (CompletionHandler: @escaping (String) -> Void) {
+    func getNextSevenDays(completionHandler: @escaping (String) -> Void) {
         let selectedDataInString = self.lastDateInTheArray
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -157,7 +157,7 @@ class HorizontalCalendar: UIView {
             sevenDaysToShow.append(getDates(i: index, currentDate: date).0)
         }
         
-        //Month Selection
+        //Month selection
         let monthSelectionFrom = sevenDaysToShow[3]
         let dateFormatterMonth = DateFormatter()
         dateFormatterMonth.locale = Locale(identifier: "en_US_POSIX")
@@ -173,7 +173,7 @@ class HorizontalCalendar: UIView {
         self.lastDateInTheArray = sevenDaysToShow.last ?? ""
         self.firstDateInTheArray = sevenDaysToShow.first ?? ""
         self.sevenDates = sevenDaysToShow
-        return CompletionHandler("getNextDates")
+        return completionHandler("getNextDates")
     }
     
     func getPreviousSevenDays(CompletionHandler: @escaping (String) -> Void) {

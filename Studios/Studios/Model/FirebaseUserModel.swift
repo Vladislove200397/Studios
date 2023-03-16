@@ -8,12 +8,16 @@
 import Foundation
 import FirebaseAuth
 
-class FirebaseUser {
+final class FirebaseUser {
     var userName: String
     var userSurname: String
     var userPhone: String
     
-    init(userName: String, userSurname: String, userPhone: String) {
+    init(
+        userName: String,
+        userSurname: String,
+        userPhone: String
+    ) {
         self.userName = userName
         self.userSurname = userSurname
         self.userPhone = userPhone
