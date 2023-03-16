@@ -15,7 +15,7 @@ final class CalendarHeaderView: UIView {
     private var containerViewHeight = NSLayoutConstraint()
     private var timeStampBlock: IntBlock?
     
-    init(frame: CGRect, timeStampBlock: @escaping IntBlock) {
+    init(frame: CGRect, timeStampBlock: IntBlock?) {
         self.timeStampBlock = timeStampBlock
         super.init(frame: frame)
         createViews()
@@ -26,20 +26,32 @@ final class CalendarHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createViews() {
+    private func createViews() {
         // Container View
         containerView = UIView()
         self.addSubview(containerView)
-        
-        // ImageView for background
+       
         datePicker = UIDatePicker()
         datePicker.addTarget(self, action: #selector(didChangeDate(sender: )), for: .valueChanged)
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
         datePicker.clipsToBounds = true
-        datePicker.backgroundColor = .systemBackground
+        datePicker.backgroundColor = .clear
         datePicker.contentMode = .scaleAspectFill
+        addBackgroundView(datePicker: datePicker)
         containerView.addSubview(datePicker)
+    }
+    
+    private func addBackgroundView(datePicker: UIDatePicker) {
+        let backgroundView = UIView()
+        backgroundView.addBlurredBackground(style: .dark, alpha: 0.2, blurColor: .black)
+        backgroundView.layer.cornerRadius = 10
+        datePicker.addSubview(backgroundView)
+        datePicker.sendSubviewToBack(backgroundView)
+        backgroundView.snp.makeConstraints { make in
+            let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            make.top.bottom.left.right.equalToSuperview().inset(insets)
+        }
     }
     
     func setViewConstraints() {

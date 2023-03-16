@@ -47,8 +47,8 @@ final class PrivacyPhotographyViewController: UIViewController {
     
     private func setBackgroundGradient() {
         let topColor = UIColor(
-            hue: 0.8,
-            saturation: 0.65,
+            hue: 0,
+            saturation: 0,
             brightness: 0.29,
             alpha: 1.0).cgColor // #401a4a
         self.view.setGradientBackground(

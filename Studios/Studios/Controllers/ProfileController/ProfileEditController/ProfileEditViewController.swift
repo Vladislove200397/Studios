@@ -90,7 +90,7 @@ final class ProfileEditViewController: UIViewController {
         tableViewDataSource = section
     }
     
-    func saveChangedInfo(complition: @escaping (() ->Void)) {
+    func saveChangedInfo(complition: @escaping VoidBlock) {
         let group = DispatchGroup()
         let concurrentQueue = DispatchQueue(label: "uploadData-concurrentQueue", attributes: .concurrent)
         var error: Error?
@@ -144,17 +144,14 @@ final class ProfileEditViewController: UIViewController {
         
         group.enter()
         concurrentQueue.async(execute: photoUploadWorkItem)
-        guard error != nil else {
-            group.enter()
-            concurrentQueue.async(execute: saveUserWorkItem)
-            return
-        }
         
         group.notify(queue: .main) {
             guard error != nil,
-                    photoURL == nil else {
+                  photoURL == nil else {
                 group.enter()
                 concurrentQueue.async(execute: saveAuthuserInfoWorkItem)
+                group.enter()
+                concurrentQueue.async(execute: saveUserWorkItem)
                 complition()
                 return
             }
@@ -189,6 +186,7 @@ final class ProfileEditViewController: UIViewController {
 }
 
 extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
@@ -221,13 +219,17 @@ extension ProfileEditViewController: CropperViewControllerDelegate {
 }
 
 extension ProfileEditViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(
+        _ textField: UITextField
+    ) -> Bool {
         self.view.endEditing(true)
     }
 }
 
 extension ProfileEditViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(
+        in tableView: UITableView
+    ) -> Int {
         return tableViewDataSource.count
     }
     

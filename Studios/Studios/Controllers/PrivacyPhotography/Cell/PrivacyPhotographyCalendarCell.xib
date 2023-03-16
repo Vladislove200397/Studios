@@ -9,42 +9,42 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="115" id="KGk-i7-Jjw" customClass="PrivacyPhotographyCalendarCell" customModule="Studios" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="72" id="KGk-i7-Jjw" customClass="PrivacyPhotographyCalendarCell" customModule="Studios" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="72"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="300" height="72"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEC-Sf-jgt">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="70"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ceX-nE-88S">
-                                <rect key="frame" x="13" y="0.0" width="1" height="115"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="13" y="0.0" width="1" height="70"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="xI7-xe-sdm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Em-da-JP1">
-                                <rect key="frame" x="21" y="15" width="7" height="7"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="21" y="6" width="7" height="7"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="7" id="FG3-TT-D0V"/>
                                     <constraint firstAttribute="height" constant="7" id="xmq-hv-kpR"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAC-2G-ufn">
-                                <rect key="frame" x="35" y="8.6666666666666643" width="35" height="20"/>
+                                <rect key="frame" x="35" y="-0.66666666666666607" width="35" height="20.333333333333329"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrh-XA-EVs">
-                                        <rect key="frame" x="2" y="3.333333333333333" width="31" height="13.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <rect key="frame" x="1.3333333333333357" y="3.666666666666667" width="32.666666666666664" height="13.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="jrh-XA-EVs" firstAttribute="centerX" secondItem="qAC-2G-ufn" secondAttribute="centerX" id="QFn-t8-bYi"/>
                                     <constraint firstItem="jrh-XA-EVs" firstAttribute="centerY" secondItem="qAC-2G-ufn" secondAttribute="centerY" id="RcP-dr-B9Q"/>
@@ -53,8 +53,8 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utb-Z3-2am">
-                                <rect key="frame" x="77" y="18" width="216" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="77" y="9" width="216" height="1"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Nw6-WB-M02"/>
                                 </constraints>
@@ -63,7 +63,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8Em-da-JP1" firstAttribute="centerY" secondItem="qAC-2G-ufn" secondAttribute="centerY" id="3NT-Kn-J7W"/>
-                            <constraint firstAttribute="height" constant="115" id="6pa-Xf-I9p"/>
+                            <constraint firstAttribute="height" constant="70" id="6pa-Xf-I9p"/>
                             <constraint firstItem="ceX-nE-88S" firstAttribute="top" secondItem="vEC-Sf-jgt" secondAttribute="top" id="FBC-mc-a8g"/>
                             <constraint firstItem="ceX-nE-88S" firstAttribute="leading" secondItem="vEC-Sf-jgt" secondAttribute="leading" constant="13" id="HI8-SY-qub"/>
                             <constraint firstItem="utb-Z3-2am" firstAttribute="centerY" secondItem="qAC-2G-ufn" secondAttribute="centerY" id="Pc7-rq-PuH"/>
@@ -72,7 +72,7 @@
                             <constraint firstAttribute="trailing" secondItem="utb-Z3-2am" secondAttribute="trailing" constant="7" id="fLm-up-BL5"/>
                             <constraint firstItem="utb-Z3-2am" firstAttribute="leading" secondItem="qAC-2G-ufn" secondAttribute="trailing" constant="7" id="kkQ-iO-1TI"/>
                             <constraint firstItem="qAC-2G-ufn" firstAttribute="leading" secondItem="8Em-da-JP1" secondAttribute="trailing" constant="7" id="pTc-nA-CcI"/>
-                            <constraint firstItem="8Em-da-JP1" firstAttribute="top" secondItem="vEC-Sf-jgt" secondAttribute="top" constant="15" id="y6y-68-Esh"/>
+                            <constraint firstItem="8Em-da-JP1" firstAttribute="top" secondItem="vEC-Sf-jgt" secondAttribute="top" constant="6" id="y6y-68-Esh"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -91,7 +91,7 @@
                 <outlet property="timeContainerView" destination="qAC-2G-ufn" id="dVp-E3-D6m"/>
                 <outlet property="timeLabel" destination="jrh-XA-EVs" id="OPH-4c-WyF"/>
             </connections>
-            <point key="canvasLocation" x="347.69230769230768" y="214.33649289099526"/>
+            <point key="canvasLocation" x="347.69230769230768" y="199.05213270142178"/>
         </tableViewCell>
     </objects>
 </document>
