@@ -34,7 +34,9 @@ final class BookingStudioController: UIViewController {
     private var afterResetCells = false
     private var controllerType: BookingStudioControllerType = .booking
     private var bookingModelEdit = FirebaseBookingModel()
+    private var firebaseUserModel: FirebaseUser?
     private var updateBlock: FirebaseBookingBlock?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +45,7 @@ final class BookingStudioController: UIViewController {
         calendar.collectionView.dataSource = self
         calendar.collectionView.delegate = self
         calendar.set(delegate: self)
-        self.setUpVC()
+        setUpVC()
         navigationController?.navigationBar.topItem?.backButtonTitle = ""
     }
     
@@ -55,13 +57,14 @@ final class BookingStudioController: UIViewController {
         guard let studio else { return }
         self.studioNameLabel.text = studio.name
         self.studioAddressLabel.text = studio.formattedAddress
-        self.getWorkHours()
-        self.readData()
-        self.getWorkHours()
-        self.registerCell()
-        self.nextVCButton.isEnabled = false
-        self.nextVCButton.setTitle("Выберите дату и время", for: .normal)
-        self.title = controllerType.title
+        getWorkHours()
+        readData()
+        getWorkHours()
+        getUserInfo()
+        registerCell()
+        nextVCButton.isEnabled = false
+        nextVCButton.setTitle("Выберите дату и время", for: .normal)
+        title = controllerType.title
     }
     
     private func registerCell() {
@@ -155,8 +158,18 @@ final class BookingStudioController: UIViewController {
         }
     }
     
+    private func getUserInfo() {
+        guard let userID = user?.uid else { return }
+        FirebaseAuthManager.getUserInfo(
+            referenceType: .getUserInfo,
+            userID) { firebaseUser in
+                self.firebaseUserModel = firebaseUser
+            } failure: {
+                
+            }
+    }
+    
     private func isEnabledButton() {
-
         if self.compareBookingTimeStampArray.count != 0, self.timeStampDateFromCalendar != 0 {
             self.nextVCButton.isEnabled = true
             self.nextVCButton.setTitle("Далее", for: .normal)
@@ -191,7 +204,8 @@ final class BookingStudioController: UIViewController {
                 confirmationBookingVC.set(
                     bookingModel: bookingModel,
                     bookingType: self.selectionType,
-                    controllerType: .booking
+                    controllerType: .booking,
+                    userModel: firebaseUserModel
                 )
                 
                 navigationController?.pushViewController(confirmationBookingVC, animated: true)

@@ -16,20 +16,80 @@
                 <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="3Z2-g2-fr2">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEC-Sf-jgt">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="115"/>
-                    </datePicker>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ceX-nE-88S">
+                                <rect key="frame" x="13" y="0.0" width="1" height="115"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="xI7-xe-sdm"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Em-da-JP1">
+                                <rect key="frame" x="21" y="15" width="7" height="7"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="7" id="FG3-TT-D0V"/>
+                                    <constraint firstAttribute="height" constant="7" id="xmq-hv-kpR"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAC-2G-ufn">
+                                <rect key="frame" x="35" y="8.6666666666666643" width="35" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrh-XA-EVs">
+                                        <rect key="frame" x="2" y="3.333333333333333" width="31" height="13.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="jrh-XA-EVs" firstAttribute="centerX" secondItem="qAC-2G-ufn" secondAttribute="centerX" id="QFn-t8-bYi"/>
+                                    <constraint firstItem="jrh-XA-EVs" firstAttribute="centerY" secondItem="qAC-2G-ufn" secondAttribute="centerY" id="RcP-dr-B9Q"/>
+                                    <constraint firstAttribute="width" constant="35" id="h9F-WE-DRr"/>
+                                    <constraint firstAttribute="height" constant="20" id="vGf-k2-ksF"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utb-Z3-2am">
+                                <rect key="frame" x="77" y="18" width="216" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Nw6-WB-M02"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8Em-da-JP1" firstAttribute="centerY" secondItem="qAC-2G-ufn" secondAttribute="centerY" id="3NT-Kn-J7W"/>
+                            <constraint firstAttribute="height" constant="115" id="6pa-Xf-I9p"/>
+                            <constraint firstItem="ceX-nE-88S" firstAttribute="top" secondItem="vEC-Sf-jgt" secondAttribute="top" id="FBC-mc-a8g"/>
+                            <constraint firstItem="ceX-nE-88S" firstAttribute="leading" secondItem="vEC-Sf-jgt" secondAttribute="leading" constant="13" id="HI8-SY-qub"/>
+                            <constraint firstItem="utb-Z3-2am" firstAttribute="centerY" secondItem="qAC-2G-ufn" secondAttribute="centerY" id="Pc7-rq-PuH"/>
+                            <constraint firstItem="8Em-da-JP1" firstAttribute="leading" secondItem="ceX-nE-88S" secondAttribute="trailing" constant="7" id="RJd-lg-Cz7"/>
+                            <constraint firstAttribute="bottom" secondItem="ceX-nE-88S" secondAttribute="bottom" id="exX-I7-TF8"/>
+                            <constraint firstAttribute="trailing" secondItem="utb-Z3-2am" secondAttribute="trailing" constant="7" id="fLm-up-BL5"/>
+                            <constraint firstItem="utb-Z3-2am" firstAttribute="leading" secondItem="qAC-2G-ufn" secondAttribute="trailing" constant="7" id="kkQ-iO-1TI"/>
+                            <constraint firstItem="qAC-2G-ufn" firstAttribute="leading" secondItem="8Em-da-JP1" secondAttribute="trailing" constant="7" id="pTc-nA-CcI"/>
+                            <constraint firstItem="8Em-da-JP1" firstAttribute="top" secondItem="vEC-Sf-jgt" secondAttribute="top" constant="15" id="y6y-68-Esh"/>
+                        </constraints>
+                    </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="3Z2-g2-fr2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="D1f-bu-tx2"/>
-                    <constraint firstAttribute="bottom" secondItem="3Z2-g2-fr2" secondAttribute="bottom" id="Rhv-Fi-Ucq"/>
-                    <constraint firstAttribute="trailing" secondItem="3Z2-g2-fr2" secondAttribute="trailing" id="St8-eL-KAL"/>
-                    <constraint firstItem="3Z2-g2-fr2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Z73-GV-qsp"/>
+                    <constraint firstItem="vEC-Sf-jgt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="FOk-AC-GxD"/>
+                    <constraint firstItem="vEC-Sf-jgt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Isj-Yl-SXB"/>
+                    <constraint firstAttribute="trailing" secondItem="vEC-Sf-jgt" secondAttribute="trailing" id="W1p-en-4YI"/>
+                    <constraint firstAttribute="bottom" secondItem="vEC-Sf-jgt" secondAttribute="bottom" id="ydg-hE-nWZ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="calendarDatePicker" destination="3Z2-g2-fr2" id="Zu7-Lx-U77"/>
+                <outlet property="dotView" destination="8Em-da-JP1" id="fCe-c1-2Ad"/>
+                <outlet property="timeContainerView" destination="qAC-2G-ufn" id="dVp-E3-D6m"/>
+                <outlet property="timeLabel" destination="jrh-XA-EVs" id="OPH-4c-WyF"/>
             </connections>
             <point key="canvasLocation" x="347.69230769230768" y="214.33649289099526"/>
         </tableViewCell>

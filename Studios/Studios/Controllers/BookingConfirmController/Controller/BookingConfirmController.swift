@@ -23,6 +23,7 @@ final class BookingConfirmController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     private var bookingModel = FirebaseBookingModel()
+    private var firebaseUserModel: FirebaseUser?
     private var bookingType: SelectionType = .singleSelection
     private var controllerType: BookingStudioControllerType = .booking
     private var updateBlock: FirebaseBookingBlock?
@@ -32,6 +33,7 @@ final class BookingConfirmController: UIViewController {
         setupVC()
         setupTextFields()
         hideKeyboardWhenTappedAround()
+        isValidTextField()
     }
     
     deinit {
@@ -42,6 +44,7 @@ final class BookingConfirmController: UIViewController {
         bookingModel: FirebaseBookingModel,
         bookingType: SelectionType,
         controllerType: BookingStudioControllerType,
+        userModel: FirebaseUser? = nil,
         updateBlock: FirebaseBookingBlock? = nil
     ) {
         self.bookingModel = bookingModel
@@ -49,6 +52,7 @@ final class BookingConfirmController: UIViewController {
         self.title = "Запись"
         self.controllerType = controllerType
         self.updateBlock = updateBlock
+        self.firebaseUserModel = userModel
     }
     
     private func setupVC() {
@@ -66,9 +70,13 @@ final class BookingConfirmController: UIViewController {
         bookingButton.isEnabled = false
         bookingButton.setTitle("Заполните поля", for: .normal)
         
-        if controllerType == .editBooking {
-            commentTF.text = bookingModel.comment
-            userPhoneNumberTF.text = bookingModel.userPhone
+        switch controllerType {
+            case .booking:
+                guard let phonenNumber = firebaseUserModel?.userPhone else { return }
+                userPhoneNumberTF.text = phonenNumber
+            case .editBooking:
+                commentTF.text = bookingModel.comment
+                userPhoneNumberTF.text = bookingModel.userPhone
         }
     }
     

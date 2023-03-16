@@ -13,7 +13,7 @@ import FirebaseStorage
 import GooglePlaces
 
 final class FirebaseStudioManager {
-    private static func getStartDayTime(timeStamp: Int) -> Int {
+    static func getStartDayTime(timeStamp: Int) -> Int {
         let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
         let todayStartOfDay = Calendar.current.startOfDay(for: date)
         let timeOfStartDay = Int(todayStartOfDay.timeIntervalSince1970)

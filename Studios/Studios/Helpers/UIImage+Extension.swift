@@ -22,7 +22,8 @@ extension UIImage {
                                      .systemCyan.withAlphaComponent(0.7),
                                      .systemMint.withAlphaComponent(0.7),
                                      .systemYellow.withAlphaComponent(0.7),
-                                     .magenta.withAlphaComponent(0.7)]
+                                     .magenta.withAlphaComponent(0.7)
+        ]
         
         nameLabel.textAlignment = .center
         nameLabel.backgroundColor = colorArray.randomElement()

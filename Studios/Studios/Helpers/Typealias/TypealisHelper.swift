@@ -19,3 +19,4 @@ typealias FirebaseUserBlock = ((FirebaseUser) -> Void)
 typealias FirebaseArrayLikedStudioBlock = ([FirebaseLikedStudioModel]) -> Void
 typealias ImageBlock = (UIImage) -> Void
 typealias URLBlock = (URL) -> Void
+typealias IntBlock = (Int) -> Void

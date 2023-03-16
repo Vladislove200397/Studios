@@ -14,9 +14,17 @@ final class PrivacyPhotographyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var cellCalendar: UIDatePicker?
+    private var startDayTimeStamp: Int? {
+        didSet {
+            
+        }
+    }
+    private var hoursArray = Array(0...23)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getStartDayTimeStamp()
+        
         tableView.dataSource = self
         tableView.delegate = self
         registerCell()
@@ -25,15 +33,39 @@ final class PrivacyPhotographyViewController: UIViewController {
                 x: 0,
                 y: 0,
                 width: self.view.bounds.width,
-                height: 285
-            )
-        )
+                height: 300
+            )) { startDayTimeStampBlock in
+                self.startDayTimeStamp = startDayTimeStampBlock
+            }
         
         self.tableView.tableHeaderView = headerView
     }
     
+    override func viewWillLayoutSubviews() {
+        setBackgroundGradient()
+    }
+    
+    private func setBackgroundGradient() {
+        let topColor = UIColor(
+            hue: 0.8,
+            saturation: 0.65,
+            brightness: 0.29,
+            alpha: 1.0).cgColor // #401a4a
+        self.view.setGradientBackground(
+            topColor: topColor,
+            bottomColor: UIColor.black.cgColor
+        )
+    }
+    
     private func registerCell() {
         tableView.register(UINib(nibName: PrivacyPhotographyCalendarCell.id, bundle: nil), forCellReuseIdentifier: PrivacyPhotographyCalendarCell.id)
+    }
+    
+    private func getStartDayTimeStamp() {
+        let date = Date.now
+        let todayStartOfDay = Calendar.current.startOfDay(for: date)
+        let timeOfStartDay = Int(todayStartOfDay.timeIntervalSince1970)
+        self.startDayTimeStamp = timeOfStartDay
     }
 
 }
@@ -43,7 +75,7 @@ extension PrivacyPhotographyViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 1
+        hoursArray.count
     }
     
     func tableView(
@@ -58,7 +90,7 @@ extension PrivacyPhotographyViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cellCalendar = cell.calendarDatePicker
+        cell.timeLabel.text = "\(hoursArray[indexPath.row]):00"
         return cell
     }
 }

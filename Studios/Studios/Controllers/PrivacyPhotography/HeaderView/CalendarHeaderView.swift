@@ -13,16 +13,17 @@ final class CalendarHeaderView: UIView {
     private var imageViewHeight = NSLayoutConstraint()
     private var imageViewBottom = NSLayoutConstraint()
     private var containerViewHeight = NSLayoutConstraint()
+    private var timeStampBlock: IntBlock?
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, timeStampBlock: @escaping IntBlock) {
+        self.timeStampBlock = timeStampBlock
         super.init(frame: frame)
-        
         createViews()
         setViewConstraints()
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func createViews() {
@@ -32,10 +33,11 @@ final class CalendarHeaderView: UIView {
         
         // ImageView for background
         datePicker = UIDatePicker()
+        datePicker.addTarget(self, action: #selector(didChangeDate(sender: )), for: .valueChanged)
         datePicker.preferredDatePickerStyle = .inline
         datePicker.datePickerMode = .date
         datePicker.clipsToBounds = true
-        datePicker.backgroundColor = .clear
+        datePicker.backgroundColor = .systemBackground
         datePicker.contentMode = .scaleAspectFill
         containerView.addSubview(datePicker)
     }
@@ -70,4 +72,12 @@ final class CalendarHeaderView: UIView {
         imageViewBottom.constant = offsetY >= 0 ? 0 : -offsetY / 2
         imageViewHeight.constant = max(offsetY + scrollView.contentInset.top, scrollView.contentInset.top)
     }
+    
+    @objc private func didChangeDate(sender: UIDatePicker) {
+        let date = sender.date
+        let todayStartOfDay = Calendar.current.startOfDay(for: date)
+        let timeOfStartDay = Int(todayStartOfDay.timeIntervalSince1970)
+        print(timeOfStartDay)
+    }
+    
 }
