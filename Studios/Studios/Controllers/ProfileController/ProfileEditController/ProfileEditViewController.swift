@@ -22,7 +22,7 @@ final class ProfileEditViewController: UIViewController {
     private var userName: String?
     private var userSurname: String?
     private var userPhoneNumber: String?
-    var updateBlock: ((UIImage) -> ())?
+    private var updateImageBlock: ImageBlock?
     private var tableViewDataSource: [[ProfileEditCellTypes]] = []
     
     override func viewDidLoad() {
@@ -63,7 +63,7 @@ final class ProfileEditViewController: UIViewController {
         tableView.register(profileEditCellNib, forCellReuseIdentifier: ProfileEditCell.id)
     }
     
-    func set(_ user: FirebaseUser, profileImage: UIImage) {
+    func set(_ user: FirebaseUser, profileImage: UIImage, updateImageBlock: ImageBlock? = nil) {
         self.user = user
         self.profileImageValue = profileImage
     }
@@ -322,7 +322,7 @@ extension ProfileEditViewController: ChangeProfileSaveOrDismissChangesDelegate {
         self.user = user
         saveChangedInfo {
             if let photo = self.profileImageValue {
-                self.updateBlock?(photo)
+                self.updateImageBlock?(photo)
                 self.dismiss(animated: true)
             }
         }

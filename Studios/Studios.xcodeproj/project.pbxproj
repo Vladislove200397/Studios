@@ -122,6 +122,7 @@
 		B9FAE4A829C32B7F0085264F /* FirebaseStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FAE4A729C32B7F0085264F /* FirebaseStorageManager.swift */; };
 		B9FAE4AB29C32F100085264F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FAE4AA29C32F100085264F /* Constants.swift */; };
 		B9FAE4AD29C335730085264F /* StringProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FAE4AC29C335730085264F /* StringProtocol+Extension.swift */; };
+		B9FAE4AF29C61AA10085264F /* PrivacyPhotographyIventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FAE4AE29C61AA10085264F /* PrivacyPhotographyIventModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -244,6 +245,7 @@
 		B9FAE4A729C32B7F0085264F /* FirebaseStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageManager.swift; sourceTree = "<group>"; };
 		B9FAE4AA29C32F100085264F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B9FAE4AC29C335730085264F /* StringProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringProtocol+Extension.swift"; sourceTree = "<group>"; };
+		B9FAE4AE29C61AA10085264F /* PrivacyPhotographyIventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPhotographyIventModel.swift; sourceTree = "<group>"; };
 		E343C47D2F5DDB807538EBB0 /* Pods-Studios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Studios.release.xcconfig"; path = "Target Support Files/Pods-Studios/Pods-Studios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -941,6 +943,7 @@
 				B9FA0410295E19A50097DF24 /* FirebaseBookingModel.swift */,
 				B9FABB5F291B112000232D9C /* SSPLace.swift */,
 				B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */,
+				B9FAE4AE29C61AA10085264F /* PrivacyPhotographyIventModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1190,6 +1193,7 @@
 				B9FABB0A291A5E3500232D9C /* AppDelegate.swift in Sources */,
 				B9ED2E6429AABCF10055B7C3 /* DefaultProfileCell.swift in Sources */,
 				B9F08DB029479CF30059614C /* Environment.swift in Sources */,
+				B9FAE4AF29C61AA10085264F /* PrivacyPhotographyIventModel.swift in Sources */,
 				B99E0D89295E689D00E4204B /* FlexView.swift in Sources */,
 				B9916B902976B57E00C0A0CF /* SectionHeader.swift in Sources */,
 				B9FABB0C291A5E3500232D9C /* SceneDelegate.swift in Sources */,

@@ -179,12 +179,12 @@ final class ProfileViewController: UIViewController {
         guard let vc = type.controllers as? ProfileEditViewController,
               let user,
               let image = profileCellImageView.image else { return }
-        vc.set(user, profileImage: image)
-        vc.updateBlock = {[weak self] profileImage in
+        vc.set(user, profileImage: image) {[weak self] profileImage in
             guard let self else { return }
             self.profileCellImageView.image = profileImage
             self.setupUser()
         }
+
         vc.modalTransitionStyle = .crossDissolve
         vc.modalPresentationStyle = .overCurrentContext
         present(vc, animated: true)

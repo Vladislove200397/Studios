@@ -14,12 +14,9 @@ final class PrivacyPhotographyViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var cellCalendar: UIDatePicker?
-    private var startDayTimeStamp: Int? {
-        didSet {
-            
-        }
-    }
-    private var hoursArray = Array(0...23)
+    private var startDayTimeStamp: Int?
+    private var ivent: PrivacyPhotographyIventModel?
+    private var hoursArray: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +31,9 @@ final class PrivacyPhotographyViewController: UIViewController {
                 y: 0,
                 width: self.view.bounds.width,
                 height: 300
-            )) { startDayTimeStampBlock in
-                self.startDayTimeStamp = startDayTimeStampBlock
+            )) { startDayTimeStamp in
+                self.startDayTimeStamp = startDayTimeStamp
+                self.getDayHours(timeStamp: startDayTimeStamp)
             }
         
         self.tableView.tableHeaderView = headerView
@@ -66,8 +64,19 @@ final class PrivacyPhotographyViewController: UIViewController {
         let todayStartOfDay = Calendar.current.startOfDay(for: date)
         let timeOfStartDay = Int(todayStartOfDay.timeIntervalSince1970)
         self.startDayTimeStamp = timeOfStartDay
+        getDayHours(timeStamp: timeOfStartDay)
+        tableView.reloadData()
     }
-
+    
+    private func getDayHours(timeStamp: Int) {
+        guard let startDayTimeStamp else { return }
+        hoursArray.removeAll()
+        for i in 0...23 {
+            let time = startDayTimeStamp + 3600 * i
+            hoursArray.append(time)
+        }
+        self.tableView.reloadData()
+    }
 }
 
 extension PrivacyPhotographyViewController: UITableViewDataSource {
@@ -90,7 +99,7 @@ extension PrivacyPhotographyViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.timeLabel.text = "\(hoursArray[indexPath.row]):00"
+        cell.set(timeStamp: hoursArray[indexPath.row])
         return cell
     }
 }

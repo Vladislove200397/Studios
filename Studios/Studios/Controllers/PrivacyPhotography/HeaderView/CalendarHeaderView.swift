@@ -89,7 +89,6 @@ final class CalendarHeaderView: UIView {
         let date = sender.date
         let todayStartOfDay = Calendar.current.startOfDay(for: date)
         let timeOfStartDay = Int(todayStartOfDay.timeIntervalSince1970)
-        print(timeOfStartDay)
+        timeStampBlock?(timeOfStartDay)
     }
-    
 }

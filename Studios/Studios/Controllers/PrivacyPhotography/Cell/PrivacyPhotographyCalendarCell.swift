@@ -19,6 +19,10 @@ class PrivacyPhotographyCalendarCell: UITableViewCell {
         setupCell()
     }
     
+    func set(timeStamp: Int) {
+        timeLabel.text = timeStamp.formatData(formatType: .HHmm)
+    }
+    
     private func setupCell() {
         dotView.clipsToBounds = true
         self.dotView.layer.cornerRadius = dotView.frame.width / 2
