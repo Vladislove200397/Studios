@@ -82,6 +82,8 @@
 		B9E0F1CB2987B1680087A48A /* LikedStudiosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9E0F1C92987B1680087A48A /* LikedStudiosViewController.xib */; };
 		B9E0F1CD2987B3D70087A48A /* FirebaseLikedStudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */; };
 		B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1D629880D3F0087A48A /* GetStudiosApi.swift */; };
+		B9E8D17329C64607003CA079 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8D17229C64607003CA079 /* NotificationsManager.swift */; };
+		B9E8D17729C7CC44003CA079 /* DateFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8D17629C7CC43003CA079 /* DateFormatType.swift */; };
 		B9ED2E5A29AAB0660055B7C3 /* TableViewCellTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED2E5929AAB0660055B7C3 /* TableViewCellTypes.swift */; };
 		B9ED2E5F29AAB69E0055B7C3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED2E5D29AAB69E0055B7C3 /* ProfileCell.swift */; };
 		B9ED2E6029AAB69E0055B7C3 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9ED2E5E29AAB69E0055B7C3 /* ProfileCell.xib */; };
@@ -201,6 +203,8 @@
 		B9E0F1C92987B1680087A48A /* LikedStudiosViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikedStudiosViewController.xib; sourceTree = "<group>"; };
 		B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLikedStudioModel.swift; sourceTree = "<group>"; };
 		B9E0F1D629880D3F0087A48A /* GetStudiosApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStudiosApi.swift; sourceTree = "<group>"; };
+		B9E8D17229C64607003CA079 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
+		B9E8D17629C7CC43003CA079 /* DateFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatType.swift; sourceTree = "<group>"; };
 		B9ED2E5929AAB0660055B7C3 /* TableViewCellTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellTypes.swift; sourceTree = "<group>"; };
 		B9ED2E5D29AAB69E0055B7C3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		B9ED2E5E29AAB69E0055B7C3 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
@@ -524,6 +528,7 @@
 				B9DD012E297C8E84007C266D /* ValidationType.swift */,
 				B972CBF3297E97E500FBFCFD /* SelectionTypeEnum.swift */,
 				B9F44DD52994369900A7D5B0 /* BookingStudioControllerTypeEnum.swift */,
+				B9E8D17629C7CC43003CA079 /* DateFormatType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -712,6 +717,7 @@
 			isa = PBXGroup;
 			children = (
 				B958E83729212EA300F2059A /* Service.swift */,
+				B9E8D17229C64607003CA079 /* NotificationsManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1171,6 +1177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9E8D17329C64607003CA079 /* NotificationsManager.swift in Sources */,
 				B9442C962977E97A00CEDEA6 /* BookingConfirmController.swift in Sources */,
 				B9C3C24C29B20B1600A0E0BB /* LikedStudioCell.swift in Sources */,
 				B9FA0411295E19A50097DF24 /* FirebaseBookingModel.swift in Sources */,
@@ -1249,6 +1256,7 @@
 				B949AFE7295433F300025011 /* UIView+Extension.swift in Sources */,
 				B9C63E7B2933C0D900754496 /* StudioReviewProvider.swift in Sources */,
 				B965FFB029B69D4500B74E74 /* UserDefaultsManager.swift in Sources */,
+				B9E8D17729C7CC44003CA079 /* DateFormatType.swift in Sources */,
 				B9FA0419295E21590097DF24 /* FirebaseProvider.swift in Sources */,
 				B90871E3299824F500247729 /* UIViewController+Extension.swift in Sources */,
 				B9FABB6E291BD47C00232D9C /* RealmSwift.swift in Sources */,
