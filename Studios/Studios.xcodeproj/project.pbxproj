@@ -83,7 +83,6 @@
 		B9E0F1CD2987B3D70087A48A /* FirebaseLikedStudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */; };
 		B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0F1D629880D3F0087A48A /* GetStudiosApi.swift */; };
 		B9E8D17329C64607003CA079 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8D17229C64607003CA079 /* NotificationsManager.swift */; };
-		B9E8D17529C649FC003CA079 /* RealmBookingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8D17429C649FC003CA079 /* RealmBookingModel.swift */; };
 		B9E8D17729C7CC44003CA079 /* DateFormatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8D17629C7CC43003CA079 /* DateFormatType.swift */; };
 		B9ED2E5A29AAB0660055B7C3 /* TableViewCellTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED2E5929AAB0660055B7C3 /* TableViewCellTypes.swift */; };
 		B9ED2E5F29AAB69E0055B7C3 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED2E5D29AAB69E0055B7C3 /* ProfileCell.swift */; };
@@ -204,7 +203,6 @@
 		B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLikedStudioModel.swift; sourceTree = "<group>"; };
 		B9E0F1D629880D3F0087A48A /* GetStudiosApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStudiosApi.swift; sourceTree = "<group>"; };
 		B9E8D17229C64607003CA079 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
-		B9E8D17429C649FC003CA079 /* RealmBookingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBookingModel.swift; sourceTree = "<group>"; };
 		B9E8D17629C7CC43003CA079 /* DateFormatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatType.swift; sourceTree = "<group>"; };
 		B9ED2E5929AAB0660055B7C3 /* TableViewCellTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellTypes.swift; sourceTree = "<group>"; };
 		B9ED2E5D29AAB69E0055B7C3 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
@@ -949,7 +947,6 @@
 				B9FA0410295E19A50097DF24 /* FirebaseBookingModel.swift */,
 				B9FABB5F291B112000232D9C /* SSPLace.swift */,
 				B9E0F1CC2987B3D70087A48A /* FirebaseLikedStudioModel.swift */,
-				B9E8D17429C649FC003CA079 /* RealmBookingModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1206,7 +1203,6 @@
 				B9E0F1D729880D3F0087A48A /* GetStudiosApi.swift in Sources */,
 				B9DD0129297C4BCC007C266D /* String+Extension.swift in Sources */,
 				B9ED2E9829AFB4D10055B7C3 /* ProfileEditCell.swift in Sources */,
-				B9E8D17529C649FC003CA079 /* RealmBookingModel.swift in Sources */,
 				B9F08DAD294793890059614C /* FirebaseUserModel.swift in Sources */,
 				B946ED17299C4F0F00C82F5C /* PaddingLabel.swift in Sources */,
 				B972CBF4297E97E500FBFCFD /* SelectionTypeEnum.swift in Sources */,
