@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         checkToken()
         window?.makeKeyAndVisible()
+        NotificationsManager().requestAuthorization()
     }
     
     func setTabBarIsInitial() {

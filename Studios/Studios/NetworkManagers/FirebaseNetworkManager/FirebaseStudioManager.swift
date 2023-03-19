@@ -21,12 +21,13 @@ final class FirebaseStudioManager {
     }
     
     static func postBookingModel(
+        type: BookingStudioControllerType,
         bookingModel: FirebaseBookingModel,
         referenceType: FirebaseReferenses,
         success: @escaping VoidBlock,
         failure: @escaping ErrorBlock
     ) {
-        let bookingID = Int(NSDate.timeIntervalSinceReferenceDate)
+        let bookingID = Int(Date.timeIntervalSinceReferenceDate)
         
         guard let userID = bookingModel.userID,
               let userName = bookingModel.userName,
@@ -50,61 +51,33 @@ final class FirebaseStudioManager {
                        "booking_day": timeOfStartDay
         ] as [String : Any]
         
-        let ref: DatabaseReference = referenceType.references
+        var ref: DatabaseReference = referenceType.references
         
-        ref.child("\(bookingID)").setValue(booking) {
-            (error:Error?, ref:DatabaseReference) in
-            if let error = error {
-                failure(error)
-                print(error.localizedDescription)
-            } else {
-                success()
-            }
+        switch type {
+            case .booking:
+                ref.child("\(bookingID)").setValue(booking) {
+                    (error: Error?, ref: DatabaseReference) in
+                    if let error {
+                        failure(error)
+                        print(error.localizedDescription)
+                    } else {
+                        success()
+                    }
+                }
+            case .editBooking:
+                guard let bookingID = bookingModel.bookingID else { return }
+                ref.child("\(bookingID)").setValue(booking) {
+                    (error: Error?, ref: DatabaseReference) in
+                    if let error {
+                        failure(error)
+                        print(error.localizedDescription)
+                    } else {
+                        success()
+                    }
+                }
         }
     }
-    
-        static func updateStudioBooking(
-            _ bookingModel: FirebaseBookingModel,
-            _ referenceType: FirebaseReferenses,
-            success: @escaping VoidBlock,
-            failure: @escaping ErrorBlock
-        ) {
-    
-            guard let userID = bookingModel.userID,
-                  let userName = bookingModel.userName,
-                  let userEmail = bookingModel.userEmail,
-                  let userPhone = bookingModel.userPhone,
-                  let bookingTime = bookingModel.bookingTime,
-                  let studioID = bookingModel.studioID,
-                  let studioName = bookingModel.studioName,
-                  let comment = bookingModel.comment else { return }
-    
-            let ref = referenceType.references
-    
-            let timeOfStartDay = getStartDayTime(timeStamp: bookingTime.first ?? 0)
-            let booking = ["user_id": userID,
-                           "user": userName,
-                           "user_email": userEmail,
-                           "user_phone": userPhone,
-                           "booking_time": bookingTime,
-                           "studio_id": studioID,
-                           "studio_name": studioName,
-                           "booking_id": bookingModel.bookingID!,
-                           "comment": comment,
-                           "booking_day": timeOfStartDay
-            ] as [String : Any]
-    
-            ref.child("\(bookingModel.bookingID!)").setValue(booking) {
-                (error:Error?, ref:DatabaseReference) in
-                if let error = error {
-                    failure(error)
-                    print(error.localizedDescription)
-                } else {
-                    success()
-                }
-            }
-        }
-    
+        
     static func getBookingTimes(
         referenceType: FirebaseReferenses,
         success: @escaping ArrayIntBlock,

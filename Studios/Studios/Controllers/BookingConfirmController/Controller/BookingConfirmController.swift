@@ -21,12 +21,16 @@ final class BookingConfirmController: UIViewController {
     @IBOutlet weak var bookingTimeLabel: UILabel!
     @IBOutlet weak var bookingButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var notificationButton: UIButton!
     
     private var bookingModel = FirebaseBookingModel()
     private var firebaseUserModel: FirebaseUser?
     private var bookingType: SelectionType = .singleSelection
     private var controllerType: BookingStudioControllerType = .booking
     private var updateBlock: FirebaseBookingBlock?
+    private var choseNotificationTimeActionMenu = UIMenu()
+    private var notificationTime: [Double] = []
+    private var menuActionState: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,8 @@ final class BookingConfirmController: UIViewController {
         setupTextFields()
         hideKeyboardWhenTappedAround()
         isValidTextField()
+        notificationButton.menu = generatePullDownMenu()
+        notificationButton.showsMenuAsPrimaryAction = true
     }
     
     deinit {
@@ -80,6 +86,73 @@ final class BookingConfirmController: UIViewController {
         }
     }
     
+    private func menuHandlerBlock(for time: Double, index: Int) {
+        if !notificationTime.contains(where: {$0 == time}) {
+           notificationTime.append(time)
+           menuActionState[index] = true
+           notificationButton.menu = self.generatePullDownMenu()
+        } else {
+            notificationTime.removeAll(where: {$0 == time})
+            menuActionState[index] = false
+            notificationButton.menu = self.generatePullDownMenu()
+        }
+        print(notificationTime)
+    }
+    
+    private func generatePullDownMenu() -> UIMenu {
+        var time = 0.0
+        var actionIndex = 0
+        
+        for _ in  0...3 {
+            menuActionState.append(false)
+        }
+        
+        let actions = [
+            UIAction(
+                title: "Напомнить за 24 часа",
+                attributes: .keepsMenuPresented,
+                state: menuActionState[0] ? .on : .off,
+                handler: { (_) in
+                    time = 60 * (60 * 24)
+                    actionIndex = 0
+                    self.menuHandlerBlock(for: time, index: actionIndex)
+                }),
+            UIAction(
+                title: "Напомнить за 12 часов",
+                attributes: .keepsMenuPresented,
+                state: menuActionState[1] ? .on : .off,
+                handler: { (_) in
+                    time = 60 * (60 * 12)
+                    actionIndex = 1
+                    self.menuHandlerBlock(for: time, index: actionIndex)
+                }),
+            UIAction(
+                title: "Напомнить за 5 часов",
+                attributes: .keepsMenuPresented,
+                state: menuActionState[2] ? .on : .off,
+                handler: { (_) in
+                    time = 60 * (60 * 5)
+                    actionIndex = 2
+                    self.menuHandlerBlock(for: time, index: actionIndex)
+                }),
+            UIAction(
+                title: "Напомнить за 1 час",
+                attributes: .keepsMenuPresented,
+                state: menuActionState[3] ? .on : .off,
+                handler: { (_) in
+                    time = 60 * 60
+                    actionIndex = 3
+                    self.menuHandlerBlock(for: time, index: actionIndex)
+                })]
+
+        let menu = UIMenu(
+            title: "Время напоминания",
+            children: actions
+        )
+
+        return menu
+    }
+
     private func setupTextFields() {
         userEmailTF.delegate = self
         userPhoneNumberTF.delegate = self
@@ -138,7 +211,8 @@ final class BookingConfirmController: UIViewController {
     
     private func postBookingStudioRequest(
         _ bookingModel: FirebaseBookingModel,
-        _ userID: String, _ studioID: String,
+        _ userID: String,
+        _ studioID: String,
         complition: @escaping RequestBlock,
         failure: @escaping RequestBlock
     ) {
@@ -151,6 +225,7 @@ final class BookingConfirmController: UIViewController {
         
         let postStudioBookingModelWorkItem = DispatchWorkItem {
             FirebaseStudioManager.postBookingModel(
+                type: self.controllerType,
                 bookingModel: bookingModel,
                 referenceType: .postUserBookingRef(userID: userID)
             ) {
@@ -158,17 +233,20 @@ final class BookingConfirmController: UIViewController {
                 group.leave()
             } failure: { requestError in
                 error = requestError
+                group.leave()
             }
         }
         
         let postUserBookingModel = DispatchWorkItem {
             FirebaseStudioManager.postBookingModel(
+                type: self.controllerType,
                 bookingModel: bookingModel,
                 referenceType: .postStudioBookingRef(studioID: studioID)
             ) {
                 group.leave()
             } failure: { requestError in
                 error = requestError
+                group.leave()
             }
         }
         
@@ -183,6 +261,7 @@ final class BookingConfirmController: UIViewController {
             guard let self else { return }
             guard error != nil else {
                 self.spinner.stopAnimating()
+                self.createNotificationObject(notificationObject: bookingModel)
                 complition()
                 return
             }
@@ -190,55 +269,9 @@ final class BookingConfirmController: UIViewController {
         }
     }
     
-    private func updateBookingStudioRequest(
-        _ bookingModel: FirebaseBookingModel,
-        _ userID: String,
-        _ studioID: String,
-        complition: @escaping RequestBlock,
-        failure: @escaping RequestBlock
-    ) {
-        var error: Error?
-        let group = DispatchGroup()
-        let concurrentCurrency = DispatchQueue(
-            label: "concurrentCurrency-updateBooking",
-            attributes: .concurrent
-        )
+    private func createNotificationObject(notificationObject bookingModel: FirebaseBookingModel) {
         
-        let updateStudioBookingWorkItem = DispatchWorkItem {
-            FirebaseStudioManager.updateStudioBooking(
-                bookingModel, .postStudioBookingRef(studioID: studioID)
-            ) {
-                group.leave()
-            } failure: { requestError in
-                error = requestError
-            }
-        }
-        
-        let updateUserBookingWorkItem = DispatchWorkItem {
-            FirebaseStudioManager.updateStudioBooking(
-                bookingModel, .postUserBookingRef(userID: userID)
-            ) {
-                group.leave()
-            } failure: { requestError in
-                error = requestError
-            }
-        }
-        
-        group.enter()
-        concurrentCurrency.async(execute: updateStudioBookingWorkItem)
-        
-        group.enter()
-        concurrentCurrency.async(execute: updateUserBookingWorkItem)
-        
-        group.notify(queue: .main) {[weak self] in
-            guard let self else { return }
-            guard error != nil else {
-                self.spinner.stopAnimating()
-                complition()
-                return
-            }
-            failure()
-        }
+        NotificationsManager().createPushFor(bookingModel, time: notificationTime)
     }
     
     @IBAction func bookingButtonDidTap(_ sender: UIButton) {
@@ -300,7 +333,7 @@ final class BookingConfirmController: UIViewController {
                             }
                     }
             case .editBooking:
-                updateBookingStudioRequest(
+                postBookingStudioRequest(
                     bookingModel,
                     userID,
                     studioID) {[weak self] in
@@ -336,6 +369,8 @@ final class BookingConfirmController: UIViewController {
                     }
         }
     }
+    
+    
 }
 
 extension BookingConfirmController: UITextFieldDelegate {
