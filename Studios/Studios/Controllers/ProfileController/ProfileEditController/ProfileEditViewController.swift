@@ -212,9 +212,7 @@ extension ProfileEditViewController: CropperViewControllerDelegate {
     func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
         cropper.dismiss(animated: true)
         if let state = state,
-           let image = cropper
-            .originalImage
-            .cropped(withCropperState: state) {
+           let image = cropper.originalImage.cropped(withCropperState: state) {
             self.profileImageValue = image
             tableView.reloadRows(at: profileInfoCellIndexPath, with: .fade)
         }
