@@ -51,7 +51,7 @@ final class FirebaseStudioManager {
                        "booking_day": timeOfStartDay
         ] as [String : Any]
         
-        var ref: DatabaseReference = referenceType.references
+        let ref: DatabaseReference = referenceType.references
         
         switch type {
             case .booking:

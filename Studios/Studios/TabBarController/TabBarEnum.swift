@@ -20,7 +20,7 @@ enum TabItem: String, CaseIterable {
         
         switch self {
             case .studios:
-                let mapVC = storyboard.instantiateViewController(withIdentifier: "ViewController")
+                let mapVC = MapController()
                 return mapVC
             case .favorite:
                 let vc = LikedStudiosViewController(nibName: String(describing: LikedStudiosViewController.self), bundle: nil)

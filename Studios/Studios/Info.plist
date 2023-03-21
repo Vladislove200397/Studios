@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Разрешить доступ к Фото</string>
+	<string>Разрешить доступ к фото?</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Разрешить доступ к камере?</string>
-	<key>CFBundleIdentifier</key>
-	<string></string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -98,7 +98,6 @@ final class ProfileViewController: UIViewController {
         ) {[weak self] user in
             guard let self else { return }
             self.user = user
-            self.setupUser()
             self.spinner.stopAnimating()
             self.tableView.reloadData()
         } failure: {
@@ -179,9 +178,10 @@ final class ProfileViewController: UIViewController {
         guard let vc = type.controllers as? ProfileEditViewController,
               let user,
               let image = profileCellImageView.image else { return }
-        vc.set(user, profileImage: image) {[weak self] profileImage in
+
+        vc.set(user, profileImage: image) {[weak self] profImage in
             guard let self else { return }
-            self.profileCellImageView.image = profileImage
+            self.profileCellImageView.image = profImage
             self.setupUser()
         }
 

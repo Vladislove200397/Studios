@@ -71,8 +71,6 @@
 		B9C63E7F2933C26C00754496 /* ReviewTableController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C63E7D2933C26C00754496 /* ReviewTableController.xib */; };
 		B9C63E872933C2C600754496 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C63E852933C2C600754496 /* ReviewCell.swift */; };
 		B9C63E882933C2C600754496 /* ReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C63E862933C2C600754496 /* ReviewCell.xib */; };
-		B9DC2C032941CE22009EEE43 /* TestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DC2C012941CE22009EEE43 /* TestController.swift */; };
-		B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9DC2C022941CE22009EEE43 /* TestController.xib */; };
 		B9DD0129297C4BCC007C266D /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD0128297C4BCC007C266D /* String+Extension.swift */; };
 		B9DD012B297C6870007C266D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD012A297C6870007C266D /* UIImage+Extension.swift */; };
 		B9DD012F297C8E84007C266D /* ValidationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DD012E297C8E84007C266D /* ValidationType.swift */; };
@@ -192,8 +190,6 @@
 		B9C63E7D2933C26C00754496 /* ReviewTableController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewTableController.xib; sourceTree = "<group>"; };
 		B9C63E852933C2C600754496 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		B9C63E862933C2C600754496 /* ReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewCell.xib; sourceTree = "<group>"; };
-		B9DC2C012941CE22009EEE43 /* TestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestController.swift; sourceTree = "<group>"; };
-		B9DC2C022941CE22009EEE43 /* TestController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestController.xib; sourceTree = "<group>"; };
 		B9DD0128297C4BCC007C266D /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		B9DD012A297C6870007C266D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B9DD012E297C8E84007C266D /* ValidationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationType.swift; sourceTree = "<group>"; };
@@ -936,8 +932,6 @@
 				B9FABB14291A5E3700232D9C /* LaunchScreen.storyboard */,
 				B9FABB17291A5E3700232D9C /* Info.plist */,
 				B9EFC27D297F282500FF7291 /* GoogleService-Info.plist */,
-				B9DC2C012941CE22009EEE43 /* TestController.swift */,
-				B9DC2C022941CE22009EEE43 /* TestController.xib */,
 			);
 			path = Studios;
 			sourceTree = "<group>";
@@ -1085,7 +1079,6 @@
 				B90871E829982F7F00247729 /* ProfileEditViewController.xib in Resources */,
 				B9C3C24D29B20B1600A0E0BB /* LikedStudioCell.xib in Resources */,
 				B90871E12998175900247729 /* RegistrationUserViewController.xib in Resources */,
-				B9DC2C042941CE22009EEE43 /* TestController.xib in Resources */,
 				B9FABB16291A5E3700232D9C /* LaunchScreen.storyboard in Resources */,
 				B965FFAB29B3E3A100B74E74 /* BookingCell.xib in Resources */,
 				B929E00D29BBAB42002FEF99 /* PrivacyPhotographyViewController.xib in Resources */,
@@ -1237,7 +1230,6 @@
 				B9E0F1CD2987B3D70087A48A /* FirebaseLikedStudioModel.swift in Sources */,
 				B90D38FF2922B23000F77AF8 /* StudioInfoController.swift in Sources */,
 				B965FFAA29B3E3A100B74E74 /* BookingCell.swift in Sources */,
-				B9DC2C032941CE22009EEE43 /* TestController.swift in Sources */,
 				B951EBFC297551C90076EB67 /* HorizontalCalendar.swift in Sources */,
 				B962ABA2299514B20053F1AB /* StringOpt+Extension.swift in Sources */,
 				B96EA88C29A176D8000B138E /* ImagePicker.swift in Sources */,
@@ -1411,17 +1403,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = G264CBHMU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Studios/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешить доступ к камере?";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Give me your address";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Give me your address";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Give me your address";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Give me your address";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешить доступ к Фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -1447,17 +1442,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = G264CBHMU9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Studios/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Разрешить доступ к камере?";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Give me your address";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Give me your address";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Give me your address";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Give me your address";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Разрешить доступ к Фото";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

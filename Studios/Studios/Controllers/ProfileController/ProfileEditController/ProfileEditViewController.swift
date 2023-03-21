@@ -63,10 +63,14 @@ final class ProfileEditViewController: UIViewController {
         tableView.register(profileEditCellNib, forCellReuseIdentifier: ProfileEditCell.id)
     }
     
-    func set(_ user: FirebaseUser, profileImage: UIImage, updateImageBlock: ImageBlock? = nil) {
-        self.user = user
-        self.profileImageValue = profileImage
-    }
+    func set(
+        _ user: FirebaseUser,
+        profileImage: UIImage,
+        updateImageBlock: ImageBlock?) {
+            self.user = user
+            self.profileImageValue = profileImage
+            self.updateImageBlock = updateImageBlock
+        }
     
     private func presentPicker(_ cameraOrPhoto: UIImagePickerController.SourceType) {
         let picker = UIImagePickerController()
@@ -198,7 +202,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
             let cropper = CropperViewController(originalImage: image)
             cropper.delegate = self
             picker.dismiss(animated: true) {
-                self.present(cropper, animated: true, completion: nil)
+                self.present(cropper, animated: true)
             }
         }
     }
@@ -206,12 +210,11 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
 
 extension ProfileEditViewController: CropperViewControllerDelegate {
     func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
-        cropper.dismiss(animated: true, completion: nil)
+        cropper.dismiss(animated: true)
         if let state = state,
            let image = cropper
             .originalImage
             .cropped(withCropperState: state) {
-            
             self.profileImageValue = image
             tableView.reloadRows(at: profileInfoCellIndexPath, with: .fade)
         }
@@ -320,7 +323,9 @@ extension ProfileEditViewController: ChangeProfilePhotoDelegate {
 extension ProfileEditViewController: ChangeProfileSaveOrDismissChangesDelegate {
     func saveChanges(user: FirebaseUser) {
         self.user = user
-        saveChangedInfo {
+        
+        saveChangedInfo {[weak self] in
+            guard let self else { return }
             if let photo = self.profileImageValue {
                 self.updateImageBlock?(photo)
                 self.dismiss(animated: true)

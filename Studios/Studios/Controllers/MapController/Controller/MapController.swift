@@ -13,9 +13,15 @@ import FirebaseCore
 import FirebaseDatabase
 
 final class MapController: UIViewController {
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    lazy var mapView: GMSMapView = {
+    lazy private var spinner: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        return indicator
+    }()
+    
+    lazy private var mapView: GMSMapView = {
         var view = GMSMapView()
         let camera = GMSCameraPosition(
             latitude: 53.899986473284805,
@@ -28,6 +34,7 @@ final class MapController: UIViewController {
             mapID: mapID,
             camera: camera
         )
+        view.delegate = self
         return view
     }()
     
@@ -36,11 +43,19 @@ final class MapController: UIViewController {
     var markers = [GMSMarker]()
     var studios = [GMSPlace]()
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super .init(nibName: nil, bundle: nil)
+        setupVC()
+        makeConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.delegate = self
         detectFirstLaunch()
-        setupVC()
         drawMarker()
         getStudios()
     }
@@ -52,7 +67,14 @@ final class MapController: UIViewController {
     //MARK: VC setup
     private func setupVC() {
         self.view.addSubview(mapView)
+        self.view.addSubview(spinner)
         self.view.sendSubviewToBack(mapView)
+    }
+    
+    private func makeConstraints() {
+        spinner.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
     }
     
     private func cameraZoomOnTap(coordinate: CLLocationCoordinate2D) {
@@ -123,7 +145,10 @@ extension MapController: GMSMapViewDelegate {
         dismiss(animated: true)
     }
     
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+    func mapView(
+        _ mapView: GMSMapView,
+        didTap marker: GMSMarker
+    ) -> Bool {
 
         mapView.animate(toLocation: CLLocationCoordinate2D(
             latitude: marker.position.latitude,

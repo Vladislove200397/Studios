@@ -28,7 +28,6 @@ final class BookingConfirmController: UIViewController {
     private var bookingType: SelectionType = .singleSelection
     private var controllerType: BookingStudioControllerType = .booking
     private var updateBlock: FirebaseBookingBlock?
-    private var choseNotificationTimeActionMenu = UIMenu()
     private var notificationTime: [Double] = []
     private var menuActionState: [Bool] = []
     
@@ -38,8 +37,6 @@ final class BookingConfirmController: UIViewController {
         setupTextFields()
         hideKeyboardWhenTappedAround()
         isValidTextField()
-        notificationButton.menu = generatePullDownMenu()
-        notificationButton.showsMenuAsPrimaryAction = true
     }
     
     deinit {
@@ -63,6 +60,8 @@ final class BookingConfirmController: UIViewController {
     
     private func setupVC() {
         guard let bookingTime = bookingModel.bookingTime else { return }
+        notificationButton.menu = generatePullDownMenu()
+        notificationButton.showsMenuAsPrimaryAction = true
         userNameTF.text = bookingModel.userName
         userEmailTF.text = bookingModel.userEmail
         studioNameLabel.text = bookingModel.studioName
@@ -176,10 +175,13 @@ final class BookingConfirmController: UIViewController {
             userEmailTF.isValid(type: .email)
         ]
         let positive = results.filter( {$0 }).count == results.count
+        print(positive)
         
-        if positive {
+        if positive  {
             self.bookingButton.isEnabled = true
             self.bookingButton.setTitle("Записаться", for: .normal)
+        } else {
+            self.bookingButton.isEnabled = false
         }
     }
     
@@ -194,20 +196,20 @@ final class BookingConfirmController: UIViewController {
         }
     }
     
-    @IBAction func nameTextFieldDidEditing(_ sender: UITextField) {
-        sender.validateRegEx(type: .name)
+    @IBAction func textFieldDidEditing(_ sender: UITextField) {
+        switch sender.tag {
+            case 1001:
+                sender.validateRegEx(type: .name)
+            case 1002:
+                sender.validateRegEx(type: .phone)
+            case 1003:
+                sender.validateRegEx(type: .email)
+            default:
+                break
+        }
         isValidTextField()
     }
     
-    @IBAction func userPhoneTextFieldDidEditing(_ sender: UITextField) {
-        sender.validateRegEx(type: .phone)
-        isValidTextField()
-    }
-    
-    @IBAction func userEmailTextFieldDidEditing(_ sender: UITextField) {
-        sender.validateRegEx(type: .email)
-        isValidTextField()
-    }
     
     private func postBookingStudioRequest(
         _ bookingModel: FirebaseBookingModel,
@@ -229,7 +231,6 @@ final class BookingConfirmController: UIViewController {
                 bookingModel: bookingModel,
                 referenceType: .postUserBookingRef(userID: userID)
             ) {
-                print("ЗАБРОНИРОВАНО")
                 group.leave()
             } failure: { requestError in
                 error = requestError
