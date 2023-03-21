@@ -15,8 +15,7 @@ final class InfoViewController: UIViewController {
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var flexibleView: FlexView!
     
-    var studio: GMSPlace?
-    private var flexViewHandler: VoidBlock?
+    private var studio: GMSPlace?
     private var weekdayTextArray: [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +23,12 @@ final class InfoViewController: UIViewController {
         studioIsOpen(studio: studio)
         flexibleView.set(
             delegate: self,
-            type: .date,
             weekdayText: weekdayTextArray
         )
     }
     
-    func setVc(studio: GMSPlace, flexViewHandler: VoidBlock?) {
+    func setVc(studio: GMSPlace) {
         self.studio = studio
-        self.flexViewHandler = flexViewHandler
     }
     
     private func setupStack() {
@@ -108,8 +105,7 @@ final class InfoViewController: UIViewController {
 }
 
     extension InfoViewController: FlexibleViewDelegate {
-        func viewDidOpen(type: FlexibleViewTypes) {
-            //Будет удалено
-            flexViewHandler?()
+        func viewDidOpen() {
+            
         }
     }

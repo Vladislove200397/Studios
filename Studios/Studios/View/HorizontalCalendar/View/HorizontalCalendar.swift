@@ -13,18 +13,17 @@ class HorizontalCalendar: UIView {
     @IBOutlet weak var monthLabel: UILabel!
     
     weak var dateDelegate: SetDateFromViewDelegate?
-    weak var swipeDelegate: SwipeCalendarDelegate?
-    var date = Date()
-    var month = [""]
-    var sevenDates: [String] = [""]
-    var days: [Int] = []
-    var currentDate = ""
-    var selectedDatesIndex = 0
-    var monthToShow = ""
-    var lastDateInTheArray = ""
-    var firstDateInTheArray = ""
-    var currentMonth = ""
-    var selectedDate = ""
+    private(set) var date = Date()
+    private(set) var month = [""]
+    private(set) var sevenDates: [String] = [""]
+    private(set) var days: [Int] = []
+    private(set) var currentDate = ""
+    private(set) var selectedDatesIndex = 0
+    private(set) var monthToShow = ""
+    private(set) var lastDateInTheArray = ""
+    private(set) var firstDateInTheArray = ""
+    private(set) var currentMonth = ""
+    private(set) var selectedDate = ""
     var dateFromCell = ""
     
     
@@ -43,7 +42,12 @@ class HorizontalCalendar: UIView {
         Bundle.main.loadNibNamed(id, owner: self)
         self.addSubview(contentView)
         self.contentView.frame = self.bounds
-        self.monthLabel.textColor = UIColor(hue: 0.68, saturation: 0.27, brightness: 0.70, alpha: 1.0) // #38364a
+        self.monthLabel.textColor = UIColor(
+            hue: 0.68,
+            saturation: 0.27,
+            brightness: 0.70,
+            alpha: 1.0
+        ) // #38364a
         registerCell()
         getCurrentDate()
         getSevenDays()
@@ -55,11 +59,8 @@ class HorizontalCalendar: UIView {
         self.collectionView.register(nib, forCellWithReuseIdentifier: CalendarCell.id)
     }
     
-    func set(delegate: SetDateFromViewDelegate, swipeDelegate: SwipeCalendarDelegate? = nil) {
+    func set(delegate: SetDateFromViewDelegate) {
         self.dateDelegate = delegate
-        if let swipeDelegate {
-            self.swipeDelegate = swipeDelegate
-        }
     }
     
     private func getCurrentDate() {
@@ -176,7 +177,7 @@ class HorizontalCalendar: UIView {
         return completionHandler("getNextDates")
     }
     
-    func getPreviousSevenDays(CompletionHandler: @escaping (String) -> Void) {
+    func getPreviousSevenDays(CompletionHandler: @escaping StringBlock) {
         let selectedDataInString = self.firstDateInTheArray
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -231,7 +232,7 @@ class HorizontalCalendar: UIView {
         return transition
     }
     
-    @objc func handleSwipes (sender: UISwipeGestureRecognizer) {
+    @objc func handleSwipes(sender: UISwipeGestureRecognizer) {
         switch sender.direction {
             case .left:
                 self.getNextSevenDays { [weak self] response in
@@ -242,7 +243,7 @@ class HorizontalCalendar: UIView {
                         self.collectionView.layoutSubviews()
                         self.collectionView.reloadData()
                         self.monthLabel.text = self.monthToShow.localizedCapitalized
-                        self.swipeDelegate?.didSwipeCalendar()
+                      //  self.swipeDelegate?.didSwipeCalendar()
                     }
                 }
             case .right:
@@ -254,7 +255,7 @@ class HorizontalCalendar: UIView {
                         self.collectionView.layoutSubviews()
                         self.collectionView.reloadData()
                         self.monthLabel.text = self.monthToShow.localizedCapitalized
-                        self.swipeDelegate?.didSwipeCalendar()
+                       // self.swipeDelegate?.didSwipeCalendar()
                     }
                 }
             default:

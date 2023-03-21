@@ -63,32 +63,27 @@ final class StudioInfoController: UIViewController {
         setupData()
     }
     
-    
     private func registerCell() {
         let photoNib = UINib(nibName: PhotoCell.id, bundle: nil)
         collectionView.register(photoNib, forCellWithReuseIdentifier: PhotoCell.id)
     }
     
     private func configureControllers() {
+        guard let studio,
+              let studioID = studio.placeID else { return }
+        
         let infoVc = InfoViewController(
             nibName: String(describing: InfoViewController.self),
             bundle: nil
         )
-       print(self.scrollContainerView.frame.height)
-        print(self.controllerView.frame.height)
-        print(self.collectionView.frame.height)
-        infoVc.setVc(studio: studio!) {
-
-        }
-                     
+        infoVc.setVc(studio: studio)
         controllers.append(infoVc)
-        
+
         let reviewVC = ReviewTableController(
             nibName: String(describing: ReviewTableController.self),
             bundle: nil
         )
-        
-        reviewVC.set(placeID: (studio?.placeID)!)
+        reviewVC.set(placeID: studioID)
         controllers.append(reviewVC)
     }
     

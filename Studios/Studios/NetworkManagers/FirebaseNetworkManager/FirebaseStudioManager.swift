@@ -51,30 +51,24 @@ final class FirebaseStudioManager {
                        "booking_day": timeOfStartDay
         ] as [String : Any]
         
-        let ref: DatabaseReference = referenceType.references
+        var ref: DatabaseReference = referenceType.references
         
         switch type {
             case .booking:
-                ref.child("\(bookingID)").setValue(booking) {
-                    (error: Error?, ref: DatabaseReference) in
-                    if let error {
-                        failure(error)
-                        print(error.localizedDescription)
-                    } else {
-                        success()
-                    }
-                }
+                ref = ref.child("\(bookingID)")
             case .editBooking:
                 guard let bookingID = bookingModel.bookingID else { return }
-                ref.child("\(bookingID)").setValue(booking) {
-                    (error: Error?, ref: DatabaseReference) in
-                    if let error {
-                        failure(error)
-                        print(error.localizedDescription)
-                    } else {
-                        success()
-                    }
-                }
+                ref = ref.child("\(bookingID)")
+        }
+        
+        ref.setValue(booking) {
+            (error: Error?, ref: DatabaseReference) in
+            if let error {
+                failure(error)
+                print(error.localizedDescription)
+            } else {
+                success()
+            }
         }
     }
         

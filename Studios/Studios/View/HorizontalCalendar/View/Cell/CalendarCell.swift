@@ -23,7 +23,6 @@ class CalendarCell: UICollectionViewCell {
     var pastSelectedCell = false
     private var today = false
     private var selectedColor = UIColor(hue: 0.7, saturation: 0.4, brightness: 0.37, alpha: 1.0) // #40385e
-    private var todayColor = UIColor(hue: 0.71, saturation: 0.13, brightness: 0.82, alpha: 1.0) // #bdb5d1
     private var bookingDay = false
     
     override var isSelected: Bool {
@@ -49,17 +48,11 @@ class CalendarCell: UICollectionViewCell {
     }
     
    private func setUpCell() {
-        let dateFormatterMonth = DateFormatter()
-        dateFormatterMonth.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatterMonth.dateFormat = "dd-MM-yyyy"
-        let date = dateFormatterMonth.date(from: selectedDate)!
+       let date = selectedDate.formatData(formatType: .ddMMyyyy)
         
-        let dateFormatterMonth1 = DateFormatter()
-        dateFormatterMonth1.dateFormat = "dd"
-        let dayNum = dateFormatterMonth1.string (from: date)
-        
-        dateFormatterMonth1.dateFormat = "E"
-        let dayLit = dateFormatterMonth1.string(from: date)
+       let dayNum = date.formatData(formatType: .dd)
+
+       let dayLit = date.formatData(formatType: .E)
         
         self.dayLabel.text = dayLit
         self.dateLabel.text = dayNum

@@ -64,7 +64,6 @@ final class BookingHistoryController: UIViewController {
         bookingHistoryCollectionView.delegate = self
         calendar.collectionView.dataSource = self
         calendar.collectionView.delegate = self
-        calendar.set(delegate: self, swipeDelegate: self)
     }
     
     private func setupBookingHistoryCellMenu() {
@@ -125,13 +124,16 @@ final class BookingHistoryController: UIViewController {
             nibName: BookingCell.id,
             bundle: nil
         )
+        
         bookingHistoryCollectionView.register(nib, forCellWithReuseIdentifier: BookingCell.id)
     }
     
     private func getBookings() {
         guard let user else { return }
         self.spinner.startAnimating()
-        FirebaseStudioManager.getBookings(referenceType: .getBookingForUserRef(userID: user.uid)) {[weak self] booking in
+        FirebaseStudioManager.getBookings(
+            referenceType: .getBookingForUserRef(userID: user.uid)
+        ) {[weak self] booking in
             guard let self else { return }
             self.bookingArray = booking
             self.spinner.stopAnimating()
@@ -217,7 +219,10 @@ final class BookingHistoryController: UIViewController {
     }
     
     private func showVcToСhangeBooking(updateBlock: @escaping FirebaseBookingBlock) {
-        let bookingVC = BookingStudioController(nibName: String(describing: BookingStudioController.self), bundle: nil)
+        let bookingVC = BookingStudioController(
+            nibName: String(describing: BookingStudioController.self),
+            bundle: nil
+        )
         
         let firstIndex = contextMenuSelectedIndexPath.row
         let studioID = presentingBookingArray[firstIndex].studioID
@@ -282,7 +287,11 @@ extension BookingHistoryController: UICollectionViewDataSource {
 
 //MARK: CollectionViewDelegateFlowLayout
 extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfigurationForItemAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
         if collectionView == bookingHistoryCollectionView {
             contextMenuSelectedIndexPath = indexPath
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) {[weak self] _ in
@@ -330,14 +339,4 @@ extension BookingHistoryController: UICollectionViewDelegateFlowLayout {
             showBookingToSelectedDate(cell.selectedDate)
         }
     }
-}
-
-//MARK: SetDateFromViewDelegate
-extension BookingHistoryController: SetDateFromViewDelegate {
-    func setDate(date: String) {
-    }
-}
-
-extension BookingHistoryController: SwipeCalendarDelegate {
-    func didSwipeCalendar() {}
 }

@@ -15,8 +15,12 @@ final class HoursCell: UICollectionViewCell {
     
     var bookingTime = 0
     private var isPastTime = Bool()
-    private var selectedColor = UIColor(hue: 0.7, saturation: 0.4, brightness: 0.37, alpha: 1.0) // #40385e
-    
+    private var selectedColor = UIColor(
+        hue: 0.7,
+        saturation: 0.4,
+        brightness: 0.37,
+        alpha: 1.0
+    ) // #40385e
     override var isSelected: Bool {
         didSet {
             if bookingTime != 0 {
@@ -47,7 +51,6 @@ final class HoursCell: UICollectionViewCell {
     
     func setupPastTimeCell(_ timeIsPast: Bool, _ bookingTime: Int) {
         self.bookingTime = timeIsPast ? 0 : bookingTime
-        //self.hourLabel.isHidden = timeIsPast
         self.containerView.isHidden = timeIsPast
     }
 }

@@ -16,7 +16,6 @@ final class FlexView: UIView {
     @IBOutlet weak var lineView: UIView!
     
     weak var delegate: FlexibleViewDelegate?
-    private(set) var type = FlexibleViewTypes.date
     private(set) var isOpen = false {
         didSet {
             animation()
@@ -37,30 +36,28 @@ final class FlexView: UIView {
         let id = String(describing: FlexView.self)
         Bundle.main.loadNibNamed(id, owner: self)
         self.addSubview(contentView)
-        self.contentView.frame = self.bounds
+        contentView.frame = self.bounds
         containerView.isHidden = !self.isOpen
         contentView.layer.cornerRadius = 10
     }
     
     func set(
         delegate: FlexibleViewDelegate?,
-        type: FlexibleViewTypes,
         weekdayText: [String]
     ) {
         self.delegate = delegate
-        self.type = type
         self.setupButton()
-        addWeekdaytext(weekdayText)
+        addWeekdaytext(from: weekdayText)
     }
     
-    private func addWeekdaytext(_ from: [String]) {
+    private func addWeekdaytext(from array: [String]) {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 10
         
         containerView.addSubview(stack)
         
-        from.forEach { text in
+        array.forEach { text in
             let label = UILabel()
             label.font = .systemFont(ofSize: 14, weight: .medium)
             label.text = text.firstUppercased
@@ -89,7 +86,7 @@ final class FlexView: UIView {
             self.containerView.isHidden = !self.isOpen
             
             if self.isOpen {
-                self.delegate?.viewDidOpen(type: self.type)
+                self.delegate?.viewDidOpen()
             }
             self.setupButton()
         }

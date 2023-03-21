@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FlexibleViewDelegate: AnyObject {
-    func viewDidOpen(type: FlexibleViewTypes)
+    func viewDidOpen()
 }
 
 protocol SetDateFromViewDelegate: AnyObject {

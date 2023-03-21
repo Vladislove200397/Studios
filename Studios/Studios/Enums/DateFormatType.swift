@@ -17,4 +17,6 @@ enum FormatTypes: String {
     case ddMMyy = "dd.MM.yy"                  //12.09.18
     case HHmm = "HH:mm"                     //14:11
     case ddMMyyyy = "dd-MM-yyyy"            //12-09-2022
+    case dd = "dd"
+    case E = "E"
 }

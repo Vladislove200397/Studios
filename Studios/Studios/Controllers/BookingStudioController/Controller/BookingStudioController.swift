@@ -150,7 +150,10 @@ final class BookingStudioController: UIViewController {
     private func readData() {
         guard let studioID = self.studio?.placeID else { return }
         self.spinner.startAnimating()
-        FirebaseStudioManager.getBookingTimes(referenceType: .getBookingTimesForStudioRef(studioID: studioID)) {[weak self] times in
+        
+        FirebaseStudioManager.getBookingTimes(
+            referenceType: .getBookingTimesForStudioRef(studioID: studioID)
+        ) {[weak self] times in
             guard let self else { return }
             self.timesArray = times
             self.collectionView.reloadData()
@@ -182,8 +185,7 @@ final class BookingStudioController: UIViewController {
     @IBAction func saveDidTap(_ sender: Any) {
         guard let user,
               let studioID = self.studio?.placeID,
-              let studioName = self.studio?.name
-        else { return }
+              let studioName = self.studio?.name else { return }
         
         let confirmationBookingVC = BookingConfirmController(
             nibName: String(describing: BookingConfirmController.self),
@@ -204,7 +206,7 @@ final class BookingStudioController: UIViewController {
                 confirmationBookingVC.set(
                     bookingModel: bookingModel,
                     bookingType: self.selectionType,
-                    controllerType: .booking,
+                    controllerType: controllerType,
                     userModel: firebaseUserModel
                 )
                 
@@ -225,8 +227,8 @@ final class BookingStudioController: UIViewController {
                 
                 confirmationBookingVC.set(
                     bookingModel: editBookingModel,
-                    bookingType: self.selectionType,
-                    controllerType: .editBooking,
+                    bookingType: selectionType,
+                    controllerType: controllerType,
                     updateBlock: updateBlock
                 )
                 
@@ -464,9 +466,7 @@ extension BookingStudioController: UICollectionViewDelegateFlowLayout {
 
 extension BookingStudioController: SetDateFromViewDelegate {
     func setDate(date: String) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let compareDate = dateFormatter.date(from: date)!
+        let compareDate = date.formatData(formatType: .ddMMyyyy)
         dateFromCalendar = compareDate
         timeStampDateFromCalendar = Int(compareDate.timeIntervalSince1970)
         getWorkHours()
