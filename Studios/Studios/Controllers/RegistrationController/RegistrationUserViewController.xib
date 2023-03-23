@@ -17,6 +17,7 @@
                 <outlet property="registrationButton" destination="z2g-Fq-L1T" id="Rwx-xR-5Vm"/>
                 <outlet property="registrationButtonBottomContraint" destination="V3B-pi-quq" id="vi0-dj-TB1"/>
                 <outlet property="scrollView" destination="Lon-o1-S2Z" id="V6b-kL-VA7"/>
+                <outlet property="spinner" destination="hBg-ur-EOn" id="FLP-h1-oMc"/>
                 <outlet property="surnameTF" destination="Q25-94-Q48" id="eui-Kg-ZCX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -180,12 +181,16 @@
                                         <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="ASd-kR-i9T"/>
                                     </connections>
                                 </button>
+                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hBg-ur-EOn">
+                                    <rect key="frame" x="176.66666666666666" y="400.33333333333331" width="37" height="37"/>
+                                </activityIndicatorView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="y6H-7n-bwn" secondAttribute="trailing" constant="16" id="7aR-cM-rZY"/>
                                 <constraint firstItem="OUg-nG-CaQ" firstAttribute="top" secondItem="1b3-uK-N54" secondAttribute="bottom" constant="20" id="FY7-jd-XfU"/>
                                 <constraint firstItem="z2g-Fq-L1T" firstAttribute="top" secondItem="y6H-7n-bwn" secondAttribute="bottom" constant="70" id="Jna-5P-zKR"/>
+                                <constraint firstItem="hBg-ur-EOn" firstAttribute="centerX" secondItem="bDI-Bh-t8e" secondAttribute="centerX" id="LiP-ww-HzY"/>
                                 <constraint firstItem="1b3-uK-N54" firstAttribute="top" secondItem="Edx-E9-gW2" secondAttribute="bottom" constant="20" id="Lz8-gl-Ice"/>
                                 <constraint firstItem="Edx-E9-gW2" firstAttribute="top" secondItem="bDI-Bh-t8e" secondAttribute="top" constant="20" id="MIm-ZL-jRq"/>
                                 <constraint firstAttribute="trailing" secondItem="OUg-nG-CaQ" secondAttribute="trailing" constant="16" id="QfN-VH-18e"/>
@@ -202,6 +207,7 @@
                                 <constraint firstAttribute="trailing" secondItem="1b3-uK-N54" secondAttribute="trailing" constant="16" id="pIN-3g-zO3"/>
                                 <constraint firstItem="y6H-7n-bwn" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" constant="16" id="q4h-An-p1Y"/>
                                 <constraint firstItem="Edx-E9-gW2" firstAttribute="leading" secondItem="bDI-Bh-t8e" secondAttribute="leading" id="uX0-Ae-Xoz"/>
+                                <constraint firstItem="hBg-ur-EOn" firstAttribute="centerY" secondItem="bDI-Bh-t8e" secondAttribute="centerY" id="vnH-5T-KG6"/>
                                 <constraint firstAttribute="trailing" secondItem="uBQ-eu-5Li" secondAttribute="trailing" constant="16" id="yFt-YK-SRE"/>
                             </constraints>
                         </view>

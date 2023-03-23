@@ -20,6 +20,7 @@ final class RegistrationUserViewController: KeyboardHideViewController {
     @IBOutlet weak var registrationButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var registrationButtonBottomContraint: NSLayoutConstraint!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var activeField: UITextField?
     
@@ -148,6 +149,7 @@ final class RegistrationUserViewController: KeyboardHideViewController {
 
         }
         
+        spinner.startAnimating()
         group.enter()
         concurrentQueue.async(execute: createUserWorkItem)
         group.notify(queue: .main) {[weak self] in
@@ -155,9 +157,11 @@ final class RegistrationUserViewController: KeyboardHideViewController {
             guard error != nil else {
                 group.enter()
                 concurrentQueue.async(execute: saveUserWorkItem)
+                self.spinner.stopAnimating()
                 self.presentPopup(email: self.emailTF.text!)
                 return
             }
+            self.spinner.stopAnimating()
             self.presentErrorPopup()
         }
     }

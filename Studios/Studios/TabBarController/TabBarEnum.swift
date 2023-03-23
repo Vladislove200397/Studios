@@ -12,12 +12,9 @@ enum TabItem: String, CaseIterable {
     case studios = "Студии"
     case favorite = "Избранное"
     case booking = "Бронирования"
-    case test = "Test"
-    case test1 = "Test1"
+    case profile = "Профиль"
     
     var viewController: UIViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
         switch self {
             case .studios:
                 let mapVC = MapController()
@@ -28,11 +25,9 @@ enum TabItem: String, CaseIterable {
             case .booking:
                 let vc = BookingHistoryController(nibName: String(describing: BookingHistoryController.self), bundle: nil)
                 return self.wrappedInNavigationController(with: vc)
-            case .test:
+            case .profile:
                 let vc = ProfileViewController(nibName: String(describing: ProfileViewController.self), bundle: nil)
                 return self.wrappedInNavigationController(with: vc)
-            case .test1:
-                return UIViewController()
         }
     }
     
@@ -44,11 +39,8 @@ enum TabItem: String, CaseIterable {
                 return UIImage(systemName: "heart.circle")!
             case .booking:
                 return UIImage(systemName: "calendar.circle")!
-            case .test:
-                return UIImage(systemName: "square.and.arrow.down.on.square")!
-            case .test1:
-                return UIImage(systemName: "square.and.arrow.down.on.square")!
-            
+            case .profile:
+                return UIImage(systemName: "person.circle")!
         }
     }
     
