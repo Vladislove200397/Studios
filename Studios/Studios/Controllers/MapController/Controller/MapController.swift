@@ -28,7 +28,7 @@ final class MapController: UIViewController {
             longitude: 27.55533492413279,
             zoom: 10.5
         )
-        let mapID = GMSMapID(identifier: "6fc961a7a5cfbbfa")
+        let mapID = GMSMapID(identifier: Constants.GMSMAPID)
         view = GMSMapView(
             frame: self.view.frame,
             mapID: mapID,
@@ -172,36 +172,9 @@ extension MapController: GMSMapViewDelegate {
 //MARK: Studios Place ID
 extension MapController {
     private func addingPlaces() {
-        
-        let paradise = SSPlace(
-            placeID: "ChIJRyjZzk3P20YR5OzgUsh9Zt0",
-            coordinatesLat: 53.89008190576222,
-            coordinatesLng: 27.56942121154621
-        )
-        
-        let diva = SSPlace(
-            placeID: "ChIJpaqYN9DP20YR73hF4NmE6t8",
-            coordinatesLat: 53.890056770971995,
-            coordinatesLng: 27.5699165455818
-        )
-        
-        let trueman = SSPlace(
-            placeID: "ChIJaxs5X2_P20YRaQjKTdEGmrk",
-            coordinatesLat: 53.88589806270611,
-            coordinatesLng: 27.581649364152707
-        )
-        
-        let prosto = SSPlace(
-            placeID: "ChIJeUKnNpbP20YRlnkX8rcjtcM",
-            coordinatesLat: 53.88575574363853,
-            coordinatesLng: 27.58150470537655
-        )
-        
-        RealmManager<SSPlace>().write(object: diva)
-        RealmManager<SSPlace>().write(object: paradise)
-        RealmManager<SSPlace>().write(object: trueman)
-        RealmManager<SSPlace>().write(object: prosto)
+        SSPlace().createStudios()
     }
+    
     //MARK: Get Info From PlaceID
     private func getStudios(placeID: String) {
         GetStudiosAPI.getInfoFromPlaceId(placeID: placeID) {
