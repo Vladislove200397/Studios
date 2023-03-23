@@ -217,6 +217,7 @@ extension ProfileViewController: UITableViewDataSource {
                     user: user,
                     controllerType: .profile
                 )
+                
                 profileCellNameLabel = profileCell.profileNameLabel
                 profileCellPhoneNumberLabel = profileCell.profilePhoneNumberLabel
                 profileCellImageView = profileCell.profileImageView

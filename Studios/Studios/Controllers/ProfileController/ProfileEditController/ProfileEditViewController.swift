@@ -156,7 +156,9 @@ final class ProfileEditViewController: UIViewController {
                 concurrentQueue.async(execute: saveAuthuserInfoWorkItem)
                 group.enter()
                 concurrentQueue.async(execute: saveUserWorkItem)
-                complition()
+                group.notify(queue: .main) {
+                    complition()
+                }
                 return
             }
         }
